@@ -14,18 +14,26 @@
 @media(max-width:650px){.menu{padding:22px;background:linear-gradient(90deg,#0c201be8,#10241e66)}.brand{font-size:23px}.brand small{font-size:6px}.version{font-size:7px;padding:7px}.menu h1{font-size:42px}.menu-content{max-width:100%;width:320px;padding-top:22px}.menu-intro{font-size:11px;max-width:275px}.menu-bottom{font-size:7px}.menu-bottom>div:last-child{display:none}.hud-top{top:14px;left:13px;right:13px}.world-chip{min-width:140px;padding:9px 11px}.coordinates{font-size:8px}.hotbar{gap:3px;padding:4px;border-radius:7px}.hotbar .slot{width:calc((100vw - 55px)/9);max-width:43px;height:39px;padding:3px}.hotbar .item-icon{width:25px;height:25px}.item-count{font-size:9px;right:2px;bottom:2px}.slot-number{font-size:6px;left:2px}.bottom-hud{bottom:24px}.key-hint{font-size:6px}.key-hint span{margin:0 5px}.time-chip{font-size:8px;padding:9px}.save-state{bottom:7px;right:15px;font-size:7px}.inventory{padding:8px}.inventory-card{max-height:96dvh;overflow:auto}.inventory-content{grid-template-columns:1fr}.recipes-panel{max-height:105px;overflow:auto;display:flex;gap:4px;border-right:0;border-bottom:1px solid var(--line);padding:10px}.recipes-panel h3{display:none}.recipe-button{min-width:140px;width:140px;margin:0}.recipe-button small{font-size:7px}.craft-area{padding:15px}.craft-top{min-height:145px;padding-bottom:16px}.craft-explanation{max-width:110px}.bag-grid{gap:3px}.bag-grid .slot{padding:2px;min-width:0}.bag-grid .slot .item-icon{width:24px;height:24px}.inventory-header{padding:15px}.inventory-header h2{font-size:18px}.inventory-footer{font-size:7px;padding:10px 15px}.pause-card{padding:23px}.debug{left:13px;top:91px;font-size:8px}.hearts{font-size:12px}.selected-name{font-size:10px}}
 @media(max-height:600px){.menu{padding:20px 30px}.brand{font-size:22px}.brand small{font-size:6px}.menu-content{padding:10px 0;width:320px}.menu-content .eyebrow{margin:8px 0 10px;font-size:7px}.menu h1{font-size:35px;margin:0 0 10px}.menu-intro{font-size:10px;margin:8px 0 15px;line-height:1.6}.menu .main-button{padding:11px 17px}.seed-field input{padding:9px 12px}.seed-label{font-size:7px}.menu-bottom{font-size:7px}.menu-bottom .menu-controls{display:none}.loading-track{margin-bottom:4px}.inventory-card{max-height:95dvh;overflow:auto}.inventory-header{padding:12px 22px}.inventory-header p{display:none}.craft-area{padding:15px 22px}.craft-top{min-height:120px;padding-bottom:14px}.backpack-label{margin:12px 0 8px}.craft-grid .slot{width:36px;height:36px}.craft-grid{gap:4px}.bag-grid .slot{height:34px;aspect-ratio:auto}.bag-grid .item-icon{width:25px;height:25px}.craft-explanation{max-width:160px}.inventory-footer{padding:9px 22px}.recipes-panel{max-height:360px}.output-slot{width:47px;height:47px}.inventory-header h2{font-size:18px}.toast{bottom:130px;font-size:9px}}
 @media(max-width:650px){#recipe-list{display:flex}.recipes-panel{max-height:105px}}
+
+.graphics-panel{margin-top:22px;border:1px solid #cfe5af29;border-radius:9px;padding:15px;background:#bdd89908}
+.graphics-panel h3{font-size:10px;letter-spacing:1.4px;font-weight:500;margin:0 0 14px;color:#c5d6af}
+.graphics-fields{display:grid;grid-template-columns:1.1fr 1fr;gap:10px}.graphics-fields label{font-size:9px;color:#abc295;display:block}
+.graphics-fields select{display:block;margin-top:7px;width:100%;padding:9px 6px;border:1px solid #bcd79b33;background:#203326;color:#e6f0cf;border-radius:5px;font:11px 'Segoe UI',sans-serif}
+.graphics-panel p{font-size:10px;line-height:1.7;margin:12px 0;color:#b7cda1}.graphics-panel .feature-line{font:8px/1.8 Consolas,monospace;color:#92ae7d}
+#graphics-status{font:9px/1.6 Consolas,monospace;color:#a3bd8a;margin-top:11px}#graphics-apply{width:100%;padding:9px;font-size:11px}
+#graphics-menu{align-self:flex-start;margin-top:12px;font-size:10px;padding:7px 10px}.pause-card{width:min(530px,94vw)}
 </style>
 </head>
 <body>
 <svg class="symbols" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol><symbol id="gear" viewBox="0 0 24 24"><path d="m9 3-1 3-3 1-2 5 2 5 3 1 1 3h6l1-3 3-1 2-5-2-5-3-1-1-3Z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol><symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 1 1 4 2.8c-1 .4-1 1-1 2M12 17h.01"/></symbol></svg>
 <canvas id="world" tabindex="0" aria-label="Mundo voxel 3D. WASD para moverte. Espacio para saltar. E abre el inventario."></canvas>
 <section id="menu" class="menu" aria-label="Inicio de Voxelcraft">
-  <div class="menu-top"><div class="brand"><svg viewBox="0 0 40 44" aria-hidden="true"><path d="M20 2 38 12 20 22 2 12Z" fill="#adc780"/><path d="M2 12 20 22v20L2 32Z" fill="#668751"/><path d="m20 22 18-10v20L20 42Z" fill="#85a561"/></svg><div>voxelcraft<small>UN MUNDO, BLOQUE A BLOQUE</small></div></div><span class="version">EDICIÓN EXPLORADOR / 1.0</span></div>
+  <div class="menu-top"><div class="brand"><svg viewBox="0 0 40 44" aria-hidden="true"><path d="M20 2 38 12 20 22 2 12Z" fill="#adc780"/><path d="M2 12 20 22v20L2 32Z" fill="#668751"/><path d="m20 22 18-10v20L20 42Z" fill="#85a561"/></svg><div>voxelcraft<small>UN MUNDO, BLOQUE A BLOQUE</small></div></div><span class="version">EDICIÓN SHADERS / 1.1</span></div>
   <div class="menu-content"><p class="eyebrow">EXPLORA. IMAGINA. CONSTRUYE.</p><h1>Tu mundo.<br>Tus reglas.</h1><p class="menu-intro">Bosques que explorar, montañas que cruzar y un mundo entero por construir. Empieza con un bloque.</p>
     <label class="seed-label" for="seed">SEMILLA DEL MUNDO</label><div class="seed-field"><input id="seed" value="ALBA-2026" maxlength="64" autocomplete="off" spellcheck="false" aria-label="Semilla del mundo"><button id="load-world" disabled>Cargar</button></div>
     <button id="play" class="main-button" disabled><span>Preparando mundo…</span><svg><use href="#arrow"/></svg></button>
     <div id="load-info" class="load-info" role="status">Conectando con las bibliotecas…</div><div class="loading-track"><span id="load-progress"></span></div>
-    <button id="play-drag" class="text-button drag-entry" disabled>Entrar sin capturar el ratón</button>
+    <button id="graphics-menu" class="secondary-button">Gráficos · <span id="graphics-current">Balanceado · 720p</span></button><button id="play-drag" class="text-button drag-entry" disabled>Entrar sin capturar el ratón</button>
   </div>
   <div class="menu-bottom"><div><span>●</span> GUARDADO LOCAL AUTOMÁTICO <span> / </span> SEMILLA REPRODUCIBLE</div><div class="menu-controls"><div><b>WASD</b> Mover</div><div><b>ESPACIO</b> Saltar</div><div><b>E</b> Inventario</div><div><b>ESC</b> Pausa</div></div><div id="menu-version">THREE.JS · GREEDY MESHING · VERTEX AO</div></div>
 </section>
@@ -35,7 +43,7 @@
   <div class="bottom-hud"><div id="selected-name" class="selected-name"></div><div class="vitals"><span id="hearts" class="hearts"></span><span id="mode-label" class="mode-label">A PIE</span></div><div id="hotbar" class="hotbar" role="toolbar" aria-label="Barra rápida de nueve ranuras"></div><div class="key-hint"><b>E</b> Inventario<span>·</span><b>1–9</b> Seleccionar<span>·</span><b>2× ESPACIO</b> Vuelo<span>·</span><b>F3</b> Métricas</div></div>
   <div id="save-state" class="save-state" role="status">Mundo local</div>
 </div>
-<div id="pause" class="modal-overlay" hidden><section class="pause-card" aria-label="Pausa y opciones"><p class="eyebrow">TÓMATE UN RESPIRO</p><h2>Mundo en pausa.</h2><p>Tu construcción te espera. El mundo se guarda automáticamente en este navegador.</p><div class="pause-actions"><button id="resume" class="main-button">Continuar</button><button id="open-help" class="secondary-button">Controles</button></div><p class="settings-title">AJUSTES DEL MUNDO</p><div id="settings" class="gui-holder"></div><div class="pause-actions"><button id="save-now" class="secondary-button">Guardar ahora</button><button id="to-menu" class="secondary-button">Volver al inicio</button></div><p id="storage-info" style="font-size:9px"></p></section></div>
+<div id="pause" class="modal-overlay" hidden><section class="pause-card" aria-label="Pausa y opciones"><p class="eyebrow">TÓMATE UN RESPIRO</p><h2>Mundo en pausa.</h2><p>Tu construcción te espera. El mundo se guarda automáticamente en este navegador.</p><div class="pause-actions"><button id="resume" class="main-button">Continuar</button><button id="open-help" class="secondary-button">Controles</button></div><section class="graphics-panel" aria-label="Gráficos y resolución"><h3>GRÁFICOS Y RESOLUCIÓN</h3><div class="graphics-fields"><label for="graphics-profile">Perfil gráfico<select id="graphics-profile"><option value="performance">Rendimiento</option><option value="balanced" selected>Balanceado · predeterminado</option><option value="potato">Potato Shaders</option><option value="nova">Nova-Shaders</option><option value="golden">Golden Shaders</option><option value="ultra">2K-Shaders</option></select></label><label for="graphics-resolution">Resolución interna<select id="graphics-resolution"><option value="720" selected>720p · 1280 × 720</option><option value="1440">2K · 2560 × 1440</option></select></label></div><p id="graphics-description"></p><p id="graphics-features" class="feature-line"></p><button id="graphics-apply" class="main-button">Aplicar gráficos</button><div id="graphics-status" role="status"></div><p>El perfil y la resolución se eligen por separado. La distancia de chunks solo cambia con tu ajuste «Radio de chunks».</p></section><p class="settings-title">AJUSTES DEL MUNDO</p><div id="settings" class="gui-holder"></div><div class="pause-actions"><button id="save-now" class="secondary-button">Guardar ahora</button><button id="to-menu" class="secondary-button">Volver al inicio</button></div><p id="storage-info" style="font-size:9px"></p></section></div>
 <div id="help-modal" class="modal-overlay" hidden><section class="help-card" aria-label="Controles"><div class="help-top"><p class="eyebrow">MANUAL DEL EXPLORADOR</p><button id="close-help" class="icon-button" aria-label="Cerrar controles"><svg><use href="#x"/></svg></button></div><h2>Un bloque a la vez.</h2><div class="help-row"><span>Caminar / correr</span><span>WASD / Ctrl</span></div><div class="help-row"><span>Saltar / alternar vuelo</span><span>Espacio / doble Espacio</span></div><div class="help-row"><span>Agacharse / descender en vuelo</span><span>Shift</span></div><div class="help-row"><span>Romper / colocar o usar mesa</span><span>Mantener clic izq. / clic der.</span></div><div class="help-row"><span>Seleccionar / inventario</span><span>1–9 o rueda / E</span></div><div class="help-row"><span>Pausa / métricas / captura de ratón</span><span>Esc / F3 / P</span></div><div class="help-row"><span>Mover pila / dividir pila</span><span>Clic / clic derecho</span></div><div class="help-row"><span>Transferir rápido / fabricar al inventario</span><span>Shift + clic</span></div><p class="help-note">Haz clic en una receta para colocar sus ingredientes desde tu mochila. Necesitas una mesa de trabajo para las recetas de 3×3. La roca madre es indestructible. En el modo sin captura, mira arrastrando con el botón central; también puedes usar las flechas. En el inventario, clic derecho recoge media pila o coloca una unidad. Las manzanas recuperan vida con clic derecho.</p><p class="help-note">El guardado pertenece a esta semilla y a este navegador/origen. Mantén la misma dirección local para recuperar tus mundos. Se necesita Internet para cargar las tres bibliotecas desde CDN. Código del juego y texturas están integrados en este archivo.</p></section></div>
 <section id="inventory" class="inventory" aria-label="Inventario y fabricación" hidden><div class="inventory-card"><header class="inventory-header"><div><h2 id="inventory-title">Tu inventario</h2><p>Todo lo que necesitas para tu próxima idea.</p></div><button id="close-inventory" class="icon-button" aria-label="Cerrar inventario"><svg><use href="#x"/></svg></button></header><div class="inventory-content"><aside class="recipes-panel"><h3>RECETAS</h3><div id="recipe-list"></div></aside><div class="craft-area"><div id="craft-heading" class="craft-heading">FABRICACIÓN · 2 × 2</div><div class="craft-top"><div id="craft-grid" class="craft-grid" role="group" aria-label="Ingredientes de fabricación"></div><div class="craft-arrow">→</div><button id="craft-output" class="slot output-slot" aria-label="Resultado de fabricación"></button><div class="craft-explanation"><strong id="recipe-name">Dale forma a tu idea.</strong><span id="recipe-description">Combina materiales o elige una receta.</span></div></div><div class="backpack-label">MOCHILA<span>Shift + clic · transferir</span></div><div id="bag-grid" class="bag-grid" role="group" aria-label="Mochila"></div><div id="bag-hotbar" class="bag-grid bag-hotbar" role="group" aria-label="Barra rápida del inventario"></div></div></div><footer class="inventory-footer"><span>Clic · mover &nbsp; / &nbsp; Clic der. · dividir &nbsp; / &nbsp; E · cerrar</span><span id="inventory-capacity"></span></footer></div></section>
 <div id="cursor-item" class="cursor-item" hidden></div><div id="toast" class="toast" role="status" hidden></div><div id="damage" class="damage"></div>
@@ -676,6 +684,7 @@ class VoxelWorld {
     const i = index(x - cx * S, y, z - cz * S);
     if (chunk.data[i] === B.BEDROCK || chunk.data[i] === id) return false;
     chunk.data[i] = id;
+    this.visualRevision=(this.visualRevision||0)+1;
     if (!this.edits.has(key)) this.edits.set(key, new Map()); this.edits.get(key).set(i, id);
     chunk.highest = Math.max(chunk.highest, id ? y : 0);
     for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) this.dirty(cx + dx, cz + dz, true);
@@ -764,6 +773,7 @@ class VoxelWorld {
       const geometry = new THREE.BufferGeometry(); for (const [name, attr] of Object.entries(attributes)) geometry.setAttribute(name, attr);
       geometry.setIndex(new THREE.BufferAttribute(indices, 1)); geometry.computeBoundingBox(); geometry.computeBoundingSphere();
       const mesh = new THREE.Mesh(geometry, material); mesh.castShadow = shadow; mesh.receiveShadow = true; mesh.frustumCulled = true;
+      if(shadow&&this.leafDepth)mesh.customDepthMaterial=this.leafDepth;
       mesh.userData.chunk = chunk.key; group.add(mesh);
     }
     this.scene.add(group); chunk.group = group; chunk.quads = data.quads; chunk.exposed = data.exposedFaces;
@@ -1078,6 +1088,7 @@ class GameUI {
     if (!$('debug').hidden) {
       let quads = 0, exposed = 0; for (const c of this.app.world.chunks.values()) { quads += c.quads; exposed += c.exposed ?? 0; }
       $('debug').textContent = `VOXELCRAFT / ${THREE.REVISION}\n${Math.round(this.app.fps || 0)} FPS · ${this.app.drawCalls || 0} draw calls\n${this.app.world.chunks.size} chunks · radio ${settings.distance}\n${quads.toLocaleString('es')} quads · ${exposed.toLocaleString('es')} caras\nGreedy: ${exposed ? Math.round((1 - quads / exposed) * 100) : 0}% fusionadas\n${(this.app.world.chunks.size * 64 / 1024).toFixed(1)} MiB bloques\n${this.app.renderer.info.memory.geometries} geometrías GPU\nSemilla: ${this.app.seed}\n${this.app.store.mode} · ${this.app.pool.slots.filter(s => !s.dead).length} workers\nEntrada: ${[...this.app.input.keys].join(', ') || 'reposo'}\nRatón: ${this.app.mining.held ? 'romper' : this.app.input.right ? 'colocar' : 'reposo'}`;
+      $('debug').textContent += `\n${this.app.graphics.config.name} · ${this.app.renderWidth}×${this.app.renderHeight}\n${this.app.graphics.post.stats}`;
     }
   }
   dispose() { this.abort.abort(); }
@@ -1176,30 +1187,717 @@ class Hand {
   dispose() { for (const c of this.root.children) c.geometry?.dispose(); for (const m of this.materials.values()) m.dispose(); }
 }
 
+// Geometry and animation are presentation-only; rebuilding a model never respawns its entity.
+function mobRoundedBox(sx, sy, sz, radius, segments) {
+  const geometry = new THREE.BoxGeometry(sx, sy, sz, segments, segments, segments);
+  const position = geometry.attributes.position, normal = geometry.attributes.normal;
+  const core = new THREE.Vector3(sx / 2 - radius, sy / 2 - radius, sz / 2 - radius);
+  const point = new THREE.Vector3(), inner = new THREE.Vector3(), direction = new THREE.Vector3();
+  for (let i = 0; i < position.count; i++) {
+    point.fromBufferAttribute(position, i);
+    inner.set(Math.max(-core.x, Math.min(core.x, point.x)), Math.max(-core.y, Math.min(core.y, point.y)), Math.max(-core.z, Math.min(core.z, point.z)));
+    direction.copy(point).sub(inner).normalize(); point.copy(inner).addScaledVector(direction, radius);
+    position.setXYZ(i, point.x, point.y, point.z); normal.setXYZ(i, direction.x, direction.y, direction.z);
+  }
+  geometry.computeBoundingBox(); geometry.computeBoundingSphere(); return geometry;
+}
+
+function buildMobVisual(mob, manager, cfg) {
+  const tier = cfg.tier ?? 1, group = mob.group;
+  const disposed = new Set();
+  group.traverse(object => { if (object.geometry && !disposed.has(object.geometry)) { object.geometry.dispose(); disposed.add(object.geometry); } });
+  group.clear(); mob.legs = [];
+  const visual = mob.visual = { tier, elapsed: 0, root: new THREE.Group(), legs: [], ears: [], arms: [], pupils: [], eyelids: [], head: null, tail: null, seed: (mob.phase ?? 0) * 1.7 };
+  group.add(visual.root);
+  const detailed = tier >= 3, golden = tier >= 4, ultra = tier >= 5;
+  const segments = ultra ? 8 : golden ? 5 : 3;
+  const shadow = tier > 0;
+  function addGeometry(parent, geometry, material, x, y, z, name) {
+    const mesh = new THREE.Mesh(geometry, material); mesh.position.set(x, y, z); mesh.castShadow = shadow; mesh.receiveShadow = shadow; mesh.name = name;
+    parent.add(mesh); return mesh;
+  }
+  function box(parent, x, y, z, sx, sy, sz, color, name, rounding = .04) {
+    const radius = Math.min(rounding, sx * .25, sy * .25, sz * .25);
+    const geometry = detailed && radius > 0 ? mobRoundedBox(sx, sy, sz, radius, segments) : new THREE.BoxGeometry(sx, sy, sz);
+    return addGeometry(parent, geometry, manager.material(color), x, y, z, name);
+  }
+  function ellipsoid(parent, x, y, z, sx, sy, sz, color, name) {
+    const geometry = new THREE.SphereGeometry(1, ultra ? 12 : golden ? 9 : 7, ultra ? 8 : 5);
+    geometry.scale(sx, sy, sz); return addGeometry(parent, geometry, manager.material(color), x, y, z, name);
+  }
+  function pivot(parent, x, y, z, name) { const p = new THREE.Group(); p.position.set(x, y, z); p.name = name; parent.add(p); return p; }
+  function limb(parent, x, hip, z, length, width, color, name) {
+    const p = pivot(parent, x, hip, z, name);
+    box(p, 0, -length * (detailed ? .265 : .5), 0, width, length * (detailed ? .53 : 1), width, color, `${name}-upper`);
+    if (detailed) {
+      const knee = pivot(p, 0, -length * .52, 0, `${name}-knee`);
+      box(knee, 0, -length * .2, .006, width * .87, length * .4, width * .87, color, `${name}-lower`);
+      box(knee, 0, -length * .42, -.025, width * 1.08, .09, width * 1.25, '#45483c', `${name}-hoof`);
+      visual.legs.push({ pivot: p, knee });
+    } else visual.legs.push({ pivot: p, knee: null });
+    mob.legs.push(p); return p;
+  }
+  function eyes(head, x, y, z, scale = 1) {
+    for (const side of [-1, 1]) {
+      if (detailed) {
+        ellipsoid(head, side * x, y, z, .07 * scale, .065 * scale, .035, '#f3f0d7', 'eye-sclera');
+        const pupil = ellipsoid(head, side * x, y + .002, z - .03, .029 * scale, .035 * scale, .018, '#18251e', 'eye-pupil'); visual.pupils.push(pupil);
+        if (golden) {
+          ellipsoid(head, side * x - .007, y + .015, z - .046, .008, .008, .005, '#fffbe9', 'eye-catchlight');
+          const lid = box(head, side * x, y + .078 * scale, z - .014, .16 * scale, .014, .048, mob.type === 'zombie' ? '#738f60' : '#a99b7d', 'upper-eyelid', .009);
+          visual.eyelids.push({ mesh: lid, restY: lid.position.y, scale });
+        }
+      } else box(head, side * x, y, z, .055 * scale, .055 * scale, .012, '#243026', 'eye', 0);
+    }
+  }
+
+  if (mob.type === 'zombie') {
+    const root = visual.root;
+    box(root, 0, .96, 0, .48, .65, .28, '#54786b', 'torso', .06);
+    const head = visual.head = pivot(root, 0, 1.4, 0, 'head-pivot');
+    box(head, 0, .1, 0, .42, .42, .42, '#789260', 'head', .05);
+    if (tier >= 2) eyes(head, .11, .13, -.219, .8);
+    if (detailed) {
+      box(head, 0, .025, -.235, .075, .105, .08, '#638457', 'nose', .015);
+      box(head, 0, -.04, -.218, .18, .035, .018, '#3b5540', 'mouth', .005);
+      for (const x of [-.045, .025]) box(head, x, -.024, -.234, .026, .028, .012, '#dbd9b3', 'tooth', .002);
+      box(head, -.16, .26, .02, .1, .13, .35, '#516f4e', 'asymmetric-brow', .025);
+      box(root, -.11, 1.13, -.152, .14, .17, .015, '#638c7b', 'shirt-seam', .006);
+      if (golden) {
+        box(root, .12, .75, -.15, .16, .09, .022, '#9da47e', 'torn-shirt', .01);
+        box(head, .12, .2, -.218, .045, .08, .012, '#536a45', 'face-scar', .004);
+      }
+    }
+    for (const side of [-1, 1]) {
+      limb(root, side * .14, .6, 0, .57, .19, '#515b78', `leg-${side}`);
+      if (tier > 0) {
+        const arm = pivot(root, side * .34, 1.22, -.03, `arm-${side}`);
+        box(arm, 0, -.24, 0, .18, .5, .18, '#789260', 'arm', .025);
+        if (detailed) box(arm, 0, -.51, -.015, .19, .13, .2, '#6b8759', 'hand', .025);
+        arm.rotation.x = -1.2; visual.arms.push(arm);
+      }
+    }
+  } else {
+    const sheep = mob.type === 'sheep', coat = sheep ? '#e1dfcb' : '#79694f', face = sheep ? '#b4ad92' : '#b3a184';
+    const root = visual.root;
+    visual.body = box(root, 0, .77, 0, .72, .65, 1.04, coat, 'body', sheep ? .1 : .07);
+    const head = visual.head = pivot(root, 0, 1.02, -.48, 'head-pivot');
+    box(head, 0, 0, -.12, .43, .45, .38, face, 'head', .065);
+    const legCoords = tier === 0 ? [[-.23, 0], [.23, 0]] : [[-.24,-.34],[.24,-.34],[-.24,.34],[.24,.34]];
+    legCoords.forEach(([x,z], i) => limb(root, x, .53, z, .49, .17, sheep ? '#8a7b61' : '#524d40', `leg-${i}`));
+    if (tier >= 2) eyes(head, .12, .065, -.319);
+    if (detailed) {
+      const muzzle = sheep ? '#9d8c72' : '#c5a79a';
+      box(head, 0, -.105, -.355, .34, .2, .17, muzzle, 'muzzle', .06);
+      for (const side of [-1,1]) {
+        ellipsoid(head, side * .09, -.096, -.444, .027, .02, .009, '#4a443c', 'nostril');
+        const ear = pivot(head, side * .22, .10, -.025, `ear-${side}`);
+        const earMesh = ellipsoid(ear, side * .09, -.025, .01, .13, .055, .07, face, 'ear');
+        earMesh.rotation.z = side * -.2; visual.ears.push({ pivot: ear, side });
+        if (!sheep) {
+          const horn = new THREE.ConeGeometry(.045, .2, ultra ? 10 : 6);
+          const hornMesh = addGeometry(head, horn, manager.material('#d9d6bc'), side * .16, .3, -.02, 'horn'); hornMesh.rotation.z = side * -.28;
+        }
+      }
+      box(head, 0, -.17, -.446, .12, .012, .008, '#635649', 'mouth', .003);
+      const tail = visual.tail = pivot(root, 0, .97, .51, 'tail-pivot');
+      const tailMesh = box(tail, 0, -.15, .045, sheep ? .1 : .05, .3, .065, sheep ? '#c5c3aa' : '#857152', 'tail', .025); tailMesh.rotation.x = -.2;
+      if (!sheep) {
+        ellipsoid(tail, 0, -.3, .073, .055, .08, .055, '#4b493b', 'tail-tuft');
+        box(root, -.367, .87, -.12, .018, .32, .35, '#dfd5b6', 'coat-patch-left', .008);
+        box(root, .367, .87, .2, .018, .25, .38, '#dfd5b6', 'coat-patch-right', .008);
+        box(root, .07, 1.1, .21, .31, .018, .34, '#c8bea0', 'coat-patch-back', .008);
+        if (golden) {
+          ellipsoid(root, 0, .47, .18, .16, .11, .16, '#b59681', 'udder');
+          for (const x of [-.08,.08]) for (const z of [.09,.23]) ellipsoid(root, x, .38, z, .025, .055, .025, '#a68a78', 'teat');
+        }
+      }
+      if (sheep && golden) {
+        // Layered fleece changes the silhouette and casts its own shadows.
+        const rows = ultra ? 5 : 3, columns = ultra ? 8 : 5;
+        for (let row = 0; row < rows; row++) for (let col = 0; col < columns; col++) {
+          const theta = (row / (rows - 1)) * Math.PI;
+          const z = -.42 + col / (columns - 1) * .84;
+          const x = Math.cos(theta) * .34, y = .79 + Math.sin(theta) * .3;
+          ellipsoid(root, x, y, z, ultra ? .12 : .15, ultra ? .12 : .15, .14, (row + col) % 3 ? '#e8e4d0' : '#d3d0bb', 'fleece-cluster');
+        }
+        if (ultra) {
+          for (let i = 0; i < 8; i++) ellipsoid(head, (i%4-.5*3)*.1,.215+(i>3?.055:0),-.06+(i>3?.1:0),.075,.07,.075,'#e3e0ca','head-fleece');
+        }
+      }
+    } else if (mob.type === 'cow' && tier > 0) {
+      box(root, -.366,.88,-.1,.014,.32,.35,'#dfd5b6','coat-patch-left',0);
+      box(root, .366,.95,.22,.014,.3,.3,'#dfd5b6','coat-patch-right',0);
+    }
+  }
+  group.userData.graphicsTier = tier;
+  group.updateMatrixWorld(true);
+  return visual;
+}
+
+function animateMobVisual(mob, dt, speed, cfg) {
+  const v = mob.visual; if (!v) return;
+  v.elapsed += dt;
+  const tier = cfg.tier ?? 1;
+  const t = tier === 0 ? Math.floor(v.elapsed * 12) / 12 : v.elapsed;
+  if (tier === 0 && Math.floor(t * 12) === v.lastTick) return;
+  v.lastTick = Math.floor(t * 12);
+  const walking = Math.min(1, speed / .8), phase = mob.phase ?? t * speed * 6;
+  const smoothing = tier >= 3 ? Math.min(1, dt * 18) : 1;
+  v.legs.forEach((leg, i) => {
+    const diagonal = mob.type === 'zombie' ? i % 2 : ((i === 0 || i === 3) ? 0 : 1);
+    const wave = Math.sin(phase + diagonal * Math.PI);
+    const target = wave * (tier >= 3 ? .55 : .35) * walking;
+    leg.pivot.rotation.x += (target - leg.pivot.rotation.x) * smoothing;
+    if (leg.knee) leg.knee.rotation.x = Math.max(0, -wave) * .45 * walking;
+  });
+  if (tier < 3) return;
+  const breath = Math.sin(t * 2.7 + v.seed);
+  v.root.position.y = walking * Math.abs(Math.sin(phase)) * .025;
+  if (v.body) { v.body.scale.y = 1 + breath * .012; v.body.scale.x = 1 + breath * .006; }
+  if (v.head) {
+    v.head.rotation.y = Math.sin(t * .7 + v.seed) * (mob.state === 'idle' ? .18 : .04);
+    v.head.rotation.x = Math.sin(t * 1.1 + v.seed) * .045 + Math.sin(phase * 2) * .035 * walking;
+    if (mob.type === 'zombie') v.head.rotation.z = .06 + Math.sin(t * .9 + v.seed) * .035;
+  }
+  for (const {pivot,side} of v.ears) pivot.rotation.z = side * (-.08 + Math.sin(t * 1.6 + side + v.seed) * .07);
+  if (v.tail) { v.tail.rotation.x = Math.sin(t * 2.4 + v.seed) * .18; v.tail.rotation.z = Math.sin(t * 2.1 + v.seed) * .24; }
+  v.arms.forEach((arm,i) => arm.rotation.x = -1.15 + Math.sin(phase + i * Math.PI) * .12 * walking);
+  // Eyelids translate over the eyeball and grow downwards; eyes remain three dimensional.
+  const cycle = (t + v.seed) % 4.7, blink = cycle < .18 ? Math.sin(cycle / .18 * Math.PI) : 0;
+  for (const lid of v.eyelids) { lid.mesh.scale.y = 1 + blink * 7; lid.mesh.position.y = lid.restY - blink * .048 * lid.scale; }
+  for (const pupil of v.pupils) pupil.scale.y = 1 - blink * .9;
+}
+
+/** Linear HDR world pass, depth-aware effects and a single display transform.
+ * All buffers belong to this instance and are released when a profile changes. */
+class GraphicsPostFX {
+  constructor(renderer, cfg, width, height) {
+    this.renderer = renderer;
+    this.cfg = cfg;
+    this.tier = cfg.tier;
+    this.enabled = this.tier >= 2;
+    this.targets = [];
+    this.materials = [];
+    this.disposed = false;
+    this.width = Math.max(1, Math.round(width));
+    this.height = Math.max(1, Math.round(height));
+    if (!this.enabled) { this.stats = 'Render directo'; return; }
+
+    const webgl2 = renderer.capabilities.isWebGL2;
+    this.hdr = webgl2 && renderer.extensions.has('EXT_color_buffer_float');
+    this.depthSupported = webgl2 || renderer.extensions.has('WEBGL_depth_texture');
+    this.aoSamples = this.depthSupported && this.tier >= 3 ? Math.min(32, Math.max(1, cfg.aoSamples || [0,0,0,12,20,32][this.tier])) : 0;
+    this.raySamples = this.depthSupported ? Math.min(48, Math.max(1, cfg.raySamples || [0,0,8,16,24,40][this.tier])) : 0;
+    this.bloomEnabled = this.tier >= 4 && cfg.bloom !== false;
+    this.scene = new THREE.Scene();
+    this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, .1, 2);
+    this.camera.position.z = 1;
+    this.quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2));
+    this.quad.frustumCulled = false;
+    this.scene.add(this.quad);
+    this.white = new THREE.DataTexture(new Uint8Array([255,255,255,255]), 1, 1);
+    this.white.needsUpdate = true;
+    this.black = new THREE.DataTexture(new Uint8Array([0,0,0,255]), 1, 1);
+    this.black.needsUpdate = true;
+
+    this.worldTarget = new THREE.WebGLRenderTarget(1, 1, {
+      type: this.hdr ? THREE.HalfFloatType : THREE.UnsignedByteType,
+      format: THREE.RGBAFormat, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter,
+      depthBuffer: true, stencilBuffer: false,
+    });
+    this.worldTarget.texture.colorSpace = THREE.LinearSRGBColorSpace;
+    this.worldTarget.texture.generateMipmaps = false;
+    this.worldTarget.samples = webgl2 ? Math.min(cfg.msaa || 0, renderer.capabilities.maxSamples || 0, 4) : 0;
+    if (this.depthSupported) {
+      this.worldTarget.depthTexture = new THREE.DepthTexture(1, 1, THREE.UnsignedIntType);
+      this.worldTarget.depthTexture.minFilter = this.worldTarget.depthTexture.magFilter = THREE.NearestFilter;
+    }
+    this.targets.push(this.worldTarget);
+
+    const vertexShader = 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }';
+    const material = (fragmentShader, uniforms, defines = {}) => {
+      const m = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms, defines,
+        depthTest:false, depthWrite:false, toneMapped:false, blending:THREE.NoBlending });
+      this.materials.push(m); return m;
+    };
+    const depthTexture = this.worldTarget.depthTexture || this.white;
+    if (this.aoSamples) {
+      this.aoTarget = this.makeTarget(false); this.aoBlurTarget = this.makeTarget(false);
+      this.aoMaterial = material(`
+        varying vec2 vUv;
+        uniform sampler2D tDepth;
+        uniform mat4 inverseProjection;
+        uniform vec2 depthTexel;
+        uniform vec2 projectionScale;
+        uniform float radius;
+        vec3 positionAt(vec2 uv){
+          float depth=texture2D(tDepth,uv).r;
+          vec4 p=inverseProjection*vec4(uv*2.0-1.0,depth*2.0-1.0,1.0);
+          return p.xyz/max(abs(p.w),0.00001)*sign(p.w);
+        }
+        float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+        void main(){
+          float depth=texture2D(tDepth,vUv).r;
+          if(depth>=0.999995){gl_FragColor=vec4(1.0);return;}
+          vec3 p=positionAt(vUv);
+          vec3 pr=positionAt(clamp(vUv+vec2(depthTexel.x,0.0),vec2(0.0),vec2(1.0)));
+          vec3 pl=positionAt(clamp(vUv-vec2(depthTexel.x,0.0),vec2(0.0),vec2(1.0)));
+          vec3 pu=positionAt(clamp(vUv+vec2(0.0,depthTexel.y),vec2(0.0),vec2(1.0)));
+          vec3 pd=positionAt(clamp(vUv-vec2(0.0,depthTexel.y),vec2(0.0),vec2(1.0)));
+          vec3 dx=abs(pr.z-p.z)<abs(p.z-pl.z)?pr-p:p-pl;
+          vec3 dy=abs(pu.z-p.z)<abs(p.z-pd.z)?pu-p:p-pd;
+          vec3 n=normalize(cross(dx,dy)+vec3(0.0,0.0,0.000001));
+          if(dot(n,-p)<0.0)n=-n;
+          float rotation=hash(floor(vUv/depthTexel))*6.2831853;
+          vec2 projectedRadius=projectionScale*radius/max(-p.z,0.1)*0.5;
+          float occlusion=0.0;
+          for(int i=0;i<AO_SAMPLES;i++){
+            float f=(float(i)+0.5)/float(AO_SAMPLES);
+            float angle=float(i)*2.39996323+rotation;
+            vec2 uv=vUv+vec2(cos(angle),sin(angle))*projectedRadius*sqrt(f);
+            if(uv.x<=0.0||uv.x>=1.0||uv.y<=0.0||uv.y>=1.0)continue;
+            float sampleDepth=texture2D(tDepth,uv).r;
+            if(sampleDepth>=0.999995)continue;
+            vec3 delta=positionAt(uv)-p;
+            float distanceToSample=length(delta);
+            float angleToNormal=max(0.0,dot(n,delta/max(distanceToSample,0.0001))-0.055);
+            float attenuation=1.0-smoothstep(radius*0.25,radius,distanceToSample);
+            occlusion+=angleToNormal*attenuation;
+          }
+          float ao=clamp(1.0-occlusion/float(AO_SAMPLES)*2.3,0.23,1.0);
+          gl_FragColor=vec4(vec3(ao),1.0);
+        }`, {
+          tDepth:{value:depthTexture}, inverseProjection:{value:new THREE.Matrix4()},
+          depthTexel:{value:new THREE.Vector2()}, projectionScale:{value:new THREE.Vector2()},
+          radius:{value:this.tier >= 5 ? 2.2 : this.tier >= 4 ? 1.7 : 1.2},
+        }, { AO_SAMPLES:this.aoSamples });
+      this.aoBlurMaterial = material(`
+        varying vec2 vUv; uniform sampler2D tAO; uniform sampler2D tDepth;
+        uniform vec2 texel; uniform vec2 nearFar;
+        float linearDepth(vec2 uv){float z=texture2D(tDepth,uv).r*2.0-1.0;return 2.0*nearFar.x*nearFar.y/(nearFar.y+nearFar.x-z*(nearFar.y-nearFar.x));}
+        void main(){
+          float center=linearDepth(vUv),value=0.0,total=0.0;
+          for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++){
+            vec2 uv=clamp(vUv+vec2(float(x),float(y))*texel,vec2(0.0),vec2(1.0));
+            float weight=exp(-abs(linearDepth(uv)-center)*5.0)/(1.0+float(x*x+y*y));
+            value+=texture2D(tAO,uv).r*weight;total+=weight;
+          }
+          gl_FragColor=vec4(vec3(value/max(total,0.0001)),1.0);
+        }`, {tAO:{value:this.aoTarget.texture},tDepth:{value:depthTexture},texel:{value:new THREE.Vector2()},nearFar:{value:new THREE.Vector2()}});
+    }
+    if (this.bloomEnabled) {
+      this.bloomA = this.makeTarget(this.hdr); this.bloomB = this.makeTarget(this.hdr);
+      if (this.tier >= 5) { this.coarseA = this.makeTarget(this.hdr); this.coarseB = this.makeTarget(this.hdr); }
+      this.extractMaterial = material(`
+        varying vec2 vUv;uniform sampler2D source;uniform vec2 texel;uniform float threshold;
+        void main(){
+          vec3 color=(texture2D(source,vUv+texel*vec2(-0.5,-0.5)).rgb+texture2D(source,vUv+texel*vec2(0.5,-0.5)).rgb+
+            texture2D(source,vUv+texel*vec2(-0.5,0.5)).rgb+texture2D(source,vUv+texel*vec2(0.5,0.5)).rgb)*0.25;
+          float brightness=max(color.r,max(color.g,color.b));
+          gl_FragColor=vec4(color*max(brightness-threshold,0.0)/max(brightness,0.0001),1.0);
+        }`, {source:{value:this.worldTarget.texture},texel:{value:new THREE.Vector2()},threshold:{value:this.hdr?1.15:.78}});
+      this.blurMaterial = material(`
+        varying vec2 vUv;uniform sampler2D source;uniform vec2 direction;
+        void main(){
+          vec3 color=texture2D(source,vUv).rgb*0.227027027;
+          color+=(texture2D(source,vUv+direction).rgb+texture2D(source,vUv-direction).rgb)*0.194594595;
+          color+=(texture2D(source,vUv+direction*2.0).rgb+texture2D(source,vUv-direction*2.0).rgb)*0.121621622;
+          color+=(texture2D(source,vUv+direction*3.0).rgb+texture2D(source,vUv-direction*3.0).rgb)*0.054054054;
+          color+=(texture2D(source,vUv+direction*4.0).rgb+texture2D(source,vUv-direction*4.0).rgb)*0.016216216;
+          gl_FragColor=vec4(color,1.0);
+        }`, {source:{value:this.bloomA.texture},direction:{value:new THREE.Vector2()}});
+    }
+    this.composite = material(`
+      varying vec2 vUv;
+      uniform sampler2D tScene;uniform sampler2D tDepth;uniform sampler2D tAO;uniform sampler2D tBloom;uniform sampler2D tCoarse;
+      uniform vec2 texel;uniform vec3 sun;uniform float sunVisibility;uniform float bloomStrength;uniform float exposure;
+      vec3 filteredColor(vec2 uv){
+        vec3 c=texture2D(tScene,uv).rgb;
+        vec3 nw=texture2D(tScene,uv+texel*vec2(-1.0,-1.0)).rgb;
+        vec3 ne=texture2D(tScene,uv+texel*vec2(1.0,-1.0)).rgb;
+        vec3 sw=texture2D(tScene,uv+texel*vec2(-1.0,1.0)).rgb;
+        vec3 se=texture2D(tScene,uv+texel*vec2(1.0,1.0)).rgb;
+        vec3 luma=vec3(0.299,0.587,0.114);
+        float m=dot(c,luma),a=dot(nw,luma),b=dot(ne,luma),d=dot(sw,luma),e=dot(se,luma);
+        float lo=min(m,min(min(a,b),min(d,e))),hi=max(m,max(max(a,b),max(d,e)));
+        if(hi-lo<max(0.022,hi*0.08))return c;
+        vec2 dir=vec2(-((a+b)-(d+e)),((a+d)-(b+e)));
+        float reduction=max((a+b+d+e)*0.03125,0.0078125);
+        float scale=1.0/(min(abs(dir.x),abs(dir.y))+reduction);
+        dir=clamp(dir*scale,vec2(-8.0),vec2(8.0))*texel;
+        vec3 p=0.5*(texture2D(tScene,uv+dir*(1.0/3.0-0.5)).rgb+texture2D(tScene,uv+dir*(2.0/3.0-0.5)).rgb);
+        vec3 q=p*0.5+0.25*(texture2D(tScene,uv-dir*0.5).rgb+texture2D(tScene,uv+dir*0.5).rgb);
+        float l=dot(q,luma);return l<lo||l>hi?p:q;
+      }
+      vec3 displayTransform(vec3 x){
+        x=max(x*exposure,vec3(0.0));
+        x=clamp((x*(2.51*x+0.03))/(x*(2.43*x+0.59)+0.14),0.0,1.0);
+        return mix(x*12.92,1.055*pow(x,vec3(1.0/2.4))-0.055,step(vec3(0.0031308),x));
+      }
+      void main(){
+        vec3 color=filteredColor(vUv)*texture2D(tAO,vUv).r;
+        #if RAY_SAMPLES > 0
+        if(sunVisibility>0.0001){
+          vec2 delta=(sun.xy-vUv)*0.88/float(RAY_SAMPLES),uv=vUv;
+          float rays=0.0,weight=1.0;
+          for(int i=0;i<RAY_SAMPLES;i++){
+            uv+=delta;
+            float inside=step(0.0,uv.x)*step(uv.x,1.0)*step(0.0,uv.y)*step(uv.y,1.0);
+            float sky=step(0.999995,texture2D(tDepth,clamp(uv,vec2(0.0),vec2(1.0))).r);
+            rays+=sky*inside*weight;weight*=0.972;
+          }
+          float angularFalloff=pow(max(0.0,1.0-length(sun.xy-vUv)*0.65),2.0);
+          color+=vec3(1.0,0.89,0.66)*(rays/float(RAY_SAMPLES))*sunVisibility*angularFalloff*RAY_STRENGTH;
+        }
+        #endif
+        color+=texture2D(tBloom,vUv).rgb*bloomStrength+texture2D(tCoarse,vUv).rgb*bloomStrength*0.65;
+        gl_FragColor=vec4(displayTransform(color),1.0);
+      }`, {
+        tScene:{value:this.worldTarget.texture},tDepth:{value:depthTexture},tAO:{value:this.aoBlurTarget?.texture||this.white},
+        tBloom:{value:this.bloomA?.texture||this.black},tCoarse:{value:this.coarseA?.texture||this.black},
+        texel:{value:new THREE.Vector2()},sun:{value:new THREE.Vector3()},sunVisibility:{value:0},
+        bloomStrength:{value:this.bloomEnabled?(typeof cfg.bloom==='number'?cfg.bloom:this.tier>=5?.22:.15):0},exposure:{value:renderer.toneMappingExposure},
+      }, {RAY_SAMPLES:this.raySamples,RAY_STRENGTH:(this.tier>=5?.38:this.tier>=4?.27:this.tier>=3?.18:.11).toFixed(3)});
+    this.stats = `${this.hdr?'HDR':'LDR compatible'} · FXAA${this.aoSamples?' · SSAO '+this.aoSamples:''}${this.raySamples?' · rayos '+this.raySamples:''}${this.bloomEnabled?' · bloom':''}${this.coarseA?' multiescala':''}`;
+    this.resize(width,height);
+  }
+  makeTarget(hdr) {
+    const target = new THREE.WebGLRenderTarget(1,1,{type:hdr?THREE.HalfFloatType:THREE.UnsignedByteType,
+      minFilter:THREE.LinearFilter,magFilter:THREE.LinearFilter,depthBuffer:false,stencilBuffer:false});
+    target.texture.colorSpace=THREE.LinearSRGBColorSpace;target.texture.generateMipmaps=false;this.targets.push(target);return target;
+  }
+  resize(width,height) {
+    this.width=Math.max(1,Math.round(width));this.height=Math.max(1,Math.round(height));
+    if(!this.enabled)return;
+    this.worldTarget.setSize(this.width,this.height);
+    this.composite.uniforms.texel.value.set(1/this.width,1/this.height);
+    if(this.aoTarget){
+      const scale=this.tier>=5?1:.5,aw=Math.max(1,Math.round(this.width*scale)),ah=Math.max(1,Math.round(this.height*scale));
+      this.aoTarget.setSize(aw,ah);this.aoBlurTarget.setSize(aw,ah);
+      this.aoMaterial.uniforms.depthTexel.value.set(1/this.width,1/this.height);
+      this.aoBlurMaterial.uniforms.texel.value.set(1/aw,1/ah);
+    }
+    if(this.bloomA){
+      const w=Math.max(1,Math.round(this.width/4)),h=Math.max(1,Math.round(this.height/4));
+      this.bloomA.setSize(w,h);this.bloomB.setSize(w,h);this.extractMaterial.uniforms.texel.value.set(1/this.width,1/this.height);
+      if(this.coarseA){const cw=Math.max(1,Math.round(this.width/8)),ch=Math.max(1,Math.round(this.height/8));this.coarseA.setSize(cw,ch);this.coarseB.setSize(cw,ch);}
+    }
+  }
+  pass(material,target) {
+    this.quad.material=material;this.renderer.setRenderTarget(target);this.renderer.clear();this.renderer.render(this.scene,this.camera);
+  }
+  render(scene,camera,sunNDC,daylight=1) {
+    const renderer=this.renderer;
+    if(this.disposed)return;
+    if(!this.enabled){renderer.setRenderTarget(null);renderer.clear();renderer.render(scene,camera);return;}
+    try {
+      renderer.setRenderTarget(this.worldTarget);renderer.clear();renderer.render(scene,camera);
+      if(this.aoTarget){
+        const uniforms=this.aoMaterial.uniforms;
+        uniforms.inverseProjection.value.copy(camera.projectionMatrixInverse);
+        uniforms.projectionScale.value.set(camera.projectionMatrix.elements[0],camera.projectionMatrix.elements[5]);
+        this.pass(this.aoMaterial,this.aoTarget);
+        this.aoBlurMaterial.uniforms.nearFar.value.set(camera.near,camera.far);this.pass(this.aoBlurMaterial,this.aoBlurTarget);
+      }
+      if(this.bloomA){
+        this.pass(this.extractMaterial,this.bloomA);
+        this.blurMaterial.uniforms.source.value=this.bloomA.texture;this.blurMaterial.uniforms.direction.value.set(1/this.bloomA.width,0);this.pass(this.blurMaterial,this.bloomB);
+        this.blurMaterial.uniforms.source.value=this.bloomB.texture;this.blurMaterial.uniforms.direction.value.set(0,1/this.bloomB.height);this.pass(this.blurMaterial,this.bloomA);
+        if(this.coarseA){
+          this.blurMaterial.uniforms.source.value=this.bloomA.texture;this.blurMaterial.uniforms.direction.value.set(2/this.bloomA.width,0);this.pass(this.blurMaterial,this.coarseB);
+          this.blurMaterial.uniforms.source.value=this.coarseB.texture;this.blurMaterial.uniforms.direction.value.set(0,1/this.coarseB.height);this.pass(this.blurMaterial,this.coarseA);
+        }
+      }
+      const visible=Boolean(sunNDC&&Number.isFinite(sunNDC.x)&&sunNDC.z>=-1&&sunNDC.z<=1&&Math.abs(sunNDC.x)<1.7&&Math.abs(sunNDC.y)<1.7);
+      this.composite.uniforms.sun.value.set(sunNDC?sunNDC.x*.5+.5:0,sunNDC?sunNDC.y*.5+.5:0,sunNDC?.z??2);
+      this.composite.uniforms.sunVisibility.value=visible?Math.max(0,Math.min(1,daylight)):0;
+      this.composite.uniforms.exposure.value=renderer.toneMappingExposure;
+      this.pass(this.composite,null);
+    } finally {renderer.setRenderTarget(null);}
+  }
+  dispose() {
+    if(this.disposed)return;this.disposed=true;
+    for(const target of this.targets)target.dispose();for(const material of this.materials)material.dispose();
+    this.worldTarget?.depthTexture?.dispose();this.white?.dispose();this.black?.dispose();this.quad?.geometry.dispose();
+    this.scene?.clear();this.targets.length=0;this.materials.length=0;
+  }
+}
+
+// Perfiles de presentación: no contienen distancia, generación ni descarga de chunks.
+const GRAPHICS_PROFILES = Object.freeze({
+  performance: Object.freeze({name:'Rendimiento',tier:0,tile:4,shadow:0,aoSamples:0,raySamples:0,bloom:false,msaa:0,grass:0,reflection:0,description:'Texturas simplificadas, modelos mínimos, animación a 15 Hz y sin sombras dinámicas. Prioriza la fluidez.'}),
+  balanced: Object.freeze({name:'Balanceado',tier:1,tile:16,shadow:1024,aoSamples:0,raySamples:0,bloom:false,msaa:0,grass:0,reflection:0,description:'El aspecto voxel original: texturas de 16 px, iluminación difusa y sombras. Equilibrio entre calidad y velocidad.'}),
+  potato: Object.freeze({name:'Potato Shaders',tier:2,tile:16,shadow:1536,aoSamples:0,raySamples:8,bloom:false,msaa:0,grass:0,reflection:0,description:'Iluminación especular ligera, sombras más definidas, nubes, hojas al viento y rayos solares ocluidos por el terreno.'}),
+  nova: Object.freeze({name:'Nova-Shaders',tier:3,tile:32,shadow:2048,aoSamples:12,raySamples:16,bloom:false,msaa:2,grass:800,reflection:0,description:'Materiales PBR con relieve, luz de entorno, oclusión ambiental de pantalla, pasto 3D y animales articulados con rasgos faciales.'}),
+  golden: Object.freeze({name:'Golden Shaders',tier:4,tile:64,shadow:3072,aoSamples:20,raySamples:24,bloom:true,msaa:4,grass:1800,reflection:128,description:'Reflejos locales del mundo, cristal con refracción, bloom HDR, sombras de vegetación y modelos con pelaje y anatomía adicional.'}),
+  ultra: Object.freeze({name:'2K-Shaders',tier:5,tile:128,shadow:4096,aoSamples:32,raySamples:40,bloom:true,msaa:4,grass:3600,reflection:256,description:'Máxima calidad: relieve por paralaje, reflejos más detallados, bloom multiescala, AO de 32 muestras y modelos más densos. Mayor coste de GPU.'}),
+});
+const GRAPHICS_RESOLUTIONS = Object.freeze({'720':Object.freeze({width:1280,height:720}), '1440':Object.freeze({width:2560,height:1440})});
+
+function createProfileAtlas(atlas,cfg) {
+  const size=cfg.tile,cell=size+2,canvas=document.createElement('canvas');canvas.width=canvas.height=cell*4;
+  const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+  atlas.baseTiles??=atlas.tiles.slice();
+  for(let t=0;t<16;t++) {
+    const tile=document.createElement('canvas');tile.width=tile.height=size;const c=tile.getContext('2d');
+    if(cfg.tier===0) {
+      const data=atlas.baseTiles[t].getContext('2d').getImageData(0,0,16,16).data;let r=0,g=0,b=0;
+      for(let i=0;i<data.length;i+=4){r+=data[i];g+=data[i+1];b+=data[i+2];}
+      c.fillStyle=`rgb(${Math.round(r/256)},${Math.round(g/256)},${Math.round(b/256)})`;c.fillRect(0,0,size,size);
+      if(t===1){c.fillStyle='#78984b';c.fillRect(0,0,size,1);}if(t===8){c.strokeStyle='#d6e9df';c.strokeRect(.5,.5,size-1,size-1);}
+    } else {
+      c.drawImage(atlas.baseTiles[t],0,0,size,size);
+      if(cfg.tier>=3){
+        const image=c.getImageData(0,0,size,size);
+        for(let y=0;y<size;y++)for(let x=0;x<size;x++){
+          const i=(x+y*size)*4,grain=(hash2(x,y,t*947)*2-1)*(cfg.tier===3?5:9);
+          // Grain fin et fibres orientées, en plus du motif voxel de base.
+          const fibre=(t===5||t===12||t===14)?Math.sin(x*.85+Math.sin(y*.12))*4:0;
+          for(let a=0;a<3;a++)image.data[i+a]=clamp(image.data[i+a]+grain+fibre,0,255);
+        }c.putImageData(image,0,0);
+      }
+    }
+    const x=t%4*cell+1,y=Math.floor(t/4)*cell+1;ctx.drawImage(tile,x,y);
+    ctx.drawImage(tile,0,0,1,size,x-1,y,1,size);ctx.drawImage(tile,size-1,0,1,size,x+size,y,1,size);
+    ctx.drawImage(canvas,x-1,y,cell,1,x-1,y-1,cell,1);ctx.drawImage(canvas,x-1,y+size-1,cell,1,x-1,y+size,cell,1);
+  }
+  const texture=atlas.textureFrom(canvas);texture.anisotropy=1;return texture;
+}
+
+const LEAF_WIND = `
+  if(tile>6.5&&tile<7.5){
+    vec3 wp=(modelMatrix*vec4(position,1.0)).xyz;
+    transformed.x+=sin(wp.x*.65+wp.z*.37+uWindTime*1.6)*.035;
+    transformed.z+=sin(wp.z*.72+wp.y*.4+uWindTime*1.3)*.025;
+  }`;
+
+function voxelProfileMaterial(graphics,glass=false) {
+  const cfg=graphics.config,tier=cfg.tier;
+  const params={map:graphics.texture,vertexColors:true,transparent:glass,opacity:glass?.46:1,depthWrite:!glass};
+  let material;
+  if(glass&&tier>=4)material=new THREE.MeshPhysicalMaterial({...params,opacity:1,transmission:.82,thickness:.28,ior:1.45,roughness:.06,metalness:0,clearcoat:1,clearcoatRoughness:.05,envMapIntensity:1.1});
+  else if(tier>=3)material=new THREE.MeshStandardMaterial({...params,roughness:glass?.16:.88,metalness:0,envMapIntensity:.55});
+  else if(tier===2)material=new THREE.MeshPhongMaterial({...params,shininess:16,specular:'#252b20'});
+  else material=new THREE.MeshLambertMaterial(params);
+  material.extensions={...material.extensions,derivatives:tier>=3};
+  const size=cfg.tile,atlasSize=(size+2)*4;
+  const sampling=`vec2 voxelAtlasUv(vec2 st){vec2 cell=vec2(mod(floor(vTile+.5),4.),floor((vTile+.5)/4.));vec2 p=cell*${(size+2).toFixed(1)}+1.+fract(st)*${size.toFixed(1)};return vec2(p.x/${atlasSize.toFixed(1)},1.-p.y/${atlasSize.toFixed(1)});}
+    float voxelHeight(vec2 st){return dot(texture2D(map,voxelAtlasUv(st)).rgb,vec3(.299,.587,.114));}`;
+  material.onBeforeCompile=shader=>{
+    shader.uniforms.uWindTime=graphics.wind;
+    shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute float tile;varying float vTile;uniform float uWindTime;')
+      .replace('#include <uv_vertex>','#include <uv_vertex>\nvTile=tile;')
+      .replace('#include <begin_vertex>',`#include <begin_vertex>\n${tier>=2?LEAF_WIND:''}`);
+    shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying float vTile;')
+      .replace('#include <map_pars_fragment>',`#include <map_pars_fragment>\n${sampling}`)
+      .replace('#include <map_fragment>',`
+        vec2 voxelUv=vMapUv;
+        ${tier===5&&!glass?`
+          vec3 eye=normalize(vViewPosition);
+          vec3 dp1=dFdx(-vViewPosition),dp2=dFdy(-vViewPosition);vec2 dt1=dFdx(vMapUv),dt2=dFdy(vMapUv);
+          vec3 tangent=normalize(dp1*dt2.y-dp2*dt1.y);vec3 bitangent=normalize(-dp1*dt2.x+dp2*dt1.x);
+          vec2 parallax=vec2(dot(eye,tangent),dot(eye,bitangent))*.018/max(.28,abs(dot(eye,normalize(vNormal))));
+          float layer=0.;vec2 walk=voxelUv;
+          for(int p=0;p<10;p++){if(layer<1.-voxelHeight(walk)){walk-=parallax*.1;layer+=.1;}}
+          voxelUv=walk;
+        `:''}
+        diffuseColor*=texture2D(map,voxelAtlasUv(voxelUv));
+      `);
+    if(tier>=3&&!glass){
+      shader.fragmentShader=shader.fragmentShader.replace('#include <normal_fragment_maps>',`#include <normal_fragment_maps>
+        float vh=voxelHeight(voxelUv);vec3 px=dFdx(-vViewPosition),py=dFdy(-vViewPosition);
+        vec3 rx=cross(py,normal),ry=cross(normal,px);float determinant=dot(px,rx);
+        vec3 gradient=sign(determinant)*(dFdx(vh)*rx+dFdy(vh)*ry);
+        normal=normalize(abs(determinant)*normal-${tier===3?'.018':'.032'}*gradient);
+      `).replace('#include <roughnessmap_fragment>',`#include <roughnessmap_fragment>
+        roughnessFactor=(vTile>9.5&&vTile<10.5)? .4 : (vTile<1.5||abs(vTile-7.)<.5)? .94 : .78;
+      `).replace('#include <metalnessmap_fragment>',`#include <metalnessmap_fragment>
+        metalnessFactor=(vTile>9.5&&vTile<10.5)? .32 : 0.;
+      `);
+    }
+  };
+  material.customProgramCacheKey=()=>`voxel-profile-${tier}-${glass}-v2`;
+  return material;
+}
+
+class GraphicsVegetation {
+  constructor(app,cfg,wind) {
+    this.app=app;this.cfg=cfg;this.cell='';if(!cfg.grass)return;
+    const geometry=new THREE.PlaneGeometry(.17,.62,1,4);geometry.translate(0,.31,0);
+    const blade=geometry.attributes.position;
+    for(let i=0;i<blade.count;i++)blade.setX(i,blade.getX(i)*Math.max(.025,1.-blade.getY(i)/.62));
+    geometry.computeVertexNormals();
+    this.material=new THREE.MeshStandardMaterial({color:'#769949',roughness:.95,side:THREE.DoubleSide});
+    const patch=shader=>{shader.uniforms.uGrassTime=wind;shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nuniform float uGrassTime;')
+      .replace('#include <begin_vertex>',`#include <begin_vertex>
+        vec3 base=instanceMatrix[3].xyz;float bend=position.y*position.y;
+        transformed.x+=sin(base.x*.65+base.z*.41+uGrassTime*1.8)*bend*.35;
+        transformed.z+=cos(base.z*.6+uGrassTime*1.3)*bend*.2;
+      `);};
+    this.material.onBeforeCompile=patch;this.material.customProgramCacheKey=()=>`grass-wind-${cfg.tier}`;
+    this.mesh=new THREE.InstancedMesh(geometry,this.material,cfg.grass);this.mesh.count=0;this.mesh.frustumCulled=false;
+    this.mesh.castShadow=cfg.tier>=4;this.mesh.receiveShadow=true;app.scene.add(this.mesh);
+    this.depth=new THREE.MeshDepthMaterial({depthPacking:THREE.RGBADepthPacking,side:THREE.DoubleSide});this.depth.onBeforeCompile=patch;this.mesh.customDepthMaterial=this.depth;
+    this.matrix=new THREE.Matrix4();this.rotation=new THREE.Quaternion();this.scale=new THREE.Vector3();this.point=new THREE.Vector3();
+  }
+  update() {
+    if(!this.mesh||!this.app.world.seed)return;
+    const p=this.app.player.pos,key=`${Math.floor(p.x/4)},${Math.floor(p.z/4)},${this.app.world.epoch},${this.app.world.chunks.size},${this.app.world.visualRevision||0}`;
+    if(key===this.cell)return;this.cell=key;let n=0;const radius=this.cfg.tier===3?12:17;
+    for(let z=Math.floor(p.z)-radius;z<=p.z+radius;z++)for(let x=Math.floor(p.x)-radius;x<=p.x+radius;x++) {
+      const r=hash2(x,z,seedHash(this.app.seed||''));if(r>.56)continue;
+      const y=this.app.world.terrain.column(x,z).height;
+      if(this.app.world.getBlock(x,y,z)!==B.GRASS||this.app.world.getBlock(x,y+1,z)!==0)continue;
+      for(let b=0;b<(this.cfg.tier===3?2:3)&&n<this.cfg.grass;b++) {
+        this.point.set(x+.2+r*.6,y+1,z+.25+hash2(z,x,b+71)*.5);
+        this.rotation.setFromAxisAngle(new THREE.Vector3(0,1,0),r*6.28+b*Math.PI/3);this.scale.set(1,.55+r*.7,1);
+        this.matrix.compose(this.point,this.rotation,this.scale);this.mesh.setMatrixAt(n++,this.matrix);
+      }
+    }this.mesh.count=n;this.mesh.instanceMatrix.needsUpdate=true;
+  }
+  invalidate(){this.cell='';}
+  dispose(){if(!this.mesh)return;this.mesh.removeFromParent();this.mesh.geometry.dispose();this.material.dispose();this.depth.dispose();}
+}
+
+class GraphicsSystem {
+  constructor(app) {
+    this.app=app;this.config=GRAPHICS_PROFILES.balanced;this.wind={value:0};this.environmentTimer=0;this.lastCube=-100;this.environmentVersion=-1;this.busy=false;
+    this.pmrem=new THREE.PMREMGenerator(app.renderer);this.pmrem.compileCubemapShader();this.sunNDC=new THREE.Vector3();
+    $('graphics-profile').value=app.settings.graphics;$('graphics-resolution').value=app.settings.resolution;
+    $('graphics-apply').addEventListener('click',()=>this.apply($('graphics-profile').value,$('graphics-resolution').value));
+    $('graphics-profile').addEventListener('change',()=>this.describe($('graphics-profile').value));
+    $('graphics-menu').addEventListener('click',()=>app.pause());
+    this.describe(app.settings.graphics);this.applySync(app.settings.graphics,app.settings.resolution);
+  }
+  describe(id){const c=GRAPHICS_PROFILES[id];$('graphics-description').textContent=c.description;$('graphics-features').textContent=`Texturas ${c.tile} px · ${c.shadow?'Sombras '+c.shadow+' px':'Sin sombras dinámicas'}${c.aoSamples?' · AO '+c.aoSamples+' muestras':''}${c.reflection?' · Reflejos locales':''}`;}
+  async apply(id,resolution) {
+    if(this.busy)return;this.busy=true;$('graphics-apply').disabled=true;$('graphics-status').textContent='Preparando recursos gráficos…';
+    await new Promise(resolve=>requestAnimationFrame(()=>setTimeout(resolve,0)));
+    try{this.applySync(id,resolution);this.app.toast(`${this.config.name} · ${resolution==='1440'?'2K':'720p'}`);}
+    catch(error){console.error('Gráficos:',error);this.applySync('balanced','720');this.app.toast('No se pudo activar ese perfil. Se restauró Balanceado 720p.');}
+    finally{this.busy=false;$('graphics-apply').disabled=false;}
+  }
+  applySync(id,resolution) {
+    const app=this.app;
+    if(this.post&&id===app.settings.graphics){
+      app.settings.resolution=GRAPHICS_RESOLUTIONS[resolution]?resolution:'720';app.resize();this.refreshLabels();return;
+    }
+    this.releaseResources();
+    this.config=GRAPHICS_PROFILES[id]||GRAPHICS_PROFILES.balanced;app.settings.graphics=GRAPHICS_PROFILES[id]?id:'balanced';
+    app.settings.resolution=GRAPHICS_RESOLUTIONS[resolution]?resolution:'720';
+    const c=this.config,renderer=app.renderer;
+    this.texture=createProfileAtlas(app.atlas,c);this.texture.anisotropy=Math.min(renderer.capabilities.getMaxAnisotropy(),c.tier>=3?8:1);
+    const oldSolid=app.world.solidMaterial,oldGlass=app.world.glassMaterial;
+    app.world.solidMaterial=voxelProfileMaterial(this);app.world.glassMaterial=voxelProfileMaterial(this,true);
+    this.leafDepth=new THREE.MeshDepthMaterial({depthPacking:THREE.RGBADepthPacking});
+    if(c.tier>=2){this.leafDepth.onBeforeCompile=shader=>{
+      shader.uniforms.uWindTime=this.wind;shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nattribute float tile;uniform float uWindTime;')
+        .replace('#include <begin_vertex>',`#include <begin_vertex>\n${LEAF_WIND}`);
+    };this.leafDepth.customProgramCacheKey=()=>`leaf-depth-${c.tier}`;}
+    app.world.leafDepth=this.leafDepth;
+    for(const chunk of app.world.chunks.values())chunk.group?.traverse(mesh=>{
+      if(mesh.material===oldSolid){mesh.material=app.world.solidMaterial;mesh.customDepthMaterial=this.leafDepth;}
+      else if(mesh.material===oldGlass)mesh.material=app.world.glassMaterial;
+    });oldSolid.dispose();oldGlass.dispose();
+    renderer.shadowMap.enabled=c.shadow>0&&app.settings.shadows;
+    const sun=app.atmosphere.sun;
+    if(sun.shadow.map){sun.shadow.map.dispose();sun.shadow.map=null;}
+    sun.shadow.mapSize.setScalar(Math.min(c.shadow||512,renderer.capabilities.maxTextureSize));sun.shadow.needsUpdate=true;
+    sun.shadow.normalBias=c.tier>=3?.025:.035;
+    // Un entorno filtrado ilumina los materiales PBR. Golden/2K además capturan el mundo real.
+    if(c.tier>=3)this.createEnvironment();
+    if(c.reflection){this.cubeTarget=new THREE.WebGLCubeRenderTarget(c.reflection,{type:renderer.capabilities.isWebGL2&&renderer.extensions.has('EXT_color_buffer_float')?THREE.HalfFloatType:THREE.UnsignedByteType});this.cube=new THREE.CubeCamera(.15,120,this.cubeTarget);this.cubeTarget.texture.name='Reflejos locales del mundo';}
+    this.vegetation=new GraphicsVegetation(app,c,this.wind);this.createClouds();
+    for(const material of app.mobs.materials.values())material.dispose();app.mobs.materials.clear();
+    for(const mob of app.mobs.mobs)buildMobVisual(mob,app.mobs,c);
+    this.post=new GraphicsPostFX(renderer,c,1,1);this.lastCube=-100;this.environmentVersion=-1;
+    app.resize();this.refreshLabels();
+  }
+  refreshLabels(){
+    const app=this.app,c=this.config;this.describe(app.settings.graphics);$('graphics-profile').value=app.settings.graphics;$('graphics-resolution').value=app.settings.resolution;
+    $('graphics-current').textContent=`${c.name} · ${app.settings.resolution==='1440'?'2K':'720p'}`;
+    $('graphics-status').textContent=`Activo: ${c.name}. ${app.renderWidth} × ${app.renderHeight}. Radio de chunks sin cambios: ${app.settings.distance}.`;
+    try{localStorage.setItem('voxelcraft-single:settings',JSON.stringify(app.settings));}catch{}
+  }
+  createEnvironment() {
+    this.envScene=new THREE.Scene();
+    const source=this.app.atmosphere.skyMaterial;
+    this.envSky=new THREE.Mesh(new THREE.SphereGeometry(100,24,16),source.clone());this.envScene.add(this.envSky);
+    const sun=new THREE.Mesh(new THREE.SphereGeometry(5,12,8),new THREE.MeshBasicMaterial({color:new THREE.Color(4,3.6,2.7),toneMapped:false}));this.envSun=sun;this.envScene.add(sun);
+    this.updateEnvironment();
+  }
+  updateEnvironment() {
+    if(!this.envScene)return;
+    const atmosphere=this.app.atmosphere;
+    this.envSky.material.uniforms.topColor.value.copy(atmosphere.skyMaterial.uniforms.topColor.value);
+    this.envSky.material.uniforms.horizonColor.value.copy(atmosphere.skyMaterial.uniforms.horizonColor.value);
+    this.envSun.position.copy(atmosphere.sunDisc.position).sub(this.app.camera.position).normalize().multiplyScalar(90);
+    this.envSun.visible=atmosphere.daylight>.2;
+    const old=this.envTarget;this.envTarget=this.pmrem.fromScene(this.envScene,.03,.1,150);this.app.scene.environment=this.envTarget.texture;old?.dispose();
+  }
+  createClouds() {
+    const c=this.config;if(c.tier<2)return;
+    this.cloudMaterial=new THREE.ShaderMaterial({transparent:true,depthWrite:false,side:THREE.DoubleSide,uniforms:{uTime:this.wind,uDay:{value:1}},
+      vertexShader:'varying vec3 vWorld;void main(){vec4 wp=modelMatrix*vec4(position,1.);vWorld=wp.xyz;gl_Position=projectionMatrix*viewMatrix*wp;}',
+      fragmentShader:`varying vec3 vWorld;uniform float uTime;uniform float uDay;
+        float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+        float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+1.),f.x),f.y);}
+        void main(){vec2 p=vWorld.xz*.014+vec2(uTime*.012,uTime*.004);float n=0.,a=.55;
+          for(int i=0;i<${c.tier>=4?5:c.tier>=3?4:2};i++){n+=noise(p)*a;p=p*2.02+13.;a*=.5;}
+          float cloud=smoothstep(.45,.72,n);float edge=1.-smoothstep(115.,180.,distance(vWorld.xz,cameraPosition.xz));
+          vec3 col=mix(vec3(.13,.18,.27),mix(vec3(.67,.73,.75),vec3(1.08,1.03,.92),n),uDay);
+          gl_FragColor=vec4(col,cloud*edge*.85);
+          #include <tonemapping_fragment>
+          #include <colorspace_fragment>
+        }`});
+    this.clouds=new THREE.Mesh(new THREE.PlaneGeometry(400,400),this.cloudMaterial);this.clouds.rotation.x=-Math.PI/2;this.clouds.position.y=122;this.clouds.renderOrder=1;this.app.scene.add(this.clouds);
+  }
+  update(dt,playing) {
+    const c=this.config,app=this.app,at=app.atmosphere;
+    if(this.worldEpoch!==app.world.epoch){this.worldEpoch=app.world.epoch;this.lastCube=-100;}
+    if(playing)this.wind.value+=dt;
+    at.sun.castShadow=app.settings.shadows&&c.shadow>0&&at.sun.intensity>.02;app.renderer.shadowMap.enabled=app.settings.shadows&&c.shadow>0;
+    if(c.tier>=3){at.ambient.intensity*=.68;at.sun.intensity*=1.12;}
+    this.vegetation?.update();
+    if(this.clouds){this.clouds.position.x=app.camera.position.x;this.clouds.position.z=app.camera.position.z;this.cloudMaterial.uniforms.uDay.value=at.daylight;}
+    const version=Math.floor(at.time*48);
+    if(this.envScene&&version!==this.environmentVersion){this.environmentVersion=version;this.updateEnvironment();}
+    if(this.cube&&app.hasLoaded&&this.wind.value-this.lastCube>(c.tier===5?.65:1.8)) {
+      this.lastCube=this.wind.value;
+      this.cube.position.copy(app.player.pos).add(new THREE.Vector3(0,2.2,0));
+      const savedShadow=app.renderer.shadowMap.autoUpdate,savedClear=app.renderer.autoClear;
+      app.renderer.shadowMap.autoUpdate=false;app.renderer.autoClear=true;app.scene.environment=this.envTarget.texture;
+      // El cristal no aparece en su propia sonda: evita realimentación de transmisión.
+      const hidden=[];app.scene.traverse(o=>{if(o.isMesh&&o.material===app.world.glassMaterial&&o.visible){hidden.push(o);o.visible=false;}});
+      try{this.cube.update(app.renderer,app.scene);}finally{hidden.forEach(o=>o.visible=true);app.renderer.shadowMap.autoUpdate=savedShadow;app.renderer.autoClear=savedClear;}
+      app.scene.environment=this.cubeTarget.texture;
+    }
+  }
+  render(){const app=this.app;this.sunNDC.copy(app.atmosphere.sunDisc.position).project(app.camera);this.post.render(app.scene,app.camera,this.sunNDC,app.atmosphere.daylight);}
+  resize(w,h){this.post?.resize(w,h);}
+  releaseResources() {
+    this.post?.dispose();this.vegetation?.dispose();this.texture?.dispose();this.leafDepth?.dispose();
+    this.app.scene.environment=null;this.envTarget?.dispose();this.cubeTarget?.dispose();this.envTarget=null;this.cubeTarget=null;this.cube=null;
+    if(this.envScene){this.envScene.traverse(o=>{o.geometry?.dispose();o.material?.dispose();});this.envScene=null;}
+    if(this.clouds){this.clouds.removeFromParent();this.clouds.geometry.dispose();this.cloudMaterial.dispose();this.clouds=null;}
+  }
+  dispose(){this.releaseResources();this.pmrem.dispose();}
+}
+
 class MobManager {
   constructor(app) { this.app = app; this.mobs = []; this.spawned = new Set(); this.materials = new Map(); this.scan = 0; }
-  material(color) { if (!this.materials.has(color)) this.materials.set(color, new THREE.MeshLambertMaterial({ color })); return this.materials.get(color); }
+  material(color) { if (!this.materials.has(color)) this.materials.set(color, (this.app.graphics?.config.tier??1)>=3?new THREE.MeshStandardMaterial({color,roughness:.86}):new THREE.MeshLambertMaterial({ color })); return this.materials.get(color); }
   reset() { for (const mob of this.mobs) this.remove(mob); this.mobs = []; this.spawned.clear(); }
   remove(mob) { mob.group.traverse(object => object.geometry?.dispose()); mob.group.removeFromParent(); }
   create(type, x, y, z, seed) {
-    const group = new THREE.Group(), legs = [], box = (px,py,pz,sx,sy,sz,color) => {
-      const mesh = new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz), this.material(color)); mesh.position.set(px,py,pz); mesh.castShadow = true; mesh.receiveShadow = true; group.add(mesh); return mesh;
-    };
-    if (type === 'zombie') {
-      box(0, .95, 0, .48, .65, .28, '#54786b'); box(0, 1.5, 0, .42, .42, .42, '#789260');
-      legs.push(box(-.14,.3,0,.19,.6,.2,'#515b78'),box(.14,.3,0,.19,.6,.2,'#515b78'));
-      for (const side of [-1,1]) { const arm = box(side*.34,1.02,-.2,.18,.55,.18,'#789260'); arm.rotation.x = -1.2; }
-    } else {
-      const body = type === 'sheep' ? '#e1dfcb' : '#79694f';
-      box(0,.76,0,.72,.65,1.04,body); box(0,1.02,-.6,.43,.45,.38,type === 'sheep' ? '#b4ad92' : '#b3a184');
-      for (const sx of [-1,1]) for (const sz of [-1,1]) legs.push(box(sx*.24,.26,sz*.34,.18,.5,.18,type === 'sheep' ? '#8a7b61' : '#524d40'));
-      if (type === 'cow') { box(-.22,.88,-.1,.015,.32,.35,'#dfd5b6'); box(.22,.95,.22,.015,.3,.3,'#dfd5b6'); }
-    }
+    const group = new THREE.Group(), legs = [];
     group.position.set(x,y,z); this.app.scene.add(group);
     this.mobs.push({ type, name: type === 'sheep' ? 'Oveja' : type === 'cow' ? 'Vaca' : 'Zombi', group, legs,
       pos: new THREE.Vector3(x,y,z), velocity: new THREE.Vector3(), radius: type === 'zombie' ? .28 : .36,
       height: type === 'zombie' ? 1.72 : 1.25, yaw: seed * Math.PI * 2, timer: 0, state: 'idle',
       grounded: false, hp: type === 'zombie' ? 6 : 4, cooldown: 0, phase: seed * 10 });
+    buildMobVisual(this.mobs.at(-1),this,this.app.graphics?.config||GRAPHICS_PROFILES.balanced);
   }
   update(dt) {
     if (!this.app.settings.mobs) { if (this.mobs.length) this.reset(); return; }
@@ -1240,7 +1938,7 @@ class MobManager {
       if (mob.grounded) { mob.velocity.y = 0; if (blocked && speed) mob.velocity.y = 7; }
       if (blocked && mob.state !== 'chase') { mob.yaw += .8; mob.timer = .5; }
       mob.group.position.copy(mob.pos); mob.group.rotation.y = mob.yaw;
-      mob.phase += dt * speed * 6; mob.legs.forEach((leg,i) => leg.rotation.x = Math.sin(mob.phase+(i%2)*Math.PI)*.35*(speed>0?1:0));
+      mob.phase += dt * speed * 6;
       if (mob.type === 'zombie' && distance < 1.25 && mob.cooldown <= 0) {
         mob.cooldown = 1.1; this.app.hurt(1); player.velocity.x += -Math.sin(mob.yaw)*3; player.velocity.z += -Math.cos(mob.yaw)*3;
       }
@@ -1263,16 +1961,18 @@ class MobManager {
 class Game {
   constructor() {
     this.state = 'menu'; this.loading = false; this.hasLoaded = false; this.disposed = false;
-    this.settings = { distance:3, fov:75, sensitivity:.0023, shadows:true, volume:.35, dayMinutes:12, mobs:true };
+    this.settings = { distance:3, fov:75, sensitivity:.0023, shadows:true, volume:.35, dayMinutes:12, mobs:true,graphics:'balanced',resolution:'720' };
     try {
       const saved = JSON.parse(localStorage.getItem('voxelcraft-single:settings')) || {};
       for (const key of ['distance','fov','sensitivity','volume','dayMinutes']) if (Number.isFinite(saved[key])) this.settings[key] = saved[key];
       for (const key of ['shadows','mobs']) if(typeof saved[key]==='boolean')this.settings[key]=saved[key];
+      if(GRAPHICS_PROFILES[saved.graphics])this.settings.graphics=saved.graphics;
+      if(GRAPHICS_RESOLUTIONS[saved.resolution])this.settings.resolution=saved.resolution;
     } catch {}
     this.settings.distance=clamp(Math.round(this.settings.distance),2,6);this.settings.fov=clamp(this.settings.fov,55,100);
     this.settings.sensitivity=clamp(this.settings.sensitivity,.001,.006);this.settings.volume=clamp(this.settings.volume,0,1);this.settings.dayMinutes=clamp(this.settings.dayMinutes,2,30);
     this.canvas=$('world'); this.renderer=new THREE.WebGLRenderer({canvas:this.canvas,antialias:true,powerPreference:'high-performance'});
-    this.renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));this.renderer.shadowMap.enabled=this.settings.shadows;this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+    this.renderer.setPixelRatio(1);this.renderer.shadowMap.enabled=this.settings.shadows;this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;
     this.renderer.outputColorSpace=THREE.SRGBColorSpace;this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.12;
     this.renderer.autoClear=false;this.renderer.info.autoReset=false;
     this.scene=new THREE.Scene();this.camera=new THREE.PerspectiveCamera(this.settings.fov,1,.055,260);this.camera.rotation.order='YXZ';
@@ -1288,11 +1988,12 @@ class Game {
     this.gui.add(this.settings,'distance',2,6,1).name('Radio de chunks').onFinishChange(()=>{this.world.update(this.player.pos,this.settings.distance);persist();});
     this.gui.add(this.settings,'fov',55,100,1).name('Campo de visión').onChange(()=>this.resize()).onFinishChange(persist);
     this.gui.add(this.settings,'sensitivity',.001,.006,.0001).name('Sensibilidad').onFinishChange(persist);
-    this.gui.add(this.settings,'shadows').name('Sombras suaves').onChange(value=>{this.renderer.shadowMap.enabled=value;this.world.solidMaterial.needsUpdate=true;this.world.glassMaterial.needsUpdate=true;persist();});
+    this.gui.add(this.settings,'shadows').name('Permitir sombras').onChange(value=>{this.renderer.shadowMap.enabled=value&&this.graphics.config.shadow>0;this.world.solidMaterial.needsUpdate=true;this.world.glassMaterial.needsUpdate=true;persist();});
     this.gui.add(this.settings,'mobs').name('Criaturas').onFinishChange(persist);
     this.gui.add(this.settings,'volume',0,1,.01).name('Volumen').onChange(value=>this.audio.setVolume(value)).onFinishChange(persist);
     this.gui.add(this.settings,'dayMinutes',2,30,1).name('Minutos por día').onFinishChange(persist);
     this.timeControl={hour:8.88};this.gui.add(this.timeControl,'hour',0,23.99,.1).name('Hora del mundo').onChange(value=>{this.atmosphere.time=value/24;this.dirty=true;});
+    this.graphics=new GraphicsSystem(this);
     this.events=new AbortController();const signal=this.events.signal;
     window.addEventListener('resize',()=>{this.resize();if(this.state==='inventory')this.ui.render();},{signal});
     window.addEventListener('pagehide',event=>{if(this.hasLoaded)this.store.journal(this.snapshot());if(!event.persisted)this.dispose();},{signal});
@@ -1302,8 +2003,13 @@ class Game {
   }
   async initialize() { await this.store.open();$('storage-info').textContent=`Almacenamiento: ${this.store.mode}. Misma semilla y dirección para recuperar la partida.`;await this.loadWorld('ALBA-2026'); }
   resize() {
-    const width=innerWidth,height=innerHeight;this.renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));this.renderer.setSize(width,height,false);
-    this.camera.aspect=width/height;this.camera.fov=this.settings.fov;this.camera.updateProjectionMatrix();this.hand.camera.aspect=width/height;this.hand.camera.updateProjectionMatrix();
+    const size=GRAPHICS_RESOLUTIONS[this.settings.resolution]||GRAPHICS_RESOLUTIONS['720'];
+    this.renderWidth=size.width;this.renderHeight=size.height;this.renderer.setPixelRatio(1);this.renderer.setSize(size.width,size.height,false);
+    const width=Math.min(innerWidth,innerHeight*16/9),height=width*9/16,left=(innerWidth-width)/2,top=(innerHeight-height)/2;
+    Object.assign(this.canvas.style,{width:`${width}px`,height:`${height}px`,left:`${left}px`,top:`${top}px`});
+    Object.assign($('hud').style,{inset:'auto',left:`${left}px`,top:`${top}px`,width:`${width}px`,height:`${height}px`});
+    this.camera.aspect=16/9;this.camera.fov=this.settings.fov;this.camera.updateProjectionMatrix();this.hand.camera.aspect=16/9;this.hand.camera.updateProjectionMatrix();
+    this.graphics?.resize(size.width,size.height);
   }
   async loadWorld(seed) {
     if(this.loading)return;this.loading=true;this.state='menu';this.input.release();
@@ -1413,6 +2119,8 @@ class Game {
   }
   frame(time) {
     if(this.disposed)return;
+    if(this.state!=='playing'&&time-(this.lastIdleRender||0)<100)return;
+    this.lastIdleRender=time;
     const dt=Math.min(.06,Math.max(0,(time-this.lastFrame)/1000));this.lastFrame=time;
     if(document.hidden)return;
     const playing=this.state==='playing';this.damageTimer=Math.max(0,this.damageTimer-dt);
@@ -1421,6 +2129,7 @@ class Game {
       if(this.input.keys.has('ArrowUp'))this.player.pitch=clamp(this.player.pitch+dt,-1.55,1.55);if(this.input.keys.has('ArrowDown'))this.player.pitch=clamp(this.player.pitch-dt,-1.55,1.55);
       this.accumulator=Math.min(.1,this.accumulator+dt);
       while(this.accumulator>=1/120){this.player.step(1/120,this.input.keys);this.mobs.update(1/120);this.accumulator-=1/120;}
+      for(const mob of this.mobs.mobs)animateMobVisual(mob,dt,mob.state==='chase'?2.1:mob.state==='patrol'?.8:0,this.graphics.config);
       if(this.player.stepDistance>.65){this.player.stepDistance=0;const block=this.world.getBlock(Math.floor(this.player.pos.x),Math.floor(this.player.pos.y-.05),Math.floor(this.player.pos.z));this.audio.play(block,'step',this.player.height<1.8?.45:1);}
       this.camera.position.set(this.player.pos.x,this.player.pos.y+this.player.eye,this.player.pos.z);this.camera.rotation.set(this.player.pitch,this.player.yaw,0,'YXZ');
       this.updateFocus();this.mine(dt);if(this.input.right)this.place();
@@ -1433,7 +2142,7 @@ class Game {
     }
     this.streamTimer-=dt;if(this.world.seed&&this.streamTimer<=0){this.streamTimer=.3;this.world.update(this.player.pos,this.settings.distance);}this.world.pump();
     this.atmosphere.update(dt,this.player.pos,this.camera,playing);
-    this.renderer.info.reset();this.renderer.clear();this.renderer.render(this.scene,this.camera);
+    this.renderer.info.reset();this.graphics.update(dt,playing);this.graphics.render();
     if(playing){this.hand.update(dt,this.player,this.player.velocity.lengthSq()>.2&&this.player.grounded);this.renderer.clearDepth();this.renderer.render(this.hand.scene,this.hand.camera);}
     this.drawCalls=this.renderer.info.render.calls;this.frames++;
     if(time-this.sampleStart>700){this.fps=this.frames*1000/(time-this.sampleStart);this.sampleStart=time;this.frames=0;}
@@ -1442,7 +2151,7 @@ class Game {
   }
   dispose() {
     this.disposed=true;this.renderer.setAnimationLoop(null);clearTimeout(this.toastTimer);this.events.abort();this.input.dispose();this.ui.dispose();this.gui.destroy();
-    this.pool.dispose();this.mobs.dispose();this.world.dispose();this.hand.dispose();this.atmosphere.dispose();this.atlas.dispose();this.highlight.geometry.dispose();this.highlight.material.dispose();this.renderer.dispose();this.audio.dispose();this.store.dispose();
+    this.pool.dispose();this.graphics.dispose();this.mobs.dispose();this.world.dispose();this.hand.dispose();this.atmosphere.dispose();this.atlas.dispose();this.highlight.geometry.dispose();this.highlight.material.dispose();this.renderer.dispose();this.audio.dispose();this.store.dispose();
   }
 }
 
