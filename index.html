@@ -1,0 +1,1457 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#15251c">
+<meta name="description" content="Voxelcraft: mundo voxel procedural en un solo HTML. Explora, construye y fabrica con guardado local.">
+<title>Voxelcraft · Un mundo por descubrir</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 44'%3E%3Cpath d='M20 2 38 12 20 22 2 12Z' fill='%2394b36b'/%3E%3Cpath d='M2 12 20 22v20L2 32Z' fill='%2357763e'/%3E%3Cpath d='m20 22 18-10v20L20 42Z' fill='%2378994f'/%3E%3C/svg%3E">
+<style>
+:root{color-scheme:dark;--cream:#f5f4dd;--muted:#b2c1a4;--line:#d3e6bd23;--panel:#14261de8;--accent:#afca7b;font-family:'Segoe UI',system-ui,sans-serif;color:var(--cream);font-synthesis:none}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#172c25}button,input{font:inherit}button{cursor:pointer;color:inherit;border:0}button:disabled{opacity:.45;cursor:wait}button:focus-visible,input:focus-visible,canvas:focus-visible{outline:2px solid var(--accent);outline-offset:4px}[hidden]{display:none!important}svg{display:block}.symbols{position:absolute;width:0;height:0;overflow:hidden}button svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}#world{display:block;position:fixed;inset:0;width:100%;height:100%;outline-offset:-3px;touch-action:none}button,input,a{pointer-events:auto}button{transition:background .15s,transform .15s}button:active{transform:translateY(1px)}.brand{display:flex;align-items:center;gap:12px;font-size:26px;font-weight:750;letter-spacing:-1px}.brand svg{width:30px;height:34px}.brand small{display:block;font-size:7px;letter-spacing:2.1px;font-weight:500;margin:5px 0 0;color:var(--muted)}.eyebrow{font-size:9px;font-weight:600;letter-spacing:2px;color:var(--accent);margin:0 0 18px}.main-button{background:var(--accent);color:#1c3420;border:1px solid #d2e6a56b;border-radius:7px;padding:14px 20px;font-size:13px;font-weight:650;display:flex;align-items:center;justify-content:center;gap:20px}.main-button:hover{background:#bfd88c}.secondary-button{background:#e3edcc0b;border:1px solid var(--line);border-radius:6px;padding:11px 15px;font-size:11px}.secondary-button:hover{background:#d4e6b318}.icon-button{width:34px;height:34px;border:1px solid var(--line);background:#17291c99;border-radius:7px;display:grid;place-items:center}.icon-button:hover{background:#55734c66}.text-button{background:none;color:#d0debaaa;font-size:10px;padding:8px 0;text-decoration:underline;text-underline-offset:3px}.text-button:hover{color:var(--cream)}.menu{position:fixed;inset:0;z-index:10;background:linear-gradient(90deg,#0c201bea 0%,#10241eb0 32%,#10241e18 70%);display:flex;flex-direction:column;padding:35px 48px}.menu-top{display:flex;align-items:center;justify-content:space-between}.version{font:9px Consolas,monospace;color:#cfddbb99;border:1px solid var(--line);padding:9px 12px;letter-spacing:1.2px;border-radius:4px}.menu-content{margin:auto 0;width:350px;max-width:90vw;padding-top:35px}.menu h1{font-size:56px;line-height:1.06;font-weight:600;letter-spacing:-2.6px;margin:0 0 20px}.menu-intro{font-size:13px;line-height:1.8;color:#c2d0b4b8;margin-bottom:28px;max-width:310px}.seed-label{font-size:8px;letter-spacing:1.8px;color:#a9bd96;display:block;margin-bottom:8px}.seed-field{display:flex;border:1px solid #dce8ca32;background:#0e211c66;border-radius:6px;margin-bottom:12px;overflow:hidden}.seed-field input{min-width:0;width:100%;border:0;background:none;color:var(--cream);font:12px Consolas,monospace;padding:12px 14px;letter-spacing:1px}.seed-field button{background:#c5dba211;padding:0 13px;color:#afc395;font-size:10px;border-left:1px solid var(--line)}.menu .main-button{width:100%;justify-content:space-between}.load-info{font:9px Consolas,monospace;color:#abc494;margin:10px 0 5px;min-height:14px}.loading-track{height:2px;background:#d4e7c51b;border-radius:1px;margin-bottom:9px}.loading-track span{height:100%;display:block;background:#a7c27c;width:0;transition:width .2s}.drag-entry{display:block;width:100%;text-align:left;margin-top:2px}.menu-bottom{display:flex;justify-content:space-between;align-items:flex-end;font:8px Consolas,monospace;color:#ccdab693;letter-spacing:.3px}.menu-bottom span{color:#a9c186}.menu-controls{display:flex;gap:17px;font-family:'Segoe UI',sans-serif;font-size:9px}.menu-controls b{font-weight:500;color:#e1e8d0;margin-right:5px}.hud{position:fixed;inset:0;pointer-events:none;z-index:2}.hud-top{position:absolute;top:24px;left:26px;right:26px;display:flex;justify-content:space-between;align-items:flex-start}.world-chip{background:#14261dc9;backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:9px;padding:11px 14px;min-width:165px;box-shadow:0 4px 20px #0a1e1912}.biome-row{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:1.3px;font-weight:600}.status-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px #a1c57833}.coordinates{font:9px Consolas,monospace;color:#b6c99faa;margin-top:7px;line-height:1.5}.hud-right{display:flex;align-items:center;gap:9px}.time-chip{font:10px Consolas,monospace;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:#14261dab;color:#d0ddbc}.crosshair{position:absolute;left:50%;top:50%;width:17px;height:17px;transform:translate(-50%,-50%);filter:drop-shadow(0 1px 1px #000b)}.crosshair:before,.crosshair:after{content:'';position:absolute;background:#ffffe8d9;left:8px;top:2px;width:1px;height:13px}.crosshair:after{left:2px;top:8px;width:13px;height:1px}.mine-track{position:absolute;left:50%;top:calc(50% + 21px);transform:translateX(-50%);width:46px;height:3px;background:#10221644}.mine-track span{display:block;height:100%;background:#e9eac4;width:0}.focus-name{position:absolute;left:50%;top:calc(50% + 35px);transform:translateX(-50%);font-size:9px;color:#eef3d2;white-space:nowrap;text-shadow:0 1px 4px #000}.bottom-hud{position:absolute;bottom:23px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}.hotbar{display:flex;gap:5px;padding:6px;background:#10231be6;border:1px solid #e6edcb3a;border-radius:10px;box-shadow:0 5px 30px #00180f33;pointer-events:auto}.slot{position:relative;width:48px;height:48px;background:#e8eecb0a;border:1px solid #dfebc51e;border-radius:5px;display:grid;place-items:center;padding:5px;cursor:pointer}.slot:hover{background:#e8eecb15}.slot.selected{background:#abc28126;border-color:#d6e2ab;box-shadow:inset 0 -3px 0 #c4d997}.slot .item-icon{width:31px;height:31px;background-size:100%;image-rendering:pixelated;filter:drop-shadow(1px 2px 1px #00190e66)}.item-count{position:absolute;bottom:3px;right:4px;font:11px Consolas,monospace;color:#f9f8de;text-shadow:1px 1px #16291c;font-weight:650}.slot-number{position:absolute;left:4px;top:2px;font:7px Consolas,monospace;color:#bdcf9b80}.selected-name{min-height:21px;font-size:11px;text-shadow:0 1px 5px #000b;color:#f0f1d6;transition:opacity .3s}.vitals{width:100%;display:flex;justify-content:space-between;align-items:center;font:9px Consolas,monospace;margin:0 0 7px;color:#dbebc8}.hearts{color:#e8a288;font-size:14px;letter-spacing:2px;text-shadow:0 1px 4px #172a21}.mode-label{color:#d0e2ac;font-size:8px;letter-spacing:1px}.key-hint{font-size:8px;color:#e4edcbad;margin-top:8px;text-shadow:0 1px 4px #000}.key-hint span{margin:0 9px;color:#c8dcb0}.save-state{position:absolute;bottom:19px;right:24px;font:8px Consolas,monospace;color:#d7e7bda6;letter-spacing:.5px}.debug{position:absolute;top:103px;left:26px;font:10px/1.8 Consolas,monospace;white-space:pre;background:#0b2014a8;color:#e6eccb;padding:12px;border-radius:6px}.toast{position:fixed;left:50%;bottom:153px;transform:translateX(-50%);background:#172d20ed;color:#e5edcd;font-size:11px;border:1px solid #d2e2b344;border-radius:7px;padding:11px 18px;z-index:22;pointer-events:none;max-width:90vw;text-align:center}.modal-overlay{position:fixed;inset:0;background:#0a191d88;backdrop-filter:blur(7px);display:grid;place-items:center;z-index:12}.pause-card{width:min(450px,90vw);background:#182b22f5;border:1px solid #d7e4b833;border-radius:16px;padding:30px;max-height:90dvh;overflow:auto;box-shadow:0 20px 80px #001a1244}.pause-card h2{font-size:30px;letter-spacing:-.8px;margin:10px 0}.pause-card p{font-size:12px;line-height:1.7;color:#b9cba5}.pause-actions{display:flex;gap:9px;margin-top:20px}.pause-actions button{flex:1}.settings-title{font-size:9px;letter-spacing:1.5px;color:#aec491;margin:25px 0 12px}.gui-holder .dg{font-family:'Segoe UI',sans-serif!important;font-size:11px!important;float:none!important;width:100%!important}.gui-holder .dg .close-button{display:none!important}.gui-holder .dg li:not(.folder){background:#14271b!important;border-bottom:1px solid #d6e9bc13!important}.gui-holder .dg .c input[type=text]{background:#d1e7b30c!important;color:#c9dfa7!important}.gui-holder .dg .c .slider{background:#bfd99e1a!important}.gui-holder .dg .c .slider-fg{background:#96b767!important}.gui-holder .dg .cr.number,.gui-holder .dg .cr.boolean{border-left-color:#9cbb73!important}.inventory{position:fixed;inset:0;z-index:15;background:#0b1b18a1;backdrop-filter:blur(8px);display:grid;place-items:center;padding:20px}.inventory-card{width:min(920px,96vw);background:#1b2c22f7;border:1px solid #d5e0b83d;border-radius:15px;box-shadow:0 20px 100px #001b1270;overflow:hidden}.inventory-header{padding:21px 25px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}.inventory-header h2{font-size:21px;font-weight:600;margin:0;letter-spacing:-.5px}.inventory-header p{font-size:10px;margin:5px 0 0;color:#9cb58a}.inventory-content{display:grid;grid-template-columns:230px 1fr}.recipes-panel{padding:22px;border-right:1px solid var(--line);background:#14241a55;max-height:530px;overflow:auto;scrollbar-width:thin;scrollbar-color:#698254 transparent}.recipes-panel h3{font-size:9px;letter-spacing:1.5px;color:#aec393;margin:0 0 13px;font-weight:500}.recipe-button{display:flex;align-items:center;gap:10px;background:transparent;border:1px solid transparent;padding:8px 7px;width:100%;border-radius:6px;text-align:left;margin-bottom:3px}.recipe-button:hover{background:#b8ce9411;border-color:#c4d9a41a}.recipe-button .item-icon{width:25px;height:25px;background-size:100%;image-rendering:pixelated;flex-shrink:0}.recipe-button strong{font-size:10px;font-weight:500;display:block}.recipe-button small{display:block;color:#8fa97a;font-size:8px;margin-top:4px;line-height:1.5}.craft-area{padding:25px 27px}.craft-heading{font-size:9px;letter-spacing:1.5px;color:#aec393;margin-bottom:14px}.craft-top{display:flex;align-items:center;gap:20px;padding-bottom:23px;border-bottom:1px solid var(--line);min-height:175px}.craft-grid{display:grid;gap:5px;grid-template-columns:repeat(2,48px)}.craft-arrow{color:#849b70;font-size:23px}.output-slot{border-color:#c7dba064!important;background:#a2bc7422!important;width:58px;height:58px}.craft-explanation{font-size:10px;line-height:1.8;color:#a2b78d;max-width:120px}.craft-explanation strong{display:block;color:#d3e0b7;font-size:11px;font-weight:500;margin-bottom:5px}.backpack-label{display:flex;align-items:center;justify-content:space-between;font-size:9px;letter-spacing:1.5px;color:#aec393;margin:19px 0 11px}.backpack-label span{font-size:8px;letter-spacing:0;color:#7f9b70}.bag-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:5px}.bag-grid .slot{width:100%;aspect-ratio:1;height:auto}.bag-grid .slot .item-icon{width:30px;height:30px}.bag-hotbar{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}.inventory-footer{font-size:9px;color:#8fa97b;border-top:1px solid var(--line);padding:13px 25px;display:flex;justify-content:space-between;gap:10px}.cursor-item{position:fixed;width:45px;height:45px;z-index:100;pointer-events:none;transform:translate(8px,8px);display:grid;place-items:center}.cursor-item .item-icon{width:33px;height:33px;background-size:100%;image-rendering:pixelated;filter:drop-shadow(2px 3px 1px #00190e99)}.help-card{width:min(570px,92vw);background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:30px;max-height:86dvh;overflow:auto}.help-card h2{font-size:28px;margin:10px 0 20px}.help-row{display:flex;justify-content:space-between;align-items:center;gap:15px;font-size:11px;border-top:1px solid var(--line);padding:11px 0}.help-row span:last-child{font:10px Consolas,monospace;color:#a8c08b;text-align:right}.help-note{font-size:10px;line-height:1.8;color:#a9bf93;background:#adc9840d;padding:14px;border-radius:8px}.help-top{display:flex;justify-content:space-between;align-items:center}.fatal{position:fixed;inset:0;z-index:200;background:#172c25;display:grid;place-items:center;padding:30px}.fatal article{max-width:490px}.fatal h2{font-size:30px}.fatal p{font-size:13px;line-height:1.9;color:#b9cba7}.damage{position:fixed;inset:0;pointer-events:none;box-shadow:inset 0 0 100px #b7473255;z-index:3;opacity:0;transition:opacity .18s}.busy{pointer-events:none;opacity:.45}kbd{font:9px Consolas,monospace;padding:2px 4px;border:1px solid #c1d2a62d;border-radius:3px;background:#b6cba00c}body.is-playing{cursor:default}.sr-only{position:absolute;clip:rect(0,0,0,0);width:1px;height:1px;overflow:hidden}
+@media(max-width:950px){.menu{padding:27px}.menu h1{font-size:47px}.menu-content{width:320px}.menu-controls{display:none}.inventory-content{grid-template-columns:190px 1fr}.recipes-panel{padding:17px}.craft-area{padding:20px}.slot{width:43px;height:43px}.craft-grid{grid-template-columns:repeat(2,43px)}.craft-top{gap:14px}.craft-explanation{font-size:9px;max-width:100px}.bag-grid .slot .item-icon{width:25px;height:25px}}
+@media(max-width:650px){.menu{padding:22px;background:linear-gradient(90deg,#0c201be8,#10241e66)}.brand{font-size:23px}.brand small{font-size:6px}.version{font-size:7px;padding:7px}.menu h1{font-size:42px}.menu-content{max-width:100%;width:320px;padding-top:22px}.menu-intro{font-size:11px;max-width:275px}.menu-bottom{font-size:7px}.menu-bottom>div:last-child{display:none}.hud-top{top:14px;left:13px;right:13px}.world-chip{min-width:140px;padding:9px 11px}.coordinates{font-size:8px}.hotbar{gap:3px;padding:4px;border-radius:7px}.hotbar .slot{width:calc((100vw - 55px)/9);max-width:43px;height:39px;padding:3px}.hotbar .item-icon{width:25px;height:25px}.item-count{font-size:9px;right:2px;bottom:2px}.slot-number{font-size:6px;left:2px}.bottom-hud{bottom:24px}.key-hint{font-size:6px}.key-hint span{margin:0 5px}.time-chip{font-size:8px;padding:9px}.save-state{bottom:7px;right:15px;font-size:7px}.inventory{padding:8px}.inventory-card{max-height:96dvh;overflow:auto}.inventory-content{grid-template-columns:1fr}.recipes-panel{max-height:105px;overflow:auto;display:flex;gap:4px;border-right:0;border-bottom:1px solid var(--line);padding:10px}.recipes-panel h3{display:none}.recipe-button{min-width:140px;width:140px;margin:0}.recipe-button small{font-size:7px}.craft-area{padding:15px}.craft-top{min-height:145px;padding-bottom:16px}.craft-explanation{max-width:110px}.bag-grid{gap:3px}.bag-grid .slot{padding:2px;min-width:0}.bag-grid .slot .item-icon{width:24px;height:24px}.inventory-header{padding:15px}.inventory-header h2{font-size:18px}.inventory-footer{font-size:7px;padding:10px 15px}.pause-card{padding:23px}.debug{left:13px;top:91px;font-size:8px}.hearts{font-size:12px}.selected-name{font-size:10px}}
+@media(max-height:600px){.menu{padding:20px 30px}.brand{font-size:22px}.brand small{font-size:6px}.menu-content{padding:10px 0;width:320px}.menu-content .eyebrow{margin:8px 0 10px;font-size:7px}.menu h1{font-size:35px;margin:0 0 10px}.menu-intro{font-size:10px;margin:8px 0 15px;line-height:1.6}.menu .main-button{padding:11px 17px}.seed-field input{padding:9px 12px}.seed-label{font-size:7px}.menu-bottom{font-size:7px}.menu-bottom .menu-controls{display:none}.loading-track{margin-bottom:4px}.inventory-card{max-height:95dvh;overflow:auto}.inventory-header{padding:12px 22px}.inventory-header p{display:none}.craft-area{padding:15px 22px}.craft-top{min-height:120px;padding-bottom:14px}.backpack-label{margin:12px 0 8px}.craft-grid .slot{width:36px;height:36px}.craft-grid{gap:4px}.bag-grid .slot{height:34px;aspect-ratio:auto}.bag-grid .item-icon{width:25px;height:25px}.craft-explanation{max-width:160px}.inventory-footer{padding:9px 22px}.recipes-panel{max-height:360px}.output-slot{width:47px;height:47px}.inventory-header h2{font-size:18px}.toast{bottom:130px;font-size:9px}}
+@media(max-width:650px){#recipe-list{display:flex}.recipes-panel{max-height:105px}}
+</style>
+</head>
+<body>
+<svg class="symbols" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol><symbol id="gear" viewBox="0 0 24 24"><path d="m9 3-1 3-3 1-2 5 2 5 3 1 1 3h6l1-3 3-1 2-5-2-5-3-1-1-3Z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol><symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 1 1 4 2.8c-1 .4-1 1-1 2M12 17h.01"/></symbol></svg>
+<canvas id="world" tabindex="0" aria-label="Mundo voxel 3D. WASD para moverte. Espacio para saltar. E abre el inventario."></canvas>
+<section id="menu" class="menu" aria-label="Inicio de Voxelcraft">
+  <div class="menu-top"><div class="brand"><svg viewBox="0 0 40 44" aria-hidden="true"><path d="M20 2 38 12 20 22 2 12Z" fill="#adc780"/><path d="M2 12 20 22v20L2 32Z" fill="#668751"/><path d="m20 22 18-10v20L20 42Z" fill="#85a561"/></svg><div>voxelcraft<small>UN MUNDO, BLOQUE A BLOQUE</small></div></div><span class="version">EDICIÓN EXPLORADOR / 1.0</span></div>
+  <div class="menu-content"><p class="eyebrow">EXPLORA. IMAGINA. CONSTRUYE.</p><h1>Tu mundo.<br>Tus reglas.</h1><p class="menu-intro">Bosques que explorar, montañas que cruzar y un mundo entero por construir. Empieza con un bloque.</p>
+    <label class="seed-label" for="seed">SEMILLA DEL MUNDO</label><div class="seed-field"><input id="seed" value="ALBA-2026" maxlength="64" autocomplete="off" spellcheck="false" aria-label="Semilla del mundo"><button id="load-world" disabled>Cargar</button></div>
+    <button id="play" class="main-button" disabled><span>Preparando mundo…</span><svg><use href="#arrow"/></svg></button>
+    <div id="load-info" class="load-info" role="status">Conectando con las bibliotecas…</div><div class="loading-track"><span id="load-progress"></span></div>
+    <button id="play-drag" class="text-button drag-entry" disabled>Entrar sin capturar el ratón</button>
+  </div>
+  <div class="menu-bottom"><div><span>●</span> GUARDADO LOCAL AUTOMÁTICO <span> / </span> SEMILLA REPRODUCIBLE</div><div class="menu-controls"><div><b>WASD</b> Mover</div><div><b>ESPACIO</b> Saltar</div><div><b>E</b> Inventario</div><div><b>ESC</b> Pausa</div></div><div id="menu-version">THREE.JS · GREEDY MESHING · VERTEX AO</div></div>
+</section>
+<div id="hud" class="hud" hidden>
+  <div class="hud-top"><div class="world-chip"><div class="biome-row"><i class="status-dot"></i><span id="biome">PLANICIE</span></div><div id="coords" class="coordinates"></div></div><div class="hud-right"><div id="clock" class="time-chip">09:00</div><button id="pause-button" class="icon-button" aria-label="Pausar y abrir opciones" title="Pausa y opciones · Esc"><svg><use href="#gear"/></svg></button></div></div>
+  <div id="debug" class="debug" hidden></div><div class="crosshair"></div><div id="mine-track" class="mine-track" hidden><span id="mine-progress"></span></div><div id="focus-name" class="focus-name"></div>
+  <div class="bottom-hud"><div id="selected-name" class="selected-name"></div><div class="vitals"><span id="hearts" class="hearts"></span><span id="mode-label" class="mode-label">A PIE</span></div><div id="hotbar" class="hotbar" role="toolbar" aria-label="Barra rápida de nueve ranuras"></div><div class="key-hint"><b>E</b> Inventario<span>·</span><b>1–9</b> Seleccionar<span>·</span><b>2× ESPACIO</b> Vuelo<span>·</span><b>F3</b> Métricas</div></div>
+  <div id="save-state" class="save-state" role="status">Mundo local</div>
+</div>
+<div id="pause" class="modal-overlay" hidden><section class="pause-card" aria-label="Pausa y opciones"><p class="eyebrow">TÓMATE UN RESPIRO</p><h2>Mundo en pausa.</h2><p>Tu construcción te espera. El mundo se guarda automáticamente en este navegador.</p><div class="pause-actions"><button id="resume" class="main-button">Continuar</button><button id="open-help" class="secondary-button">Controles</button></div><p class="settings-title">AJUSTES DEL MUNDO</p><div id="settings" class="gui-holder"></div><div class="pause-actions"><button id="save-now" class="secondary-button">Guardar ahora</button><button id="to-menu" class="secondary-button">Volver al inicio</button></div><p id="storage-info" style="font-size:9px"></p></section></div>
+<div id="help-modal" class="modal-overlay" hidden><section class="help-card" aria-label="Controles"><div class="help-top"><p class="eyebrow">MANUAL DEL EXPLORADOR</p><button id="close-help" class="icon-button" aria-label="Cerrar controles"><svg><use href="#x"/></svg></button></div><h2>Un bloque a la vez.</h2><div class="help-row"><span>Caminar / correr</span><span>WASD / Ctrl</span></div><div class="help-row"><span>Saltar / alternar vuelo</span><span>Espacio / doble Espacio</span></div><div class="help-row"><span>Agacharse / descender en vuelo</span><span>Shift</span></div><div class="help-row"><span>Romper / colocar o usar mesa</span><span>Mantener clic izq. / clic der.</span></div><div class="help-row"><span>Seleccionar / inventario</span><span>1–9 o rueda / E</span></div><div class="help-row"><span>Pausa / métricas / captura de ratón</span><span>Esc / F3 / P</span></div><div class="help-row"><span>Mover pila / dividir pila</span><span>Clic / clic derecho</span></div><div class="help-row"><span>Transferir rápido / fabricar al inventario</span><span>Shift + clic</span></div><p class="help-note">Haz clic en una receta para colocar sus ingredientes desde tu mochila. Necesitas una mesa de trabajo para las recetas de 3×3. La roca madre es indestructible. En el modo sin captura, mira arrastrando con el botón central; también puedes usar las flechas. En el inventario, clic derecho recoge media pila o coloca una unidad. Las manzanas recuperan vida con clic derecho.</p><p class="help-note">El guardado pertenece a esta semilla y a este navegador/origen. Mantén la misma dirección local para recuperar tus mundos. Se necesita Internet para cargar las tres bibliotecas desde CDN. Código del juego y texturas están integrados en este archivo.</p></section></div>
+<section id="inventory" class="inventory" aria-label="Inventario y fabricación" hidden><div class="inventory-card"><header class="inventory-header"><div><h2 id="inventory-title">Tu inventario</h2><p>Todo lo que necesitas para tu próxima idea.</p></div><button id="close-inventory" class="icon-button" aria-label="Cerrar inventario"><svg><use href="#x"/></svg></button></header><div class="inventory-content"><aside class="recipes-panel"><h3>RECETAS</h3><div id="recipe-list"></div></aside><div class="craft-area"><div id="craft-heading" class="craft-heading">FABRICACIÓN · 2 × 2</div><div class="craft-top"><div id="craft-grid" class="craft-grid" role="group" aria-label="Ingredientes de fabricación"></div><div class="craft-arrow">→</div><button id="craft-output" class="slot output-slot" aria-label="Resultado de fabricación"></button><div class="craft-explanation"><strong id="recipe-name">Dale forma a tu idea.</strong><span id="recipe-description">Combina materiales o elige una receta.</span></div></div><div class="backpack-label">MOCHILA<span>Shift + clic · transferir</span></div><div id="bag-grid" class="bag-grid" role="group" aria-label="Mochila"></div><div id="bag-hotbar" class="bag-grid bag-hotbar" role="group" aria-label="Barra rápida del inventario"></div></div></div><footer class="inventory-footer"><span>Clic · mover &nbsp; / &nbsp; Clic der. · dividir &nbsp; / &nbsp; E · cerrar</span><span id="inventory-capacity"></span></footer></div></section>
+<div id="cursor-item" class="cursor-item" hidden></div><div id="toast" class="toast" role="status" hidden></div><div id="damage" class="damage"></div>
+<section id="fatal" class="fatal" hidden><article><p class="eyebrow">VOXELCRAFT / INICIO</p><h2>No pudimos abrir el mundo.</h2><p id="fatal-message"></p><button class="main-button" onclick="location.reload()">Volver a intentar</button></article></section>
+<noscript><div class="fatal"><article>Activa JavaScript para iniciar el mundo.</article></div></noscript>
+<script id="recipes-data" type="application/json">
+[
+ {"name":"Tablones","pattern":["L"],"key":{"L":5},"result":{"id":11,"count":4}},
+ {"name":"Palos","pattern":["P","P"],"key":{"P":11},"result":{"id":101,"count":4}},
+ {"name":"Mesa de trabajo","pattern":["PP","PP"],"key":{"P":11},"result":{"id":12,"count":1}},
+ {"name":"Pico de madera","pattern":["PPP"," S "," S "],"key":{"P":11,"S":101},"result":{"id":102,"count":1}},
+ {"name":"Pico de piedra","pattern":["RRR"," S "," S "],"key":{"R":14,"S":101},"result":{"id":103,"count":1}},
+ {"name":"Lingote de hierro","pattern":["IC"],"key":{"I":9,"C":8},"result":{"id":105,"count":1}},
+ {"name":"Pico de hierro","pattern":["III"," S "," S "],"key":{"I":105,"S":101},"result":{"id":104,"count":1}},
+ {"name":"Cristal","pattern":["AC"],"key":{"A":4,"C":8},"result":{"id":7,"count":4}},
+ {"name":"Piedra compactada","pattern":["RR","RR"],"key":{"R":14},"result":{"id":3,"count":4}}
+]
+</script>
+<script type="module">
+const $ = id => document.getElementById(id);
+function fatal(message) { $('fatal-message').textContent = message; $('fatal').hidden = false; }
+async function loadModule(path) {
+  let last;
+  for (const host of ['https://cdn.jsdelivr.net/npm/', 'https://unpkg.com/']) {
+    const url = host + path;
+    try {
+      const module = await Promise.race([import(url), new Promise((_, reject) => setTimeout(() => reject(new Error('Tiempo de espera de CDN agotado')), 18000))]);
+      return { module, url };
+    } catch (error) { last = error; }
+  }
+  throw last;
+}
+try {
+const libraries = await Promise.all([
+  loadModule('three@0.160.1/build/three.module.js'),
+  loadModule('simplex-noise@4.0.3/dist/esm/simplex-noise.js'),
+  loadModule('dat.gui@0.7.9/build/dat.gui.module.js'),
+]);
+const THREE = libraries[0].module, { createNoise2D, createNoise3D } = libraries[1].module, { GUI } = libraries[2].module;
+
+function createVoxelCore(createNoise2D, createNoise3D) {
+  const S = 16, H = 256, VOLUME = S * S * H, P = 18;
+  const B = Object.freeze({ AIR: 0, GRASS: 1, DIRT: 2, STONE: 3, SAND: 4, LOG: 5,
+    LEAVES: 6, GLASS: 7, COAL: 8, IRON: 9, BEDROCK: 10, PLANKS: 11, TABLE: 12,
+    SNOW: 13, COBBLE: 14 });
+  const ITEMS = {
+    1: { name: 'Pasto', tile: 0, side: 1, bottom: 2, hardness: .32, sound: 'soil', drop: 2 },
+    2: { name: 'Tierra', tile: 2, hardness: .3, sound: 'soil' },
+    3: { name: 'Piedra', tile: 3, hardness: 1.0, sound: 'stone', drop: 14 },
+    4: { name: 'Arena', tile: 4, hardness: .28, sound: 'soil' },
+    5: { name: 'Tronco', tile: 6, side: 5, hardness: .65, sound: 'wood' },
+    6: { name: 'Hojas', tile: 7, hardness: .14, sound: 'soil' },
+    7: { name: 'Cristal', tile: 8, hardness: .2, sound: 'glass' },
+    8: { name: 'Mineral de carbón', tile: 9, hardness: 1.15, sound: 'stone' },
+    9: { name: 'Mineral de hierro', tile: 10, hardness: 1.4, sound: 'stone' },
+    10: { name: 'Roca madre', tile: 11, hardness: Infinity, sound: 'stone' },
+    11: { name: 'Tablones', tile: 12, hardness: .5, sound: 'wood' },
+    12: { name: 'Mesa de trabajo', tile: 13, side: 14, bottom: 12, hardness: .7, sound: 'wood' },
+    13: { name: 'Nieve', tile: 15, side: 1, bottom: 2, hardness: .3, sound: 'soil', drop: 2 },
+    14: { name: 'Roca', tile: 3, hardness: .85, sound: 'stone' },
+    101: { name: 'Palo', tile: 5, max: 64, tool: 'stick' },
+    102: { name: 'Pico de madera', tile: 12, max: 1, tool: 'pick', power: 2 },
+    103: { name: 'Pico de piedra', tile: 3, max: 1, tool: 'pick', power: 4 },
+    104: { name: 'Pico de hierro', tile: 10, max: 1, tool: 'pick', power: 7 },
+    105: { name: 'Lingote de hierro', tile: 10, max: 64, tool: 'ingot' },
+    106: { name: 'Manzana', tile: 7, max: 64, tool: 'food' },
+  };
+  const index = (x, y, z) => x + S * z + S * S * y;
+  const pindex = (x, y, z) => (x + 1) + P * (z + 1) + P * P * (y + 1);
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  const smooth = (a, b, n) => { const t = clamp((n - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+  const opaque = id => id !== B.AIR && id !== B.GLASS;
+  const stackMax = id => ITEMS[id]?.max ?? 64;
+
+  function seedHash(text) {
+    let h = 2166136261;
+    for (let i = 0; i < text.length; i++) h = Math.imul(h ^ text.charCodeAt(i), 16777619);
+    return h >>> 0;
+  }
+  function random(seed) {
+    let state = seed >>> 0;
+    return () => {
+      let n = state += 0x6D2B79F5;
+      n = Math.imul(n ^ n >>> 15, n | 1);
+      n ^= n + Math.imul(n ^ n >>> 7, n | 61);
+      return ((n ^ n >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function hash2(x, z, seed) {
+    let n = Math.imul(x, 374761393) ^ Math.imul(z, 668265263) ^ seed;
+    n = Math.imul(n ^ n >>> 13, 1274126177);
+    return ((n ^ n >>> 16) >>> 0) / 4294967296;
+  }
+
+  class Terrain {
+    constructor(seed) {
+      this.seed = String(seed);
+      this.hash = seedHash(this.seed);
+      this.noise2 = createNoise2D(random(this.hash));
+      this.noise3 = createNoise3D(random(this.hash ^ 0x9E3779B9));
+    }
+    fbm(x, z, octaves = 4) {
+      let amplitude = .57, value = 0, frequency = 1, total = 0;
+      for (let i = 0; i < octaves; i++) {
+        value += this.noise2(x * frequency, z * frequency) * amplitude;
+        total += amplitude; frequency *= 2.03; amplitude *= .48;
+      }
+      return value / total;
+    }
+    column(x, z) {
+      const climate = this.noise2(x * .0028 + 137, z * .0028 - 91);
+      const ridge = smooth(.05, .65, this.noise2(x * .0036 - 72, z * .0036 + 84));
+      const biome = ridge > .48 ? 1 : climate > .25 ? 2 : 0;
+      const low = this.fbm(x * .012, z * .012) * (biome === 2 ? 5 : 7);
+      const mountain = ridge * (18 + Math.abs(this.fbm(x * .023 + 21, z * .023)) * 40);
+      const height = clamp(Math.floor(38 + low + mountain), 24, 108);
+      return { height, biome };
+    }
+    generate(cx, cz) {
+      const data = new Uint8Array(VOLUME), ox = cx * S, oz = cz * S;
+      let highest = 0;
+      for (let z = 0; z < S; z++) for (let x = 0; x < S; x++) {
+        const wx = ox + x, wz = oz + z, { height, biome } = this.column(wx, wz);
+        highest = Math.max(highest, height);
+        for (let y = 0; y <= height; y++) {
+          let id = y === 0 ? B.BEDROCK : B.STONE;
+          if (y >= height - 3) id = biome === 2 ? B.SAND : B.DIRT;
+          if (y === height) id = biome === 2 ? B.SAND : height > 66 ? B.SNOW : B.GRASS;
+          if (id === B.STONE && y > 3 && y < height - 4) {
+            const cavern = this.noise3(wx * .048, y * .065, wz * .048);
+            const helixX = wx + Math.sin(y * .16) * 9;
+            const helixZ = wz + Math.cos(y * .16) * 9;
+            const tunnel = Math.abs(this.noise3(helixX * .055, y * .035, helixZ * .055)) < .065
+              && Math.abs(this.noise3(wx * .024 + 95, y * .06, wz * .024 - 62)) < .2;
+            if (cavern > .57 || tunnel) id = B.AIR;
+            else {
+              const vein = this.noise3(wx * .16 + 50, y * .16, wz * .16 - 40);
+              if (vein > .64 && y < 38) id = B.IRON;
+              else if (vein < -.55) id = B.COAL;
+            }
+          }
+          data[index(x, y, z)] = id;
+        }
+      }
+      const write = (wx, y, wz, id, replace = false) => {
+        const x = wx - ox, z = wz - oz;
+        if (x < 0 || x >= S || z < 0 || z >= S || y < 1 || y >= H) return;
+        const i = index(x, y, z);
+        if (replace || data[i] === B.AIR || data[i] === B.LEAVES) {
+          data[i] = id; highest = Math.max(highest, y);
+        }
+      };
+      // Las raíces se eligen en coordenadas globales, también fuera del chunk.
+      // De esta forma las copas cruzan sus fronteras sin depender del orden de carga.
+      for (let gz = Math.floor((oz - 3) / 5); gz <= Math.floor((oz + S + 2) / 5); gz++) {
+        for (let gx = Math.floor((ox - 3) / 5); gx <= Math.floor((ox + S + 2) / 5); gx++) {
+          const r = hash2(gx, gz, this.hash);
+          if (r > .54) continue;
+          const tx = gx * 5 + Math.floor(hash2(gx + 93, gz, this.hash) * 4);
+          const tz = gz * 5 + Math.floor(hash2(gx, gz - 83, this.hash) * 4);
+          const col = this.column(tx, tz);
+          if (col.biome !== 0 || col.height > 64) continue;
+          const trunk = 4 + Math.floor(r * 5), crown = col.height + trunk;
+          for (let dy = -1; dy <= 2; dy++) {
+            const radius = dy === 2 ? 1 : 2;
+            for (let dz = -radius; dz <= radius; dz++) for (let dx = -radius; dx <= radius; dx++) {
+              if (Math.abs(dx) === radius && Math.abs(dz) === radius && dy !== 0) continue;
+              write(tx + dx, crown + dy, tz + dz, B.LEAVES);
+            }
+          }
+          for (let y = col.height + 1; y <= crown; y++) write(tx, y, tz, B.LOG, true);
+        }
+      }
+      return { data, highest };
+    }
+  }
+
+  function faceAO(halo, x, y, z, d, sign) {
+    const u = (d + 1) % 3, v = (d + 2) % 3, base = [x, y, z];
+    base[d] += sign;
+    const sample = (du, dv) => {
+      const c = base.slice(); c[u] += du; c[v] += dv;
+      return Number(opaque(halo[pindex(c[0], c[1], c[2])] ?? 0));
+    };
+    // Anillo de ocho vecinos: cuatro laterales y las cuatro diagonales.
+    const left = sample(-1, 0), right = sample(1, 0), low = sample(0, -1), high = sample(0, 1);
+    const corner = [sample(-1, -1), sample(1, -1), sample(1, 1), sample(-1, 1)];
+    const sides = [[left, low], [right, low], [right, high], [left, high]];
+    return sides.map(([a, b], i) => a && b ? 0 : 3 - a - b - corner[i]);
+  }
+
+  function greedyMesh(halo, highest = H - 1) {
+    const positions = [], normals = [], colors = [], uvs = [], tiles = [];
+    const solid = [], glass = [];
+    const dimensions = [S, clamp(highest + 1, 1, H), S];
+    let exposedFaces = 0, quads = 0;
+    const sample = (c) => halo[pindex(c[0], c[1], c[2])] ?? 0;
+    for (let d = 0; d < 3; d++) {
+      const u = (d + 1) % 3, v = (d + 2) % 3;
+      const width = dimensions[u], height = dimensions[v];
+      const mask = new Int32Array(width * height), aos = new Uint8Array(width * height * 4);
+      for (const sign of [-1, 1]) for (let plane = 0; plane < dimensions[d]; plane++) {
+        mask.fill(0);
+        for (let j = 0; j < height; j++) for (let i = 0; i < width; i++) {
+          const c = [0, 0, 0]; c[d] = plane; c[u] = i; c[v] = j;
+          const id = sample(c);
+          if (!id || !ITEMS[id]) continue;
+          const n = c.slice(); n[d] += sign;
+          const neighbor = sample(n);
+          if (opaque(neighbor) || id === B.GLASS && neighbor === B.GLASS) continue;
+          const a = faceAO(halo, c[0], c[1], c[2], d, sign), k = i + width * j;
+          mask[k] = id | ((a[0] | a[1] << 2 | a[2] << 4 | a[3] << 6) << 8);
+          aos.set(a, k * 4);
+          exposedFaces++;
+        }
+        for (let j = 0; j < height; j++) for (let i = 0; i < width;) {
+          const k = i + width * j, key = mask[k];
+          if (!key) { i++; continue; }
+          const ao = [...aos.subarray(k * 4, k * 4 + 4)];
+          const uniform = ao.every(n => n === ao[0]);
+          let w = 1, h = 1;
+          // Las caras con AO no uniforme permanecen individuales, conservando su iluminación.
+          if (uniform) {
+            while (i + w < width && mask[k + w] === key) w++;
+            outer: while (j + h < height) {
+              for (let a = 0; a < w; a++) if (mask[k + a + h * width] !== key) break outer;
+              h++;
+            }
+          }
+          const id = key & 255, item = ITEMS[id];
+          const tile = d === 1 ? sign > 0 ? item.tile : item.bottom ?? item.side ?? item.tile : item.side ?? item.tile;
+          const base = [0, 0, 0]; base[d] = plane + (sign > 0 ? 1 : 0); base[u] = i; base[v] = j;
+          const corners = sign > 0 ? [[0, 0], [w, 0], [w, h], [0, h]] : [[0, h], [w, h], [w, 0], [0, 0]];
+          const cornerAO = sign > 0 ? ao : [ao[3], ao[2], ao[1], ao[0]];
+          const first = positions.length / 3;
+          for (let a = 0; a < 4; a++) {
+            const c = base.slice(); c[u] += corners[a][0]; c[v] += corners[a][1];
+            positions.push(...c);
+            const normal = [0, 0, 0]; normal[d] = sign; normals.push(...normal);
+            const shade = Math.round((.48 + cornerAO[a] * .17) * 255);
+            colors.push(shade, shade, shade);
+            if (d === 0) uvs.push(corners[a][1], corners[a][0]);
+            else uvs.push(corners[a][0], corners[a][1]);
+            tiles.push(tile);
+          }
+          const target = id === B.GLASS ? glass : solid;
+          if (cornerAO[0] + cornerAO[2] > cornerAO[1] + cornerAO[3]) {
+            target.push(first, first + 1, first + 3, first + 1, first + 2, first + 3);
+          } else target.push(first, first + 1, first + 2, first, first + 2, first + 3);
+          for (let b = 0; b < h; b++) mask.fill(0, k + b * width, k + b * width + w);
+          quads++; i += w;
+        }
+      }
+    }
+    const IndexArray = positions.length / 3 > 65536 ? Uint32Array : Uint16Array;
+    return { positions: new Float32Array(positions), normals: new Float32Array(normals),
+      colors: new Uint8Array(colors), uvs: new Float32Array(uvs), tiles: new Float32Array(tiles),
+      solid: new IndexArray(solid), glass: new IndexArray(glass), quads, exposedFaces };
+  }
+
+  function bounds(body, position = body.pos, height = body.height) {
+    return { min: [position.x - body.radius, position.y, position.z - body.radius],
+      max: [position.x + body.radius, position.y + height, position.z + body.radius] };
+  }
+  function overlapsBlock(body, x, y, z, height = body.height) {
+    const a = bounds(body, body.pos, height);
+    return a.max[0] > x + 1e-6 && a.min[0] < x + 1 - 1e-6 && a.max[1] > y + 1e-6
+      && a.min[1] < y + 1 - 1e-6 && a.max[2] > z + 1e-6 && a.min[2] < z + 1 - 1e-6;
+  }
+  function canOccupy(body, solidAt, height = body.height) {
+    const a = bounds(body, body.pos, height);
+    for (let y = Math.floor(a.min[1] + 1e-6); y <= Math.floor(a.max[1] - 1e-6); y++) {
+      for (let z = Math.floor(a.min[2] + 1e-6); z <= Math.floor(a.max[2] - 1e-6); z++) {
+        for (let x = Math.floor(a.min[0] + 1e-6); x <= Math.floor(a.max[0] - 1e-6); x++) if (solidAt(x, y, z)) return false;
+      }
+    }
+    return true;
+  }
+  function sweepAxis(body, axis, delta, solidAt) {
+    if (!delta) return false;
+    const a = bounds(body), sweptMin = a.min.slice(), sweptMax = a.max.slice();
+    if (delta > 0) sweptMax[axis] += delta; else sweptMin[axis] += delta;
+    let allowed = delta;
+    for (let y = Math.floor(sweptMin[1] + 1e-6); y <= Math.floor(sweptMax[1] - 1e-6); y++) {
+      for (let z = Math.floor(sweptMin[2] + 1e-6); z <= Math.floor(sweptMax[2] - 1e-6); z++) {
+        for (let x = Math.floor(sweptMin[0] + 1e-6); x <= Math.floor(sweptMax[0] - 1e-6); x++) {
+          if (!solidAt(x, y, z)) continue;
+          const cell = [x, y, z];
+          let intersect = true;
+          for (let d = 0; d < 3; d++) if (d !== axis && (a.max[d] <= cell[d] + 1e-6 || a.min[d] >= cell[d] + 1 - 1e-6)) intersect = false;
+          if (!intersect) continue;
+          if (delta > 0 && a.max[axis] <= cell[axis] + 1e-6) allowed = Math.min(allowed, cell[axis] - a.max[axis]);
+          if (delta < 0 && a.min[axis] >= cell[axis] + 1 - 1e-6) allowed = Math.max(allowed, cell[axis] + 1 - a.min[axis]);
+        }
+      }
+    }
+    body.pos[['x', 'y', 'z'][axis]] += allowed;
+    return Math.abs(allowed - delta) > 1e-7;
+  }
+  function raycast(origin, direction, getBlock, reach = 6) {
+    const p = [Math.floor(origin.x), Math.floor(origin.y), Math.floor(origin.z)];
+    const o = [origin.x, origin.y, origin.z], dir = [direction.x, direction.y, direction.z];
+    const step = dir.map(n => n > 0 ? 1 : n < 0 ? -1 : 0);
+    const delta = dir.map(n => n === 0 ? Infinity : Math.abs(1 / n));
+    const t = dir.map((n, i) => n === 0 ? Infinity : ((step[i] > 0 ? p[i] + 1 : p[i]) - o[i]) / n);
+    let distance = 0, normal = [0, 0, 0];
+    for (let iteration = 0; iteration < 64 && distance <= reach; iteration++) {
+      const id = getBlock(p[0], p[1], p[2]);
+      if (id) return { x: p[0], y: p[1], z: p[2], id, normal, distance };
+      const axis = t[0] < t[1] ? t[0] < t[2] ? 0 : 2 : t[1] < t[2] ? 1 : 2;
+      distance = t[axis]; t[axis] += delta[axis]; p[axis] += step[axis];
+      normal = [0, 0, 0]; normal[axis] = -step[axis];
+    }
+    return null;
+  }
+
+  const cloneStack = s => s ? { id: s.id, count: s.count } : null;
+  function validStack(s) {
+    return s && ITEMS[s.id] && s.id !== B.BEDROCK && Number.isInteger(s.count)
+      && s.count > 0 && s.count <= stackMax(s.id) ? cloneStack(s) : null;
+  }
+  function addStack(slots, id, amount, start = 0, end = slots.length) {
+    let remaining = amount;
+    for (let i = start; i < end && remaining > 0; i++) if (slots[i]?.id === id) {
+      const transfer = Math.min(remaining, stackMax(id) - slots[i].count);
+      slots[i].count += transfer; remaining -= transfer;
+    }
+    for (let i = start; i < end && remaining > 0; i++) if (!slots[i]) {
+      const transfer = Math.min(remaining, stackMax(id)); slots[i] = { id, count: transfer }; remaining -= transfer;
+    }
+    return remaining;
+  }
+  function matchRecipe(grid, size, recipes) {
+    const occupied = [];
+    let minX = size, minY = size, maxX = -1, maxY = -1;
+    for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (grid[x + y * size]) {
+      occupied.push(x + y * size); minX = Math.min(minX, x); maxX = Math.max(maxX, x);
+      minY = Math.min(minY, y); maxY = Math.max(maxY, y);
+    }
+    if (!occupied.length) return null;
+    for (const recipe of recipes) {
+      const width = recipe.pattern[0].length, height = recipe.pattern.length;
+      if (width !== maxX - minX + 1 || height !== maxY - minY + 1) continue;
+      let valid = true;
+      for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
+        const symbol = recipe.pattern[y][x], required = symbol === ' ' ? 0 : recipe.key[symbol];
+        if ((grid[minX + x + (minY + y) * size]?.id ?? 0) !== required) valid = false;
+      }
+      if (valid) return { recipe, slots: occupied };
+    }
+    return null;
+  }
+  class Inventory {
+    constructor(saved) {
+      this.slots = Array.from({ length: 36 }, (_, i) => validStack(saved?.slots?.[i]));
+      this.grid2 = Array.from({ length: 4 }, (_, i) => validStack(saved?.grid2?.[i]));
+      this.grid3 = Array.from({ length: 9 }, (_, i) => validStack(saved?.grid3?.[i]));
+      this.cursor = validStack(saved?.cursor);
+      this.selected = clamp(saved?.selected | 0, 0, 8);
+      if (!saved) {
+        [[1, 32], [2, 64], [14, 32], [5, 16], [11, 24], [12, 1], [7, 24], [102, 1], [4, 32]].forEach(([id, count], i) => this.slots[i] = { id, count });
+        this.slots[9] = { id: 106, count: 6 };
+      }
+    }
+    snapshot() {
+      return { slots: this.slots.map(cloneStack), grid2: this.grid2.map(cloneStack), grid3: this.grid3.map(cloneStack),
+        cursor: cloneStack(this.cursor), selected: this.selected };
+    }
+    add(id, count) { return addStack(this.slots, id, count); }
+    canAdd(id, count) { return addStack(this.slots.map(cloneStack), id, count) === 0; }
+    click(slots, index, right = false) {
+      const slot = slots[index];
+      if (right) {
+        if (!this.cursor && slot) {
+          const count = Math.ceil(slot.count / 2); this.cursor = { id: slot.id, count }; slot.count -= count;
+          if (!slot.count) slots[index] = null;
+        } else if (this.cursor && (!slot || slot.id === this.cursor.id && slot.count < stackMax(slot.id))) {
+          if (!slot) slots[index] = { id: this.cursor.id, count: 1 }; else slot.count++;
+          if (--this.cursor.count === 0) this.cursor = null;
+        }
+        return;
+      }
+      if (!this.cursor) { this.cursor = slot; slots[index] = null; }
+      else if (slot?.id === this.cursor.id) {
+        const transfer = Math.min(this.cursor.count, stackMax(slot.id) - slot.count);
+        slot.count += transfer; this.cursor.count -= transfer;
+        if (!this.cursor.count) this.cursor = null;
+      } else { slots[index] = this.cursor; this.cursor = slot; }
+    }
+    quickMove(slots, index) {
+      const s = slots[index]; if (!s) return;
+      const remaining = slots !== this.slots ? this.add(s.id, s.count)
+        : index < 9 ? addStack(this.slots, s.id, s.count, 9, 36) : addStack(this.slots, s.id, s.count, 0, 9);
+      if (remaining) s.count = remaining; else slots[index] = null;
+    }
+    craft(grid, size, recipes, toBag = false) {
+      const match = matchRecipe(grid, size, recipes); if (!match) return false;
+      const out = match.recipe.result;
+      if (toBag) { if (!this.canAdd(out.id, out.count)) return false; this.add(out.id, out.count); }
+      else {
+        if (this.cursor && (this.cursor.id !== out.id || this.cursor.count + out.count > stackMax(out.id))) return false;
+        if (this.cursor) this.cursor.count += out.count; else this.cursor = cloneStack(out);
+      }
+      for (const i of match.slots) if (--grid[i].count === 0) grid[i] = null;
+      return true;
+    }
+    fillRecipe(grid, size, recipe) {
+      if (recipe.pattern.length > size || recipe.pattern[0].length > size) return false;
+      const bag = this.slots.map(cloneStack), next = Array(size * size).fill(null);
+      for (const item of grid) if (item && addStack(bag, item.id, item.count)) return false;
+      for (let y = 0; y < recipe.pattern.length; y++) for (let x = 0; x < recipe.pattern[y].length; x++) {
+        const c = recipe.pattern[y][x]; if (c === ' ') continue;
+        const id = recipe.key[c], i = bag.findIndex(s => s?.id === id);
+        if (i < 0) return false;
+        next[x + y * size] = { id, count: 1 };
+        if (--bag[i].count === 0) bag[i] = null;
+      }
+      this.slots = bag; grid.splice(0, grid.length, ...next); return true;
+    }
+    stowCursor() {
+      if (!this.cursor) return true;
+      const left = this.add(this.cursor.id, this.cursor.count);
+      if (left) this.cursor.count = left; else this.cursor = null;
+      return left === 0;
+    }
+  }
+  return { S, H, VOLUME, P, B, ITEMS, index, pindex, clamp, smooth, opaque, seedHash, random, hash2,
+    Terrain, faceAO, greedyMesh, bounds, overlapsBlock, canOccupy, sweepAxis, raycast,
+    Inventory, addStack, matchRecipe, cloneStack, validStack, stackMax };
+}
+
+const Core = createVoxelCore(createNoise2D, createNoise3D);
+const { S, H, P, VOLUME, B, ITEMS, index, pindex, clamp, smooth, opaque,
+  Terrain, Inventory, seedHash, hash2, sweepAxis, canOccupy, overlapsBlock, raycast,
+  matchRecipe, cloneStack } = Core;
+const recipes = JSON.parse($('recipes-data').textContent);
+const now = () => performance.now();
+
+class Atlas {
+  constructor() {
+    this.canvas = document.createElement('canvas'); this.canvas.width = this.canvas.height = 72;
+    this.context = this.canvas.getContext('2d'); this.tiles = []; this.icons = new Map(); this.handMaterials = new Map();
+    const colors = [
+      ['#77984c', '#6d8f44', '#85a453', '#719447'],
+      ['#936d4b', '#a67b52', '#805f43', '#9b714b'],
+      ['#936d4b', '#a67b52', '#805f43', '#9b714b'],
+      ['#969991', '#a3a69e', '#858d84', '#afb0a4'],
+      ['#ddc992', '#e6d6a9', '#d0be89', '#e2cf9e'],
+      ['#776040', '#887047', '#655035', '#94784d'],
+      ['#b89a6c', '#c5ab7b', '#a98c60', '#d0b989'],
+      ['#527b3b', '#638d43', '#477035', '#70984b'],
+      ['#accbc5', '#b6d4cb', '#9fbbb8', '#c6ddd2'],
+      ['#969991', '#a3a69e', '#858d84', '#afb0a4'],
+      ['#969991', '#a3a69e', '#858d84', '#afb0a4'],
+      ['#4d5851', '#586359', '#434d48', '#647064'],
+      ['#b28a55', '#bc9661', '#a7804f', '#c7a36e'],
+      ['#b38e59', '#c6a16b', '#a28050', '#bea06b'],
+      ['#936b44', '#a17c4b', '#84603d', '#b28c56'],
+      ['#edf1e7', '#dce4de', '#e7eee5', '#f8f6ec'],
+    ];
+    for (let tile = 0; tile < 16; tile++) {
+      const canvas = document.createElement('canvas'); canvas.width = canvas.height = 16;
+      const c = canvas.getContext('2d'), palette = colors[tile];
+      for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) {
+        const r = hash2(x, y, tile * 317);
+        c.fillStyle = palette[Math.floor(r * palette.length)]; c.fillRect(x, y, 1, 1);
+      }
+      if (tile === 1) for (let x = 0; x < 16; x++) { c.fillStyle = colors[0][x % 4]; c.fillRect(x, 0, 1, 3 + (x * 13 % 3)); }
+      if (tile === 5) { c.fillStyle = '#59492f'; for (const x of [1, 6, 12]) c.fillRect(x, 0, 1, 16); }
+      if (tile === 6) { c.strokeStyle = '#8f744b'; for (const inset of [2, 5]) c.strokeRect(inset + .5, inset + .5, 15 - inset * 2, 15 - inset * 2); }
+      if (tile === 8) { c.fillStyle = '#dcece0'; c.fillRect(0, 0, 16, 1); c.fillRect(0, 0, 1, 16); c.fillRect(15, 0, 1, 16); c.fillRect(0, 15, 16, 1); c.fillRect(3, 3, 1, 5); c.fillRect(4, 3, 3, 1); }
+      if (tile === 9 || tile === 10) for (let n = 0; n < 7; n++) { c.fillStyle = tile === 9 ? '#454e44' : '#bc9679'; c.fillRect((n * 7 + 2) % 14, (n * 5 + 3) % 14, 2, 2); }
+      if (tile === 12 || tile === 14) { c.fillStyle = '#86643d'; for (let y = 3; y < 16; y += 4) c.fillRect(0, y, 16, 1); c.fillRect(5, 0, 1, 3); c.fillRect(11, 8, 1, 4); }
+      if (tile === 13) { c.strokeStyle = '#624b30'; c.lineWidth = 1; c.strokeRect(1.5, 1.5, 13, 13); for (const x of [6, 10]) { c.fillRect(x, 2, 1, 12); c.fillRect(2, x, 12, 1); } }
+      const x = tile % 4 * 18 + 1, y = Math.floor(tile / 4) * 18 + 1;
+      this.context.drawImage(canvas, x, y);
+      this.context.drawImage(canvas, 0, 0, 1, 16, x - 1, y, 1, 16);
+      this.context.drawImage(canvas, 15, 0, 1, 16, x + 16, y, 1, 16);
+      this.context.drawImage(this.canvas, x - 1, y, 18, 1, x - 1, y - 1, 18, 1);
+      this.context.drawImage(this.canvas, x - 1, y + 15, 18, 1, x - 1, y + 16, 18, 1);
+      this.tiles.push(canvas);
+    }
+    this.texture = this.textureFrom(this.canvas);
+  }
+  textureFrom(canvas) {
+    const t = new THREE.CanvasTexture(canvas); t.colorSpace = THREE.SRGBColorSpace;
+    t.magFilter = t.minFilter = THREE.NearestFilter; t.generateMipmaps = false; return t;
+  }
+  material(transparent = false) {
+    const material = new THREE.MeshLambertMaterial({ map: this.texture, vertexColors: true,
+      transparent, opacity: transparent ? .46 : 1, depthWrite: !transparent });
+    material.onBeforeCompile = shader => {
+      shader.vertexShader = shader.vertexShader.replace('#include <common>', '#include <common>\nattribute float tile; varying float vTile;')
+        .replace('#include <uv_vertex>', '#include <uv_vertex>\nvTile = tile;');
+      shader.fragmentShader = shader.fragmentShader.replace('#include <common>', '#include <common>\nvarying float vTile;')
+        .replace('#include <map_fragment>', `
+          #ifdef USE_MAP
+          vec2 cell = vec2(mod(floor(vTile + 0.5), 4.0), floor((vTile + 0.5) / 4.0));
+          vec2 pixel = cell * 18.0 + vec2(1.0) + fract(vMapUv) * 16.0;
+          vec2 atlasUv = vec2(pixel.x / 72.0, 1.0 - pixel.y / 72.0);
+          diffuseColor *= texture2D(map, atlasUv);
+          #endif`);
+    };
+    material.customProgramCacheKey = () => 'voxel-atlas-repeat-r160-v1';
+    return material;
+  }
+  handMaterial(tile) {
+    if (!this.handMaterials.has(tile)) this.handMaterials.set(tile, new THREE.MeshLambertMaterial({ map: this.textureFrom(this.tiles[tile]) }));
+    return this.handMaterials.get(tile);
+  }
+  icon(id) {
+    if (this.icons.has(id)) return this.icons.get(id);
+    const item = ITEMS[id]; if (!item) return '';
+    const canvas = document.createElement('canvas'); canvas.width = canvas.height = 32;
+    const ctx = canvas.getContext('2d'); ctx.imageSmoothingEnabled = false;
+    if (id < 100) {
+      const face = this.tiles[item.side ?? item.tile];
+      ctx.save(); ctx.transform(1, .5, 0, 1, 1, 8); ctx.drawImage(face, 0, 0, 15, 16); ctx.restore();
+      ctx.save(); ctx.transform(1, -.5, 0, 1, 16, 15.5); ctx.drawImage(face, 0, 0, 15, 16); ctx.fillStyle = '#00190e33'; ctx.fillRect(0, 0, 15, 16); ctx.restore();
+      ctx.save(); ctx.transform(1, .5, -1, .5, 16, .5); ctx.drawImage(this.tiles[item.tile], 0, 0, 15, 15); ctx.restore();
+    } else if (item.tool === 'pick') {
+      ctx.save(); ctx.translate(16, 16); ctx.rotate(.72);
+      ctx.fillStyle = '#6d4c2c'; ctx.fillRect(-2, -7, 5, 22); ctx.fillStyle = '#c19a5e'; ctx.fillRect(-1, -7, 2, 21);
+      ctx.fillStyle = id === 102 ? '#c8a467' : id === 103 ? '#9ca89b' : '#d7dacf';
+      ctx.fillRect(-12, -12, 22, 5); ctx.fillRect(-13, -9, 5, 8); ctx.fillRect(7, -8, 4, 4); ctx.restore();
+    } else if (item.tool === 'stick') {
+      ctx.save(); ctx.translate(16, 16); ctx.rotate(.65); ctx.fillStyle = '#8a643d'; ctx.fillRect(-3, -13, 6, 27); ctx.fillStyle = '#bb9258'; ctx.fillRect(-2, -13, 2, 26); ctx.restore();
+    } else if (item.tool === 'ingot') {
+      ctx.fillStyle = '#85988d'; ctx.fillRect(3, 14, 26, 12); ctx.fillStyle = '#d5d9c9'; ctx.fillRect(5, 9, 22, 11); ctx.fillStyle = '#f0eedb'; ctx.fillRect(7, 9, 18, 3);
+    } else { ctx.fillStyle = '#b85e45'; ctx.fillRect(6, 10, 21, 17); ctx.fillRect(9, 7, 15, 22); ctx.fillStyle = '#d7895e'; ctx.fillRect(10, 10, 4, 8); ctx.fillStyle = '#7a9650'; ctx.fillRect(17, 3, 8, 4); ctx.fillStyle = '#80603c'; ctx.fillRect(15, 2, 3, 7); }
+    const url = canvas.toDataURL(); this.icons.set(id, url); return url;
+  }
+  dispose() { this.texture.dispose(); for (const m of this.handMaterials.values()) { m.map.dispose(); m.dispose(); } }
+}
+
+class WorkerPool {
+  constructor() {
+    this.queue = []; this.slots = []; this.counter = 0; this.mainBusy = false; this.disposed = false;
+    const source = `import { createNoise2D, createNoise3D } from ${JSON.stringify(libraries[1].url)};
+      const core = (${createVoxelCore.toString()})(createNoise2D, createNoise3D);
+      let terrain, seed;
+      self.onmessage = event => {
+        const { id, type, payload } = event.data;
+        try {
+          let result;
+          if(type === 'generate') {
+            if(seed !== payload.seed) { seed = payload.seed; terrain = new core.Terrain(seed); }
+            result = terrain.generate(payload.cx, payload.cz);
+          } else result = core.greedyMesh(payload.halo, payload.highest);
+          const transfer = Object.values(result).filter(v => ArrayBuffer.isView(v)).map(v => v.buffer);
+          self.postMessage({ id, result }, transfer);
+        } catch(error) { self.postMessage({ id, error: error.message }); }
+      }; self.postMessage({ ready: true });`;
+    this.url = URL.createObjectURL(new Blob([source], { type: 'text/javascript' }));
+    if (typeof Worker !== 'undefined') for (let i = 0; i < Math.min(2, navigator.hardwareConcurrency || 2); i++) {
+      try {
+        const slot = { worker: new Worker(this.url, { type: 'module' }), ready: false, dead: false, task: null };
+        this.slots.push(slot);
+        slot.timeout = setTimeout(() => this.fail(slot), 14000);
+        slot.worker.onmessage = event => {
+          if (event.data.ready) { slot.ready = true; clearTimeout(slot.timeout); this.drain(); return; }
+          const task = slot.task; slot.task = null; clearTimeout(slot.timeout);
+          if (task) event.data.error ? task.reject(new Error(event.data.error)) : task.resolve(event.data.result);
+          this.drain();
+        };
+        slot.worker.onerror = event => { event.preventDefault(); this.fail(slot); };
+      } catch { /* El núcleo CPU conserva la misma salida cuando Worker no está disponible. */ }
+    }
+  }
+  fail(slot) {
+    clearTimeout(slot.timeout); slot.dead = true; slot.worker.terminate();
+    slot.task?.reject(new Error('El worker se reinició')); slot.task = null; this.drain();
+  }
+  run(type, payload, priority = 0, valid = () => true) {
+    return new Promise((resolve, reject) => { this.queue.push({ id: ++this.counter, type, payload, priority, valid, resolve, reject }); this.drain(); });
+  }
+  drain() {
+    if (this.disposed) return;
+    this.queue.sort((a, b) => a.priority - b.priority || a.id - b.id);
+    for (let i = this.queue.length - 1; i >= 0; i--) if (!this.queue[i].valid()) this.queue.splice(i, 1)[0].reject(new Error('Trabajo obsoleto'));
+    for (const slot of this.slots) if (!slot.dead && slot.ready && !slot.task && this.queue.length) {
+      const task = this.queue.shift(); slot.task = task;
+      slot.timeout = setTimeout(() => this.fail(slot), 20000);
+      slot.worker.postMessage({ id: task.id, type: task.type, payload: task.payload }, task.payload.halo ? [task.payload.halo.buffer] : []);
+    }
+    if (!this.slots.some(slot => !slot.dead) && !this.mainBusy && this.queue.length) {
+      const task = this.queue.shift(); this.mainBusy = true;
+      setTimeout(() => {
+        try {
+          if (task.type === 'generate') {
+            if (this.mainSeed !== task.payload.seed) { this.mainSeed = task.payload.seed; this.mainTerrain = new Terrain(this.mainSeed); }
+            task.resolve(this.mainTerrain.generate(task.payload.cx, task.payload.cz));
+          } else task.resolve(Core.greedyMesh(task.payload.halo, task.payload.highest));
+        } catch (error) { task.reject(error); }
+        this.mainBusy = false; this.drain();
+      }, 0);
+    }
+  }
+  dispose() {
+    this.disposed = true;
+    for (const slot of this.slots) { clearTimeout(slot.timeout); slot.worker.terminate(); slot.task?.reject(new Error('Motor cerrado')); }
+    this.queue.splice(0).forEach(task => task.reject(new Error('Motor cerrado'))); URL.revokeObjectURL(this.url);
+  }
+}
+
+class VoxelWorld {
+  constructor(scene, atlas, pool) {
+    this.scene = scene; this.pool = pool; this.solidMaterial = atlas.material(); this.glassMaterial = atlas.material(true);
+    this.chunks = new Map(); this.pending = new Set(); this.meshing = new Set(); this.wanted = new Set(); this.edits = new Map();
+    this.epoch = 0; this.center = [0, 0]; this.radius = 3; this.quads = 0;
+  }
+  key(cx, cz) { return `${cx},${cz}`; }
+  reset(seed, edits = []) {
+    this.epoch++; for (const chunk of this.chunks.values()) this.disposeChunk(chunk);
+    this.chunks.clear(); this.pending.clear(); this.meshing.clear(); this.wanted.clear(); this.edits.clear();
+    this.seed = seed; this.terrain = new Terrain(seed);
+    for (const [key, cells] of edits) if (/^-?\d+,-?\d+$/.test(key) && Array.isArray(cells)) {
+      const valid = new Map();
+      for (const [i, id] of cells) if (Number.isInteger(i) && i >= 256 && i < VOLUME && (id === 0 || ITEMS[id] && id < 100 && id !== B.BEDROCK)) valid.set(i, id);
+      if (valid.size) this.edits.set(key, valid);
+    }
+  }
+  getBlock(x, y, z) {
+    if (y < 0 || y >= H) return 0;
+    const cx = Math.floor(x / S), cz = Math.floor(z / S);
+    return this.chunks.get(this.key(cx, cz))?.data[index(x - cx * S, y, z - cz * S)] ?? 0;
+  }
+  solidAt(x, y, z) {
+    if (y < 0) return true;
+    if (y >= H) return false;
+    const cx = Math.floor(x / S), cz = Math.floor(z / S), chunk = this.chunks.get(this.key(cx, cz));
+    return !chunk || chunk.data[index(x - cx * S, y, z - cz * S)] !== 0;
+  }
+  setBlock(x, y, z, id) {
+    if (y <= 0 || y >= H || id !== 0 && (!ITEMS[id] || id >= 100 || id === B.BEDROCK)) return false;
+    const cx = Math.floor(x / S), cz = Math.floor(z / S), key = this.key(cx, cz), chunk = this.chunks.get(key);
+    if (!chunk) return false;
+    const i = index(x - cx * S, y, z - cz * S);
+    if (chunk.data[i] === B.BEDROCK || chunk.data[i] === id) return false;
+    chunk.data[i] = id;
+    if (!this.edits.has(key)) this.edits.set(key, new Map()); this.edits.get(key).set(i, id);
+    chunk.highest = Math.max(chunk.highest, id ? y : 0);
+    for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) this.dirty(cx + dx, cz + dz, true);
+    return true;
+  }
+  dirty(cx, cz, urgent = false) {
+    const chunk = this.chunks.get(this.key(cx, cz));
+    if (chunk) { chunk.version++; chunk.urgent ||= urgent; }
+  }
+  update(position, radius) {
+    const cx = Math.floor(position.x / S), cz = Math.floor(position.z / S);
+    this.center = [cx, cz]; this.radius = radius;
+    this.wanted = new Set();
+    const targets = [];
+    for (let dz = -radius; dz <= radius; dz++) for (let dx = -radius; dx <= radius; dx++) {
+      const distance = Math.hypot(dx, dz); if (distance > radius + .4) continue;
+      const key = this.key(cx + dx, cz + dz); this.wanted.add(key); targets.push({ cx: cx + dx, cz: cz + dz, key, distance });
+    }
+    for (const [key, chunk] of this.chunks) if (Math.hypot(chunk.cx - cx, chunk.cz - cz) > radius + 1.5) {
+      this.disposeChunk(chunk); this.chunks.delete(key);
+      for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) this.dirty(chunk.cx + dx, chunk.cz + dz);
+    }
+    targets.sort((a, b) => a.distance - b.distance);
+    const epoch = this.epoch;
+    for (const target of targets) {
+      if (this.chunks.has(target.key) || this.pending.has(target.key)) continue;
+      this.pending.add(target.key);
+      this.pool.run('generate', { cx: target.cx, cz: target.cz, seed: this.seed }, target.distance * 10,
+        () => this.epoch === epoch && this.wanted.has(target.key)).then(result => {
+          if (this.epoch !== epoch || !this.wanted.has(target.key)) return;
+          for (const [i, id] of this.edits.get(target.key) ?? []) { result.data[i] = id; if (id) result.highest = Math.max(result.highest, Math.floor(i / 256)); }
+          const chunk = { ...target, ...result, version: 1, meshVersion: -1, group: null, urgent: false, quads: 0 };
+          this.chunks.set(target.key, chunk);
+          for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) this.dirty(target.cx + dx, target.cz + dz);
+        }).catch(error => { if (error.message !== 'Trabajo obsoleto') console.warn('Generación:', error.message); })
+        .finally(() => { if (this.epoch === epoch) this.pending.delete(target.key); });
+    }
+  }
+  halo(chunk) {
+    const field = new Uint8Array(P * P * (H + 2));
+    const rows = [];
+    for (let z = -1; z <= S; z++) {
+      const dz = Math.floor(z / S), lz = z - dz * S;
+      rows.push({ z, lz, center: this.chunks.get(this.key(chunk.cx, chunk.cz + dz))?.data,
+        left: this.chunks.get(this.key(chunk.cx - 1, chunk.cz + dz))?.data,
+        right: this.chunks.get(this.key(chunk.cx + 1, chunk.cz + dz))?.data });
+    }
+    for (let y = 0; y <= Math.min(H - 1, chunk.highest + 1); y++) for (const row of rows) {
+      const start = index(0, y, row.lz), dest = pindex(0, y, row.z);
+      if (row.center) field.set(row.center.subarray(start, start + S), dest);
+      field[dest - 1] = row.left?.[start + 15] ?? 0; field[dest + 16] = row.right?.[start] ?? 0;
+    }
+    return field;
+  }
+  neighborsReady(chunk) {
+    for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) {
+      const key = this.key(chunk.cx + dx, chunk.cz + dz);
+      if (this.wanted.has(key) && !this.chunks.has(key)) return false;
+    }
+    return true;
+  }
+  pump() {
+    if (this.meshing.size >= 2) return;
+    const candidates = [...this.chunks.values()].filter(c => c.version !== c.meshVersion && !this.meshing.has(c.key) && this.neighborsReady(c));
+    candidates.sort((a, b) => Number(b.urgent) - Number(a.urgent) || Math.hypot(a.cx - this.center[0], a.cz - this.center[1]) - Math.hypot(b.cx - this.center[0], b.cz - this.center[1]));
+    for (const chunk of candidates.slice(0, 2 - this.meshing.size)) {
+      const epoch = this.epoch, version = chunk.version, started = now(); this.meshing.add(chunk.key);
+      const priority = (chunk.urgent ? -200 : -20) + Math.hypot(chunk.cx - this.center[0], chunk.cz - this.center[1]) * 8;
+      this.pool.run('mesh', { halo: this.halo(chunk), highest: chunk.highest }, priority,
+        () => this.epoch === epoch && this.chunks.get(chunk.key) === chunk).then(data => {
+          if (this.epoch !== epoch || this.chunks.get(chunk.key) !== chunk || chunk.version !== version) return;
+          this.installMesh(chunk, data); chunk.meshVersion = version; chunk.urgent = false; chunk.meshMs = now() - started;
+        }).catch(error => { if (error.message !== 'Trabajo obsoleto') console.warn('Mallado:', error.message); })
+        .finally(() => { if (this.epoch === epoch) this.meshing.delete(chunk.key); });
+    }
+  }
+  installMesh(chunk, data) {
+    this.disposeChunk(chunk);
+    const group = new THREE.Group(); group.position.set(chunk.cx * S, 0, chunk.cz * S); group.name = `chunk:${chunk.key}`;
+    const attributes = {
+      position: new THREE.BufferAttribute(data.positions, 3), normal: new THREE.BufferAttribute(data.normals, 3),
+      color: new THREE.BufferAttribute(data.colors, 3, true), uv: new THREE.BufferAttribute(data.uvs, 2), tile: new THREE.BufferAttribute(data.tiles, 1),
+    };
+    for (const [indices, material, shadow] of [[data.solid, this.solidMaterial, true], [data.glass, this.glassMaterial, false]]) {
+      if (!indices.length) continue;
+      const geometry = new THREE.BufferGeometry(); for (const [name, attr] of Object.entries(attributes)) geometry.setAttribute(name, attr);
+      geometry.setIndex(new THREE.BufferAttribute(indices, 1)); geometry.computeBoundingBox(); geometry.computeBoundingSphere();
+      const mesh = new THREE.Mesh(geometry, material); mesh.castShadow = shadow; mesh.receiveShadow = true; mesh.frustumCulled = true;
+      mesh.userData.chunk = chunk.key; group.add(mesh);
+    }
+    this.scene.add(group); chunk.group = group; chunk.quads = data.quads; chunk.exposed = data.exposedFaces;
+  }
+  disposeChunk(chunk) {
+    if (!chunk.group) return;
+    chunk.group.traverse(object => object.geometry?.dispose()); chunk.group.removeFromParent(); chunk.group = null;
+  }
+  snapshotEdits() { return [...this.edits].map(([key, value]) => [key, [...value]]); }
+  readyAt(cx, cz) {
+    for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) if (!this.chunks.has(this.key(cx + dx, cz + dz))) return false;
+    return Boolean(this.chunks.get(this.key(cx, cz))?.group);
+  }
+  dispose() { this.epoch++; for (const c of this.chunks.values()) this.disposeChunk(c); this.chunks.clear(); this.solidMaterial.dispose(); this.glassMaterial.dispose(); }
+}
+
+class SaveStore {
+  constructor() { this.db = null; this.chain = Promise.resolve(); this.mode = 'LocalStorage'; }
+  async open() {
+    try {
+      this.db = await new Promise((resolve, reject) => {
+        const request = indexedDB.open('voxelcraft-single-html', 1), timer = setTimeout(() => reject(new Error('Base de datos ocupada')), 2500);
+        request.onupgradeneeded = () => request.result.createObjectStore('worlds', { keyPath: 'seed' });
+        request.onsuccess = () => { clearTimeout(timer); resolve(request.result); };
+        request.onerror = () => { clearTimeout(timer); reject(request.error); };
+        request.onblocked = () => { clearTimeout(timer); reject(new Error('Base de datos bloqueada')); };
+      }); this.mode = 'IndexedDB';
+    } catch { this.db = null; }
+  }
+  localKey(seed) { return `voxelcraft-single:v1:${encodeURIComponent(seed)}`; }
+  async load(seed) {
+    const candidates = [];
+    try { const data = JSON.parse(localStorage.getItem(this.localKey(seed))); if (data) candidates.push(data); } catch {}
+    if (this.db) try {
+      const data = await new Promise((resolve, reject) => {
+        const request = this.db.transaction('worlds').objectStore('worlds').get(seed);
+        request.onsuccess = () => resolve(request.result); request.onerror = () => reject(request.error);
+      }); if (data) candidates.push(data);
+    } catch {}
+    const valid = candidates.filter(data => data.version === 1 && data.seed === seed && Array.isArray(data.edits));
+    return valid.sort((a, b) => (b.updated || 0) - (a.updated || 0))[0] ?? null;
+  }
+  journal(snapshot) { try { localStorage.setItem(this.localKey(snapshot.seed), JSON.stringify(snapshot)); return true; } catch { return false; } }
+  save(snapshot) {
+    const operation = this.chain.catch(() => {}).then(async () => {
+      if (this.db) try {
+        await new Promise((resolve, reject) => {
+          const tx = this.db.transaction('worlds', 'readwrite'); tx.objectStore('worlds').put(snapshot);
+          tx.oncomplete = resolve; tx.onerror = () => reject(tx.error); tx.onabort = () => reject(tx.error);
+        });
+        try { const journal = JSON.parse(localStorage.getItem(this.localKey(snapshot.seed))); if (journal && journal.updated <= snapshot.updated) localStorage.removeItem(this.localKey(snapshot.seed)); } catch {}
+        return;
+      } catch { this.mode = 'LocalStorage'; }
+      if (!this.journal(snapshot)) throw new Error('Sin espacio o permiso de almacenamiento.');
+    }); this.chain = operation; return operation;
+  }
+  dispose() { this.db?.close(); }
+}
+
+class SynthAudio {
+  constructor(volume) { this.volume = volume; this.context = null; }
+  async unlock() {
+    if (!this.context) {
+      const Audio = window.AudioContext || window.webkitAudioContext; if (!Audio) return;
+      this.context = new Audio(); this.master = this.context.createGain(); this.master.gain.value = this.volume; this.master.connect(this.context.destination);
+      this.noise = this.context.createBuffer(1, this.context.sampleRate, this.context.sampleRate);
+      const values = this.noise.getChannelData(0); for (let i = 0; i < values.length; i++) values[i] = Math.random() * 2 - 1;
+    }
+    if (this.context.state === 'suspended') try { await this.context.resume(); } catch {}
+  }
+  setVolume(value) { this.volume = value; if (this.master) this.master.gain.setTargetAtTime(value, this.context.currentTime, .03); }
+  play(id, action = 'step', loudness = 1) {
+    if (!this.context || this.context.state !== 'running') return;
+    const context = this.context, t = context.currentTime, material = ITEMS[id]?.sound ?? 'soil';
+    const dur = action === 'break' ? .18 : action === 'hurt' ? .24 : .09;
+    const gain = context.createGain(), filter = context.createBiquadFilter(), noise = context.createBufferSource(), tone = context.createOscillator();
+    const base = material === 'stone' ? 240 : material === 'wood' ? 150 : material === 'glass' ? 1100 : 90;
+    gain.gain.setValueAtTime(.0001, t); gain.gain.exponentialRampToValueAtTime((action === 'step' ? .09 : .19) * loudness + .0001, t + .006);
+    gain.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    filter.type = 'lowpass'; filter.frequency.value = material === 'glass' ? 5200 : material === 'stone' ? 2100 : 900;
+    noise.buffer = this.noise; noise.connect(filter); filter.connect(gain); gain.connect(this.master);
+    tone.type = material === 'glass' ? 'sine' : 'triangle'; tone.frequency.setValueAtTime(base * (1 + Math.random() * .12), t);
+    tone.frequency.exponentialRampToValueAtTime(base * .45, t + dur); const tonal = context.createGain(); tonal.gain.value = material === 'glass' ? .34 : .12;
+    tone.connect(tonal); tonal.connect(gain); noise.start(t); tone.start(t); noise.stop(t + dur); tone.stop(t + dur);
+    noise.onended = () => { noise.disconnect(); filter.disconnect(); gain.disconnect(); tone.disconnect(); tonal.disconnect(); };
+  }
+  dispose() { this.context?.close(); }
+}
+
+class Player {
+  constructor(world) {
+    this.world = world; this.pos = new THREE.Vector3(8.5, 50, 8.5); this.velocity = new THREE.Vector3();
+    this.radius = .3; this.height = 1.8; this.eye = 1.62; this.yaw = -.6; this.pitch = -.08;
+    this.grounded = false; this.flying = false; this.health = 10; this.jumpUntil = 0; this.coyote = 0;
+    this.distance = 0; this.stepDistance = 0; this.fallStart = this.pos.y;
+    this.solid = (x, y, z) => world.solidAt(x, y, z);
+  }
+  step(dt, keys) {
+    const oldX = this.pos.x, oldZ = this.pos.z;
+    const crouch = keys.has('ShiftLeft') || keys.has('ShiftRight');
+    if (crouch && !this.flying) this.height = 1.45;
+    else if (this.height < 1.8 && canOccupy(this, this.solid, 1.8)) this.height = 1.8;
+    this.eye += (this.height - .18 - this.eye) * Math.min(1, dt * 15);
+    let forward = Number(keys.has('KeyW')) - Number(keys.has('KeyS'));
+    let right = Number(keys.has('KeyD')) - Number(keys.has('KeyA'));
+    const length = Math.hypot(forward, right); if (length) { forward /= length; right /= length; }
+    const speed = this.flying ? 8 : crouch ? 1.9 : keys.has('ControlLeft') || keys.has('ControlRight') ? 6.4 : 4.4;
+    const tx = (-Math.sin(this.yaw) * forward + Math.cos(this.yaw) * right) * speed;
+    const tz = (-Math.cos(this.yaw) * forward - Math.sin(this.yaw) * right) * speed;
+    const acceleration = this.flying ? 9 : this.grounded ? 17 : 5;
+    this.velocity.x += (tx - this.velocity.x) * Math.min(1, acceleration * dt);
+    this.velocity.z += (tz - this.velocity.z) * Math.min(1, acceleration * dt);
+    this.coyote = this.grounded ? .1 : Math.max(0, this.coyote - dt);
+    if (this.flying) this.velocity.y += ((Number(keys.has('Space')) - Number(crouch)) * 6 - this.velocity.y) * Math.min(1, dt * 13);
+    else {
+      if (this.jumpUntil > now() && this.coyote > 0) { this.velocity.y = 8.1; this.jumpUntil = 0; this.coyote = 0; this.grounded = false; }
+      this.velocity.y = Math.max(-45, this.velocity.y - 25 * dt);
+    }
+    if (sweepAxis(this, 0, this.velocity.x * dt, this.solid)) this.velocity.x = 0;
+    const vertical = this.velocity.y;
+    const hitY = sweepAxis(this, 1, vertical * dt, this.solid);
+    this.grounded = hitY && vertical < 0;
+    if (hitY) this.velocity.y = 0;
+    if (sweepAxis(this, 2, this.velocity.z * dt, this.solid)) this.velocity.z = 0;
+    if (this.pos.y + this.height > H) { this.pos.y = H - this.height; this.velocity.y = Math.min(0, this.velocity.y); }
+    const travel = Math.hypot(this.pos.x - oldX, this.pos.z - oldZ); this.distance += travel;
+    if (this.grounded && !this.flying) this.stepDistance += travel;
+  }
+  restore(saved) {
+    if (saved && [saved.x, saved.y, saved.z, saved.yaw, saved.pitch].every(Number.isFinite)) {
+      this.pos.set(clamp(saved.x, -1000000, 1000000), clamp(saved.y, 1, 254), clamp(saved.z, -1000000, 1000000));
+      this.yaw = saved.yaw; this.pitch = clamp(saved.pitch, -1.55, 1.55); this.flying = Boolean(saved.flying);
+      this.health = clamp(Number(saved.health) || 10, 1, 10);
+    }
+    this.velocity.set(0, 0, 0); this.height = 1.8; this.eye = 1.62;
+  }
+  snapshot() { return { x: this.pos.x, y: this.pos.y, z: this.pos.z, yaw: this.yaw, pitch: this.pitch, flying: this.flying, health: this.health }; }
+}
+
+class Input {
+  constructor(app, canvas) {
+    this.app = app; this.canvas = canvas; this.keys = new Set(); this.dragMode = false; this.middle = false; this.lastSpace = -1000;
+    this.abort = new AbortController(); const options = { signal: this.abort.signal };
+    document.addEventListener('keydown', event => {
+      if (['INPUT', 'TEXTAREA'].includes(event.target.tagName)) return;
+      if (event.code === 'Escape') {
+        if (app.state === 'inventory') { event.preventDefault(); app.ui.closeInventory(); }
+        else if (app.state === 'playing') app.pause();
+        return;
+      }
+      if (event.code === 'KeyE' && !event.repeat) {
+        if (app.state === 'playing') { event.preventDefault(); app.ui.openInventory(2); }
+        else if (app.state === 'inventory') { event.preventDefault(); app.ui.closeInventory(); }
+        return;
+      }
+      if (app.state !== 'playing') return;
+      if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'F3', 'ControlLeft'].includes(event.code)) event.preventDefault();
+      this.keys.add(event.code);
+      if (event.repeat) return;
+      if (/^Digit[1-9]$/.test(event.code)) app.ui.select(Number(event.code.at(-1)) - 1);
+      if (event.code === 'F3') { $('debug').hidden = !$('debug').hidden; }
+      if (event.code === 'KeyP') this.lock();
+      if (event.code === 'Space') {
+        const t = now();
+        if (t - this.lastSpace < 280) { app.player.flying = !app.player.flying; app.player.velocity.y = 0; this.lastSpace = -1000; app.toast(app.player.flying ? 'Vuelo activado · Espacio sube, Shift baja' : 'Vuelo desactivado'); }
+        else { app.player.jumpUntil = t + 140; this.lastSpace = t; }
+      }
+    }, options);
+    document.addEventListener('keyup', event => this.keys.delete(event.code), options);
+    document.addEventListener('mousemove', event => {
+      if (event.buttons === 0) { app.mining.held = false; this.right = false; this.middle = false; }
+      if (app.state !== 'playing' || document.pointerLockElement !== canvas && !(this.dragMode && this.middle)) return;
+      app.player.yaw -= event.movementX * app.settings.sensitivity; app.player.pitch = clamp(app.player.pitch - event.movementY * app.settings.sensitivity, -1.55, 1.55);
+    }, options);
+    canvas.addEventListener('mousedown', event => {
+      if (app.state !== 'playing') return;
+      event.preventDefault(); canvas.focus({ preventScroll: true });
+      if (event.button === 1 && this.dragMode) this.middle = true;
+      if (event.button === 0) app.mining.held = true;
+      if (event.button === 2) { this.right = true; app.place(); }
+    }, options);
+    document.addEventListener('mouseup', event => {
+      if (event.button === 0) app.mining.held = false;
+      if (event.button === 1) this.middle = false;
+      if (event.button === 2) this.right = false;
+    }, options);
+    canvas.addEventListener('contextmenu', event => event.preventDefault(), options);
+    canvas.addEventListener('wheel', event => {
+      if (app.state !== 'playing') return; event.preventDefault();
+      app.ui.select((app.inventory.selected + (event.deltaY > 0 ? 1 : -1) + 9) % 9);
+    }, { ...options, passive: false });
+    document.addEventListener('pointerlockchange', () => {
+      if (document.pointerLockElement === canvas) { this.dragMode = false; app.activate(); }
+      else if (app.state === 'playing' && !this.dragMode) app.pause();
+    }, options);
+    document.addEventListener('pointerlockerror', () => {
+      if (this.lockPending) this.fallback();
+    }, options);
+    window.addEventListener('blur', () => { this.clear(); if (app.state === 'playing') app.pause(); }, options);
+    document.addEventListener('visibilitychange', () => { if (document.hidden && app.state === 'playing') app.pause(); }, options);
+  }
+  async lock() {
+    this.lockPending = true;
+    await this.app.audio.unlock();
+    if (!this.canvas.requestPointerLock) { this.fallback(); return; }
+    try { const result = this.canvas.requestPointerLock(); if (result?.catch) await result; }
+    catch { this.fallback(); }
+  }
+  fallback() { this.lockPending = false; this.dragMode = true; this.app.activate(); this.app.toast('Modo sin captura · Botón central o flechas para mirar'); }
+  release() { this.clear(); if (document.pointerLockElement) document.exitPointerLock(); }
+  clear() { this.keys.clear(); this.middle = false; this.right = false; if (this.app.mining) this.app.mining.held = false; }
+  dispose() { this.abort.abort(); this.release(); }
+}
+
+class GameUI {
+  constructor(app, atlas) {
+    this.app = app; this.atlas = atlas; this.craftSize = 2; this.pointer = { x: innerWidth / 2, y: innerHeight / 2 };
+    this.abort = new AbortController(); const signal = this.abort.signal;
+    const on = (id, type, fn) => $(id).addEventListener(type, fn, { signal });
+    on('play', 'click', () => app.input.lock());
+    on('play-drag', 'click', async () => { await app.audio.unlock(); app.input.fallback(); });
+    on('load-world', 'click', () => app.loadWorld($('seed').value.trim() || 'ALBA-2026'));
+    on('seed', 'keydown', event => { if (event.key === 'Enter' && !$('load-world').disabled) app.loadWorld($('seed').value.trim() || 'ALBA-2026'); });
+    on('pause-button', 'click', () => app.pause());
+    on('resume', 'click', () => app.resume());
+    on('to-menu', 'click', async () => { await app.save(); app.state = 'menu'; $('pause').hidden = true; $('menu').hidden = false; $('hud').hidden = true; });
+    on('save-now', 'click', () => app.save(true));
+    on('open-help', 'click', () => { $('help-modal').hidden = false; });
+    on('close-help', 'click', () => { $('help-modal').hidden = true; });
+    on('close-inventory', 'click', () => this.closeInventory());
+    on('craft-output', 'mousedown', event => {
+      if (event.button !== 0) return; event.preventDefault();
+      const inv = app.inventory, grid = this.grid();
+      let crafted = false, attempts = event.shiftKey ? 64 : 1;
+      while (attempts-- > 0 && inv.craft(grid, this.craftSize, recipes, event.shiftKey)) crafted = true;
+      if (crafted) { this.render(); app.dirty = true; app.audio.play(B.PLANKS, 'place', .5); }
+    });
+    document.addEventListener('mousemove', event => {
+      this.pointer = { x: event.clientX, y: event.clientY }; this.moveCursor();
+    }, { signal });
+    for (const recipe of recipes) {
+      const button = document.createElement('button'); button.className = 'recipe-button';
+      const description = [...new Set(Object.values(recipe.key))].map(id => ITEMS[id].name).join(' + ');
+      button.innerHTML = `<span class="item-icon" style="background-image:url('${atlas.icon(recipe.result.id)}')"></span><span><strong>${recipe.name}</strong><small>${description}</small></span>`;
+      button.title = `${recipe.name}: ${description}`;
+      button.addEventListener('click', () => {
+        if (recipe.pattern.length > this.craftSize || recipe.pattern[0].length > this.craftSize) { app.toast('Esta receta necesita una mesa de trabajo de 3×3'); return; }
+        if (!app.inventory.fillRecipe(this.grid(), this.craftSize, recipe)) app.toast('Faltan materiales o espacio en la mochila');
+        else { this.render(); app.dirty = true; }
+      }, { signal }); $('recipe-list').append(button);
+    }
+  }
+  grid() { return this.craftSize === 3 ? this.app.inventory.grid3 : this.app.inventory.grid2; }
+  slotMarkup(stack, number = null) {
+    return (number !== null ? `<span class="slot-number">${number}</span>` : '') + (stack ? `<span class="item-icon" style="background-image:url('${this.atlas.icon(stack.id)}')"></span>${stack.count > 1 ? `<span class="item-count">${stack.count}</span>` : ''}` : '');
+  }
+  makeSlot(stack, label, handler, selected = false, number = null) {
+    const button = document.createElement('button'); button.className = `slot${selected ? ' selected' : ''}`;
+    button.innerHTML = this.slotMarkup(stack, number); button.title = stack ? `${ITEMS[stack.id].name} × ${stack.count}` : label;
+    button.setAttribute('aria-label', stack ? `${label}: ${ITEMS[stack.id].name}, ${stack.count}` : `${label}: vacío`);
+    button.addEventListener('mousedown', event => { if (event.button !== 0 && event.button !== 2) return; event.preventDefault(); handler(event); });
+    button.addEventListener('contextmenu', event => event.preventDefault()); return button;
+  }
+  select(i) {
+    this.app.inventory.selected = clamp(i, 0, 8); this.selectedUntil = now() + 2100; this.renderHotbar(); this.app.hand.setItem(this.app.inventory.slots[i]?.id ?? 0); this.app.dirty = true;
+  }
+  renderHotbar() {
+    const inv = this.app.inventory; $('hotbar').replaceChildren();
+    for (let i = 0; i < 9; i++) $('hotbar').append(this.makeSlot(inv.slots[i], `Ranura ${i + 1}`, () => this.select(i), inv.selected === i, i + 1));
+    $('selected-name').textContent = ITEMS[inv.slots[inv.selected]?.id]?.name ?? 'Mano vacía';
+    this.app.hand.setItem(inv.slots[inv.selected]?.id ?? 0);
+  }
+  render() {
+    this.renderHotbar(); if (this.app.state !== 'inventory') return;
+    const inv = this.app.inventory, grid = this.grid();
+    $('craft-grid').style.gridTemplateColumns = `repeat(${this.craftSize}, ${innerHeight < 600 ? 36 : innerWidth < 950 ? 43 : 48}px)`;
+    $('craft-grid').replaceChildren(); $('bag-grid').replaceChildren(); $('bag-hotbar').replaceChildren();
+    const handler = (slots, i) => event => {
+      if (event.shiftKey) inv.quickMove(slots, i); else inv.click(slots, i, event.button === 2);
+      this.app.dirty = true; this.render();
+    };
+    grid.forEach((stack, i) => $('craft-grid').append(this.makeSlot(stack, `Ingrediente ${i + 1}`, handler(grid, i))));
+    for (let i = 9; i < 36; i++) $('bag-grid').append(this.makeSlot(inv.slots[i], `Mochila ${i - 8}`, handler(inv.slots, i)));
+    for (let i = 0; i < 9; i++) $('bag-hotbar').append(this.makeSlot(inv.slots[i], `Barra ${i + 1}`, handler(inv.slots, i), inv.selected === i, i + 1));
+    const match = matchRecipe(grid, this.craftSize, recipes);
+    $('craft-output').innerHTML = this.slotMarkup(match?.recipe.result ?? null); $('craft-output').disabled = !match;
+    $('craft-output').setAttribute('aria-label', match ? `Fabricar ${match.recipe.name}, ${match.recipe.result.count}` : 'Sin receta');
+    $('recipe-name').textContent = match ? match.recipe.name : 'Dale forma a tu idea.';
+    $('recipe-description').textContent = match ? 'Clic: tomar resultado. Shift + clic: fabricar en la mochila.' : 'Combina materiales o elige una receta.';
+    $('inventory-capacity').textContent = `${inv.slots.filter(Boolean).length} / 36 ranuras`;
+    $('cursor-item').innerHTML = this.slotMarkup(inv.cursor); $('cursor-item').hidden = !inv.cursor; this.moveCursor();
+  }
+  moveCursor() { $('cursor-item').style.left = `${this.pointer.x}px`; $('cursor-item').style.top = `${this.pointer.y}px`; }
+  openInventory(size) {
+    this.app.state = 'inventory'; this.craftSize = size; this.app.input.release(); $('inventory').hidden = false;
+    $('inventory-title').textContent = size === 3 ? 'Mesa de trabajo' : 'Tu inventario';
+    $('craft-heading').textContent = `FABRICACIÓN · ${size} × ${size}`; this.render();
+  }
+  closeInventory() {
+    if (!this.app.inventory.stowCursor()) { this.render(); this.app.toast('Libera una ranura para guardar el objeto del cursor'); return; }
+    // Los ingredientes permanecen en sus cuadrículas y forman parte del guardado.
+    $('inventory').hidden = true; $('cursor-item').hidden = true; this.app.dirty = true; this.app.resume();
+  }
+  update() {
+    const p = this.app.player, settings = this.app.settings;
+    const biome = this.app.world.terrain.column(p.pos.x, p.pos.z).biome;
+    $('biome').textContent = ['PLANICIE', 'MONTAÑA', 'DESIERTO'][biome];
+    $('coords').textContent = `X ${p.pos.x.toFixed(1)}  Y ${p.pos.y.toFixed(1)}  Z ${p.pos.z.toFixed(1)}`;
+    $('hearts').textContent = '♥'.repeat(Math.ceil(p.health)) + '♡'.repeat(Math.max(0, 10 - Math.ceil(p.health)));
+    $('mode-label').textContent = p.flying ? 'VUELO' : p.height < 1.8 ? 'AGACHADO' : 'A PIE';
+    $('selected-name').style.opacity = now() < (this.selectedUntil ?? 3000) ? '1' : '0';
+    if (!$('debug').hidden) {
+      let quads = 0, exposed = 0; for (const c of this.app.world.chunks.values()) { quads += c.quads; exposed += c.exposed ?? 0; }
+      $('debug').textContent = `VOXELCRAFT / ${THREE.REVISION}\n${Math.round(this.app.fps || 0)} FPS · ${this.app.drawCalls || 0} draw calls\n${this.app.world.chunks.size} chunks · radio ${settings.distance}\n${quads.toLocaleString('es')} quads · ${exposed.toLocaleString('es')} caras\nGreedy: ${exposed ? Math.round((1 - quads / exposed) * 100) : 0}% fusionadas\n${(this.app.world.chunks.size * 64 / 1024).toFixed(1)} MiB bloques\n${this.app.renderer.info.memory.geometries} geometrías GPU\nSemilla: ${this.app.seed}\n${this.app.store.mode} · ${this.app.pool.slots.filter(s => !s.dead).length} workers\nEntrada: ${[...this.app.input.keys].join(', ') || 'reposo'}\nRatón: ${this.app.mining.held ? 'romper' : this.app.input.right ? 'colocar' : 'reposo'}`;
+    }
+  }
+  dispose() { this.abort.abort(); }
+}
+
+class Atmosphere {
+  constructor(scene, settings) {
+    this.scene = scene; this.time = .37; this.settings = settings;
+    this.ambient = new THREE.HemisphereLight('#d1e1dc', '#7b8061', 1.6); scene.add(this.ambient);
+    this.sun = new THREE.DirectionalLight('#fff0c8', 2.5); this.sun.castShadow = true;
+    this.sun.shadow.mapSize.set(1024, 1024); this.sun.shadow.camera.left = this.sun.shadow.camera.bottom = -35;
+    this.sun.shadow.camera.right = this.sun.shadow.camera.top = 35; this.sun.shadow.camera.near = 1; this.sun.shadow.camera.far = 145;
+    this.sun.shadow.bias = -.0003; this.sun.shadow.normalBias = .035; this.sun.shadow.radius = 3; scene.add(this.sun, this.sun.target);
+    this.moon = new THREE.DirectionalLight('#b5cee0', .1); scene.add(this.moon, this.moon.target);
+    this.skyMaterial = new THREE.ShaderMaterial({ side: THREE.BackSide, depthWrite: false, uniforms: {
+      topColor: { value: new THREE.Color('#80b4cb') }, horizonColor: { value: new THREE.Color('#b6c9ba') },
+    }, vertexShader: 'varying vec3 vWorld; void main(){ vec4 p=modelMatrix*vec4(position,1.0); vWorld=p.xyz; gl_Position=projectionMatrix*viewMatrix*p; }',
+    fragmentShader: 'uniform vec3 topColor; uniform vec3 horizonColor; varying vec3 vWorld; void main(){float h=max(normalize(vWorld-cameraPosition).y,0.0);gl_FragColor=vec4(mix(horizonColor,topColor,pow(h,.6)),1.0); #include <tonemapping_fragment>\n#include <colorspace_fragment>\n}' });
+    // Las directivas GLSL deben comenzar en una línea propia.
+    this.skyMaterial.fragmentShader = this.skyMaterial.fragmentShader.replace('; #include', ';\n#include');
+    this.sky = new THREE.Mesh(new THREE.SphereGeometry(220, 24, 16), this.skyMaterial); this.sky.frustumCulled = false; this.sky.renderOrder = -20; scene.add(this.sky);
+    const disc = moon => {
+      const canvas = document.createElement('canvas'); canvas.width = canvas.height = 64;
+      const c = canvas.getContext('2d'); c.fillStyle = moon ? '#e3e8d7' : '#fff1ba'; c.beginPath(); c.arc(32, 32, moon ? 24 : 19, 0, Math.PI * 2); c.fill();
+      if (moon) { c.fillStyle = '#b8c8bb'; for (const [x,y,r] of [[24,22,6],[39,35,7],[22,42,4],[40,17,3]]) { c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fill(); } }
+      const texture = new THREE.CanvasTexture(canvas); texture.colorSpace = THREE.SRGBColorSpace;
+      return new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, depthWrite: false, fog: false }));
+    };
+    this.sunDisc = disc(false); this.sunDisc.scale.set(20, 20, 1); this.moonDisc = disc(true); this.moonDisc.scale.set(12, 12, 1); scene.add(this.sunDisc, this.moonDisc);
+    const stars = [], rng = Core.random(4921); for (let i = 0; i < 340; i++) {
+      const theta = rng() * Math.PI * 2, y = rng() * .94 + .03, radius = Math.sqrt(1 - y * y);
+      stars.push(Math.cos(theta) * radius * 195, y * 195, Math.sin(theta) * radius * 195);
+    }
+    const geometry = new THREE.BufferGeometry(); geometry.setAttribute('position', new THREE.Float32BufferAttribute(stars, 3));
+    this.stars = new THREE.Points(geometry, new THREE.PointsMaterial({ color: '#f0eed5', size: .5, transparent: true, depthWrite: false, fog: false })); scene.add(this.stars);
+    this.dayColor = new THREE.Color('#8ebad0'); this.duskColor = new THREE.Color('#d89a70'); this.nightColor = new THREE.Color('#111d34'); this.horizon = new THREE.Color();
+    scene.fog = new THREE.Fog('#aec7be', 20, 55);
+  }
+  update(dt, position, camera, running) {
+    if (running) this.time = (this.time + dt / (this.settings.dayMinutes * 60)) % 1;
+    const angle = this.time * Math.PI * 2 - Math.PI / 2, elevation = Math.sin(angle), day = smooth(-.13, .32, elevation);
+    const dusk = Math.exp(-Math.abs(elevation) * 8) * .65;
+    const color = this.nightColor.clone().lerp(this.dayColor, day).lerp(this.duskColor, dusk);
+    this.horizon.copy(color).lerp(new THREE.Color(day > .5 ? '#d4d4af' : '#212c3f'), day > .5 ? .28 : .15);
+    this.skyMaterial.uniforms.topColor.value.copy(color); this.skyMaterial.uniforms.horizonColor.value.copy(this.horizon);
+    this.scene.fog.color.copy(this.horizon); this.scene.fog.near = Math.max(12, (this.settings.distance - .8) * 8.5); this.scene.fog.far = (this.settings.distance + .3) * 16;
+    this.sky.position.copy(camera.position); this.stars.position.copy(camera.position); this.stars.material.opacity = (1 - day) * .82;
+    const direction = new THREE.Vector3(Math.cos(angle) * .84, elevation, Math.sin(angle) * .3).normalize();
+    const center = new THREE.Vector3(Math.round(position.x / 4) * 4, position.y, Math.round(position.z / 4) * 4);
+    this.sun.position.copy(center).addScaledVector(direction, 65); this.sun.target.position.copy(center);
+    this.moon.position.copy(center).addScaledVector(direction, -60); this.moon.target.position.copy(center);
+    this.sun.intensity = 2.6 * smooth(-.02, .4, elevation); this.sun.color.set('#fff2cc').lerp(new THREE.Color('#f1b17b'), dusk * .7);
+    this.sun.castShadow = this.settings.shadows && elevation > .025; this.moon.intensity = (1 - day) * .6; this.ambient.intensity = .42 + day * 1.2;
+    this.sunDisc.position.copy(camera.position).addScaledVector(direction, 175); this.moonDisc.position.copy(camera.position).addScaledVector(direction, -175);
+    const minutes = Math.floor(this.time * 1440); $('clock').textContent = `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+    this.daylight = day;
+  }
+  dispose() {
+    for (const object of [this.sky, this.stars, this.sunDisc, this.moonDisc]) { object.geometry?.dispose(); object.material.map?.dispose(); object.material.dispose(); object.removeFromParent(); }
+    this.sun.shadow.map?.dispose(); this.sun.dispose(); this.moon.dispose();
+  }
+}
+
+class Hand {
+  constructor(atlas) {
+    this.atlas = atlas; this.scene = new THREE.Scene(); this.camera = new THREE.PerspectiveCamera(55, 1, .01, 6);
+    this.scene.add(new THREE.HemisphereLight('#ffffff', '#b9b99c', 2));
+    const light = new THREE.DirectionalLight('#fff4dd', 2); light.position.set(-2, 4, 2); this.scene.add(light);
+    this.root = new THREE.Group(); this.scene.add(this.root); this.id = -1; this.swing = 0;
+    this.materials = new Map(); this.arm = this.color('#bc9c79'); this.sleeve = this.color('#648250');
+  }
+  color(color) { if (!this.materials.has(color)) this.materials.set(color, new THREE.MeshLambertMaterial({ color })); return this.materials.get(color); }
+  box(x, y, z, sx, sy, sz, material) { const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), material); m.position.set(x,y,z); this.root.add(m); return m; }
+  setItem(id) {
+    if (this.id === id) return; this.id = id;
+    for (const child of [...this.root.children]) { child.geometry?.dispose(); child.removeFromParent(); }
+    const arm = this.box(.05, -.19, .09, .13, .4, .14, this.arm); arm.rotation.z = -.15;
+    this.box(.06, -.35, .09, .14, .15, .15, this.sleeve);
+    const item = ITEMS[id]; if (!item) return;
+    if (id < 100) {
+      const side = this.atlas.handMaterial(item.side ?? item.tile), top = this.atlas.handMaterial(item.tile), bottom = this.atlas.handMaterial(item.bottom ?? item.side ?? item.tile);
+      const cube = this.box(0, .025, -.04, .25, .25, .25, [side,side,top,bottom,side,side]); cube.rotation.set(.12, -.5, .05);
+    } else if (item.tool === 'pick') {
+      this.box(0, .08, -.05, .045, .45, .045, this.color('#a07b46'));
+      const color = id === 102 ? '#c4a06b' : id === 103 ? '#a3afa3' : '#d3d9cc';
+      this.box(0, .28, -.05, .37, .07, .065, this.color(color)); this.box(-.16, .22, -.05, .07, .12, .065, this.color(color));
+    } else if (item.tool === 'stick') this.box(0, .08, -.04, .05, .4, .05, this.color('#a07945'));
+    else this.box(0, .03, -.04, .19, .14, .1, this.color(item.tool === 'food' ? '#bd6346' : '#cbd0c2'));
+  }
+  update(dt, player, walking) {
+    this.swing = Math.max(0, this.swing - dt * 4.4);
+    const arc = Math.sin(this.swing * Math.PI), bob = walking ? Math.sin(player.distance * 8) * .012 : 0;
+    this.root.position.set(.43 - arc * .16, -.3 - arc * .08 + bob, -.75 - arc * .15);
+    this.root.rotation.set(-arc * .7, -.1 - arc * .3, -.1 - arc * .6);
+  }
+  dispose() { for (const c of this.root.children) c.geometry?.dispose(); for (const m of this.materials.values()) m.dispose(); }
+}
+
+class MobManager {
+  constructor(app) { this.app = app; this.mobs = []; this.spawned = new Set(); this.materials = new Map(); this.scan = 0; }
+  material(color) { if (!this.materials.has(color)) this.materials.set(color, new THREE.MeshLambertMaterial({ color })); return this.materials.get(color); }
+  reset() { for (const mob of this.mobs) this.remove(mob); this.mobs = []; this.spawned.clear(); }
+  remove(mob) { mob.group.traverse(object => object.geometry?.dispose()); mob.group.removeFromParent(); }
+  create(type, x, y, z, seed) {
+    const group = new THREE.Group(), legs = [], box = (px,py,pz,sx,sy,sz,color) => {
+      const mesh = new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz), this.material(color)); mesh.position.set(px,py,pz); mesh.castShadow = true; mesh.receiveShadow = true; group.add(mesh); return mesh;
+    };
+    if (type === 'zombie') {
+      box(0, .95, 0, .48, .65, .28, '#54786b'); box(0, 1.5, 0, .42, .42, .42, '#789260');
+      legs.push(box(-.14,.3,0,.19,.6,.2,'#515b78'),box(.14,.3,0,.19,.6,.2,'#515b78'));
+      for (const side of [-1,1]) { const arm = box(side*.34,1.02,-.2,.18,.55,.18,'#789260'); arm.rotation.x = -1.2; }
+    } else {
+      const body = type === 'sheep' ? '#e1dfcb' : '#79694f';
+      box(0,.76,0,.72,.65,1.04,body); box(0,1.02,-.6,.43,.45,.38,type === 'sheep' ? '#b4ad92' : '#b3a184');
+      for (const sx of [-1,1]) for (const sz of [-1,1]) legs.push(box(sx*.24,.26,sz*.34,.18,.5,.18,type === 'sheep' ? '#8a7b61' : '#524d40'));
+      if (type === 'cow') { box(-.22,.88,-.1,.015,.32,.35,'#dfd5b6'); box(.22,.95,.22,.015,.3,.3,'#dfd5b6'); }
+    }
+    group.position.set(x,y,z); this.app.scene.add(group);
+    this.mobs.push({ type, name: type === 'sheep' ? 'Oveja' : type === 'cow' ? 'Vaca' : 'Zombi', group, legs,
+      pos: new THREE.Vector3(x,y,z), velocity: new THREE.Vector3(), radius: type === 'zombie' ? .28 : .36,
+      height: type === 'zombie' ? 1.72 : 1.25, yaw: seed * Math.PI * 2, timer: 0, state: 'idle',
+      grounded: false, hp: type === 'zombie' ? 6 : 4, cooldown: 0, phase: seed * 10 });
+  }
+  update(dt) {
+    if (!this.app.settings.mobs) { if (this.mobs.length) this.reset(); return; }
+    this.scan -= dt;
+    const world = this.app.world, player = this.app.player, daylight = this.app.atmosphere.daylight;
+    if (this.scan <= 0) {
+      this.scan = 2;
+      for (const chunk of world.chunks.values()) {
+        if (!chunk.group || this.mobs.length >= 9) continue;
+        const dist = Math.hypot(chunk.cx * 16 + 8 - player.pos.x, chunk.cz * 16 + 8 - player.pos.z);
+        if (dist < 8 || dist > 35) continue;
+        const r = hash2(chunk.cx, chunk.cz, seedHash(this.app.seed));
+        const hostile = r > .8 && daylight < .3;
+        const key = `${chunk.key}:${hostile ? 'night' : 'day'}`;
+        if (this.spawned.has(key) || !hostile && r > .58) continue;
+        const x = chunk.cx * 16 + 4 + Math.floor(r * 8), z = chunk.cz * 16 + 6;
+        const col = world.terrain.column(x,z); if (!hostile && col.biome === 2) continue;
+        const body = { pos: new THREE.Vector3(x+.5,col.height+1.01,z+.5), radius:.4,height:1.8 };
+        if (!canOccupy(body, (a,b,c) => world.solidAt(a,b,c))) continue;
+        this.create(hostile ? 'zombie' : r < .3 ? 'sheep' : 'cow', body.pos.x,body.pos.y,body.pos.z,r); this.spawned.add(key);
+      }
+    }
+    const solid = (x,y,z) => world.solidAt(x,y,z);
+    for (const mob of [...this.mobs]) {
+      const distance = mob.pos.distanceTo(player.pos);
+      if (distance > 70 || !world.chunks.has(world.key(Math.floor(mob.pos.x/16),Math.floor(mob.pos.z/16)))) { this.remove(mob); this.mobs.splice(this.mobs.indexOf(mob),1); continue; }
+      mob.timer -= dt; mob.cooldown -= dt;
+      if (mob.type === 'zombie' && distance < 14) {
+        mob.state = 'chase'; mob.yaw = Math.atan2(-(player.pos.x-mob.pos.x), -(player.pos.z-mob.pos.z));
+      } else if (mob.timer <= 0) {
+        const r = Math.random(); mob.state = r < .3 ? 'idle' : 'patrol'; mob.yaw += (r-.5)*3; mob.timer = 2+r*4;
+      }
+      const speed = mob.state === 'chase' ? 2.1 : mob.state === 'patrol' ? .8 : 0;
+      mob.velocity.x = -Math.sin(mob.yaw)*speed; mob.velocity.z = -Math.cos(mob.yaw)*speed;
+      mob.velocity.y = Math.max(-25,mob.velocity.y-22*dt);
+      const blocked = sweepAxis(mob,0,mob.velocity.x*dt,solid) | sweepAxis(mob,2,mob.velocity.z*dt,solid);
+      const vy = mob.velocity.y; mob.grounded = sweepAxis(mob,1,vy*dt,solid) && vy < 0;
+      if (mob.grounded) { mob.velocity.y = 0; if (blocked && speed) mob.velocity.y = 7; }
+      if (blocked && mob.state !== 'chase') { mob.yaw += .8; mob.timer = .5; }
+      mob.group.position.copy(mob.pos); mob.group.rotation.y = mob.yaw;
+      mob.phase += dt * speed * 6; mob.legs.forEach((leg,i) => leg.rotation.x = Math.sin(mob.phase+(i%2)*Math.PI)*.35*(speed>0?1:0));
+      if (mob.type === 'zombie' && distance < 1.25 && mob.cooldown <= 0) {
+        mob.cooldown = 1.1; this.app.hurt(1); player.velocity.x += -Math.sin(mob.yaw)*3; player.velocity.z += -Math.cos(mob.yaw)*3;
+      }
+      if (mob.type === 'zombie' && daylight > .75) { mob.hp -= dt*.55; if(mob.hp<=0) this.kill(mob); }
+    }
+  }
+  target(origin, direction, reach) {
+    let hit = null, nearest = reach; const ray = new THREE.Ray(origin,direction), out = new THREE.Vector3();
+    for (const mob of this.mobs) {
+      const box = new THREE.Box3(new THREE.Vector3(mob.pos.x-mob.radius,mob.pos.y,mob.pos.z-mob.radius),new THREE.Vector3(mob.pos.x+mob.radius,mob.pos.y+mob.height,mob.pos.z+mob.radius));
+      if (ray.intersectBox(box,out)) { const distance = out.distanceTo(origin); if(distance<nearest) { nearest=distance;hit=mob; } }
+    }
+    return hit;
+  }
+  hit(mob) { mob.hp -= this.app.inventory.slots[this.app.inventory.selected]?.id >= 102 ? 2 : 1; mob.yaw += Math.PI; mob.state='patrol';mob.timer=2;this.app.audio.play(B.LOG,'break',.55);if(mob.hp<=0)this.kill(mob); }
+  kill(mob) { if(!this.mobs.includes(mob))return;this.remove(mob);this.mobs.splice(this.mobs.indexOf(mob),1);if(mob.type!=='zombie'&&this.app.inventory.canAdd(106,1)){this.app.inventory.add(106,1);this.app.ui.renderHotbar();this.app.dirty=true;} }
+  dispose() { this.reset(); for(const m of this.materials.values())m.dispose(); }
+}
+
+class Game {
+  constructor() {
+    this.state = 'menu'; this.loading = false; this.hasLoaded = false; this.disposed = false;
+    this.settings = { distance:3, fov:75, sensitivity:.0023, shadows:true, volume:.35, dayMinutes:12, mobs:true };
+    try {
+      const saved = JSON.parse(localStorage.getItem('voxelcraft-single:settings')) || {};
+      for (const key of ['distance','fov','sensitivity','volume','dayMinutes']) if (Number.isFinite(saved[key])) this.settings[key] = saved[key];
+      for (const key of ['shadows','mobs']) if(typeof saved[key]==='boolean')this.settings[key]=saved[key];
+    } catch {}
+    this.settings.distance=clamp(Math.round(this.settings.distance),2,6);this.settings.fov=clamp(this.settings.fov,55,100);
+    this.settings.sensitivity=clamp(this.settings.sensitivity,.001,.006);this.settings.volume=clamp(this.settings.volume,0,1);this.settings.dayMinutes=clamp(this.settings.dayMinutes,2,30);
+    this.canvas=$('world'); this.renderer=new THREE.WebGLRenderer({canvas:this.canvas,antialias:true,powerPreference:'high-performance'});
+    this.renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));this.renderer.shadowMap.enabled=this.settings.shadows;this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+    this.renderer.outputColorSpace=THREE.SRGBColorSpace;this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.12;
+    this.renderer.autoClear=false;this.renderer.info.autoReset=false;
+    this.scene=new THREE.Scene();this.camera=new THREE.PerspectiveCamera(this.settings.fov,1,.055,260);this.camera.rotation.order='YXZ';
+    this.atlas=new Atlas();this.pool=new WorkerPool();this.world=new VoxelWorld(this.scene,this.atlas,this.pool);
+    this.player=new Player(this.world);this.inventory=new Inventory();this.audio=new SynthAudio(this.settings.volume);this.store=new SaveStore();
+    this.atmosphere=new Atmosphere(this.scene,this.settings);this.hand=new Hand(this.atlas);
+    this.mining={held:false,key:'',progress:0};this.nextPlace=0;this.nextAttack=0;this.direction=new THREE.Vector3();this.damageTimer=0;
+    this.input=new Input(this,this.canvas);this.ui=new GameUI(this,this.atlas);this.mobs=new MobManager(this);
+    this.highlight=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.005,1.005,1.005)),new THREE.LineBasicMaterial({color:'#fff9d8',transparent:true,opacity:.85}));
+    this.highlight.visible=false;this.scene.add(this.highlight);
+    this.gui=new GUI({autoPlace:false,width:320,hideable:false});$('settings').append(this.gui.domElement);
+    const persist=()=>{try{localStorage.setItem('voxelcraft-single:settings',JSON.stringify(this.settings));}catch{}};
+    this.gui.add(this.settings,'distance',2,6,1).name('Radio de chunks').onFinishChange(()=>{this.world.update(this.player.pos,this.settings.distance);persist();});
+    this.gui.add(this.settings,'fov',55,100,1).name('Campo de visión').onChange(()=>this.resize()).onFinishChange(persist);
+    this.gui.add(this.settings,'sensitivity',.001,.006,.0001).name('Sensibilidad').onFinishChange(persist);
+    this.gui.add(this.settings,'shadows').name('Sombras suaves').onChange(value=>{this.renderer.shadowMap.enabled=value;this.world.solidMaterial.needsUpdate=true;this.world.glassMaterial.needsUpdate=true;persist();});
+    this.gui.add(this.settings,'mobs').name('Criaturas').onFinishChange(persist);
+    this.gui.add(this.settings,'volume',0,1,.01).name('Volumen').onChange(value=>this.audio.setVolume(value)).onFinishChange(persist);
+    this.gui.add(this.settings,'dayMinutes',2,30,1).name('Minutos por día').onFinishChange(persist);
+    this.timeControl={hour:8.88};this.gui.add(this.timeControl,'hour',0,23.99,.1).name('Hora del mundo').onChange(value=>{this.atmosphere.time=value/24;this.dirty=true;});
+    this.events=new AbortController();const signal=this.events.signal;
+    window.addEventListener('resize',()=>{this.resize();if(this.state==='inventory')this.ui.render();},{signal});
+    window.addEventListener('pagehide',event=>{if(this.hasLoaded)this.store.journal(this.snapshot());if(!event.persisted)this.dispose();},{signal});
+    this.canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();this.renderer.setAnimationLoop(null);if(this.hasLoaded)this.store.journal(this.snapshot());fatal('Se perdió el contexto gráfico. Recarga la página para recuperar la última partida.');},{signal});
+    this.resize();this.ui.renderHotbar();this.lastFrame=now();this.sampleStart=this.lastFrame;this.frames=0;this.accumulator=0;this.streamTimer=0;this.uiTimer=0;this.saveTimer=0;
+    this.renderer.setAnimationLoop(time=>this.frame(time));
+  }
+  async initialize() { await this.store.open();$('storage-info').textContent=`Almacenamiento: ${this.store.mode}. Misma semilla y dirección para recuperar la partida.`;await this.loadWorld('ALBA-2026'); }
+  resize() {
+    const width=innerWidth,height=innerHeight;this.renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));this.renderer.setSize(width,height,false);
+    this.camera.aspect=width/height;this.camera.fov=this.settings.fov;this.camera.updateProjectionMatrix();this.hand.camera.aspect=width/height;this.hand.camera.updateProjectionMatrix();
+  }
+  async loadWorld(seed) {
+    if(this.loading)return;this.loading=true;this.state='menu';this.input.release();
+    $('menu').hidden=false;$('hud').hidden=true;$('pause').hidden=true;$('inventory').hidden=true;$('cursor-item').hidden=true;
+    for(const id of ['play','play-drag','load-world'])$(id).disabled=true;$('play').querySelector('span').textContent='Preparando mundo…';
+    try {
+      if(this.hasLoaded)await this.save();
+      this.seed=String(seed).trim().slice(0,64)||'ALBA-2026';$('seed').value=this.seed;
+      const saved=await this.store.load(this.seed);this.world.reset(this.seed,saved?.edits||[]);this.renderer.renderLists.dispose();this.inventory=new Inventory(saved?.inventory);
+      this.player=new Player(this.world);
+      if(saved?.player)this.player.restore(saved.player);
+      else {
+        let found=null;
+        for(let r=0;r<=192&&!found;r+=16)for(let z=-r;z<=r&&!found;z+=16)for(let x=-r;x<=r;x+=16){
+          if(r>0&&Math.abs(x)!==r&&Math.abs(z)!==r)continue;const column=this.world.terrain.column(x+8,z+8);
+          if(column.biome===0){found={x:x+8.5,z:z+8.5,y:column.height+1.01};break;}
+        }
+        if(!found){const c=this.world.terrain.column(8,8);found={x:8.5,z:8.5,y:c.height+1.01};}this.player.pos.set(found.x,found.y,found.z);
+      }
+      this.atmosphere.time=Number.isFinite(saved?.time)?((saved.time%1)+1)%1:.37;this.timeControl.hour=this.atmosphere.time*24;this.gui.updateDisplay();
+      this.mobs.reset();this.world.update(this.player.pos,this.settings.distance);this.highlight.visible=false;
+      const cx=Math.floor(this.player.pos.x/S),cz=Math.floor(this.player.pos.z/S),started=now();
+      while(!this.world.readyAt(cx,cz)) {
+        if(this.disposed)return;this.world.pump();
+        const ready=this.world.chunks.size,total=this.world.wanted.size;$('load-info').textContent=`${saved?'Recuperando partida':'Generando terreno'} · ${ready} / ${total} chunks`;
+        $('load-progress').style.width=`${Math.min(95,ready/Math.max(total,1)*100)}%`;
+        if(now()-started>45000&&!document.hidden)throw new Error('El mundo tardó demasiado en cargar. Revisa el acceso a las CDN y vuelve a intentarlo.');
+        await new Promise(resolve=>setTimeout(resolve,35));
+      }
+      if(!canOccupy(this.player,this.player.solid))this.findSafePosition();
+      this.spawn=saved?.spawn?.length===3&&saved.spawn.every(Number.isFinite)?new THREE.Vector3(...saved.spawn):this.player.pos.clone();
+      this.hasLoaded=true;this.loading=false;this.dirty=false;this.saveTimer=0;this.ui.renderHotbar();this.ui.update();
+      for(const id of ['play','play-drag','load-world'])$(id).disabled=false;$('play').querySelector('span').textContent=saved?'Continuar aventura':'Entrar al mundo';
+      $('load-progress').style.width='100%';$('load-info').textContent=`${saved?'Partida recuperada':'Mundo listo'} · ${this.store.mode} · ${this.seed}`;
+      this.streamTimer=0;
+    } catch(error) { this.loading=false;console.error(error);fatal(error.message||'No se pudo generar el mundo.'); }
+  }
+  findSafePosition() {
+    const x=Math.floor(this.player.pos.x),z=Math.floor(this.player.pos.z);
+    for(let r=0;r<12;r++)for(let dz=-r;dz<=r;dz++)for(let dx=-r;dx<=r;dx++) {
+      if(r>0&&Math.abs(dx)!==r&&Math.abs(dz)!==r)continue;
+      const wx=x+dx,wz=z+dz,c=this.world.terrain.column(wx,wz);this.player.pos.set(wx+.5,c.height+1.001,wz+.5);
+      if(canOccupy(this.player,this.player.solid))return;
+    }
+    this.player.pos.set(x+.5,120,z+.5);this.player.flying=true;
+  }
+  activate() {
+    if(this.loading||!this.hasLoaded)return;this.state='playing';this.input.clear();$('menu').hidden=true;$('pause').hidden=true;$('help-modal').hidden=true;$('hud').hidden=false;
+    this.canvas.focus({preventScroll:true});this.ui.selectedUntil=now()+2300;this.lastFrame=now();this.accumulator=0;
+  }
+  resume() { $('help-modal').hidden=true;if(this.input.dragMode)this.activate();else{this.state='paused';this.input.lock();} }
+  pause() {
+    if(!this.hasLoaded||this.loading)return;this.state='paused';this.input.release();this.mining.progress=0;this.highlight.visible=false;
+    $('pause').hidden=false;$('mine-track').hidden=true;this.timeControl.hour=this.atmosphere.time*24;this.gui.updateDisplay();this.save();
+  }
+  toast(message) { clearTimeout(this.toastTimer);$('toast').textContent=message;$('toast').hidden=false;this.toastTimer=setTimeout(()=>$('toast').hidden=true,2600); }
+  snapshot() { return {version:1,seed:this.seed,updated:Date.now(),edits:this.world.snapshotEdits(),inventory:this.inventory.snapshot(),player:this.player.snapshot(),time:this.atmosphere.time,spawn:this.spawn?.toArray()||this.player.pos.toArray()}; }
+  async save(notify=false) {
+    if(!this.hasLoaded)return;const snapshot=this.snapshot();$('save-state').textContent='Guardando…';
+    try{await this.store.save(snapshot);$('save-state').textContent=`Guardado · ${new Date().toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'})}`;this.dirty=false;if(notify)this.toast('Mundo guardado');}
+    catch(error){$('save-state').textContent='No se pudo guardar';this.store.journal(snapshot);this.toast('No se pudo guardar: revisa el espacio disponible del navegador');}
+  }
+  updateFocus() {
+    this.camera.getWorldDirection(this.direction);
+    this.focus=raycast(this.camera.position,this.direction,(x,y,z)=>this.world.getBlock(x,y,z),6);
+    this.mobFocus=this.mobs.target(this.camera.position,this.direction,Math.min(3.5,this.focus?.distance??3.5));
+    this.highlight.visible=Boolean(this.focus&&!this.mobFocus);
+    if(this.highlight.visible)this.highlight.position.set(this.focus.x+.5,this.focus.y+.5,this.focus.z+.5);
+    $('focus-name').textContent=this.mobFocus?this.mobFocus.name:this.focus?(this.focus.id===B.BEDROCK?'Roca madre · indestructible':ITEMS[this.focus.id].name):'';
+  }
+  mine(dt) {
+    if(!this.mining.held){this.mining.progress=0;this.mining.key='';$('mine-track').hidden=true;return;}
+    if(this.mobFocus){if(now()>this.nextAttack){this.nextAttack=now()+450;this.mobs.hit(this.mobFocus);this.hand.swing=1;}return;}
+    const hit=this.focus;if(!hit||hit.id===B.BEDROCK){this.mining.progress=0;$('mine-track').hidden=true;return;}
+    const key=`${hit.x},${hit.y},${hit.z}`;if(key!==this.mining.key){this.mining.key=key;this.mining.progress=0;}
+    const item=ITEMS[hit.id],held=ITEMS[this.inventory.slots[this.inventory.selected]?.id];
+    const power=held?.tool==='pick'&&item.sound==='stone'?held.power:1;
+    this.mining.progress+=dt/(item.hardness/power);$('mine-track').hidden=false;$('mine-progress').style.width=`${Math.min(1,this.mining.progress)*100}%`;
+    if(this.hand.swing===0)this.hand.swing=.95;
+    if(this.mining.progress>=1){
+      const drop=hit.id===B.LEAVES&&Math.random()<.07?106:item.drop??hit.id;
+      if(!this.inventory.canAdd(drop,1)){this.toast('Mochila llena · libera una ranura');this.mining.held=false;return;}
+      if(this.world.setBlock(hit.x,hit.y,hit.z,0)){this.inventory.add(drop,1);this.audio.play(hit.id,'break');this.ui.renderHotbar();this.dirty=true;}
+      this.mining.progress=0;this.mining.key='';
+    }
+  }
+  place() {
+    if(this.state!=='playing'||now()<this.nextPlace)return;this.nextPlace=now()+190;
+    const slot=this.inventory.slots[this.inventory.selected];
+    if(slot?.id===106){if(this.player.health<10){this.player.health=Math.min(10,this.player.health+3);if(--slot.count===0)this.inventory.slots[this.inventory.selected]=null;this.ui.renderHotbar();this.hand.swing=1;this.audio.play(B.LEAVES,'place');this.dirty=true;}return;}
+    const hit=this.focus;if(!hit)return;
+    const shift=this.input.keys.has('ShiftLeft')||this.input.keys.has('ShiftRight');
+    if(hit.id===B.TABLE&&!shift){this.ui.openInventory(3);return;}
+    if(!slot||slot.id>=100)return;
+    const [nx,ny,nz]=hit.normal;if(nx===0&&ny===0&&nz===0)return;
+    const x=hit.x+nx,y=hit.y+ny,z=hit.z+nz;
+    if(y<=0||y>=H||this.world.getBlock(x,y,z)!==0||overlapsBlock(this.player,x,y,z))return;
+    if(this.mobs.mobs.some(mob=>overlapsBlock(mob,x,y,z)))return;
+    if(this.world.setBlock(x,y,z,slot.id)){this.audio.play(slot.id,'place');if(--slot.count===0)this.inventory.slots[this.inventory.selected]=null;this.ui.renderHotbar();this.hand.swing=1;this.dirty=true;}
+  }
+  hurt(amount) {
+    if(this.damageTimer>0)return;this.damageTimer=1;this.player.health-=amount;$('damage').style.opacity='1';this.audio.play(B.STONE,'hurt');setTimeout(()=>$('damage').style.opacity='0',170);this.dirty=true;
+    if(this.player.health<=0){
+      this.player.health=10;this.player.pos.copy(this.spawn);this.player.velocity.set(0,0,0);this.player.flying=true;
+      this.world.update(this.player.pos,this.settings.distance);this.pause();this.toast('Has reaparecido en el inicio · vuelo activado para un regreso seguro');
+    }
+  }
+  frame(time) {
+    if(this.disposed)return;
+    const dt=Math.min(.06,Math.max(0,(time-this.lastFrame)/1000));this.lastFrame=time;
+    if(document.hidden)return;
+    const playing=this.state==='playing';this.damageTimer=Math.max(0,this.damageTimer-dt);
+    if(playing){
+      if(this.input.keys.has('ArrowLeft'))this.player.yaw+=dt*1.4;if(this.input.keys.has('ArrowRight'))this.player.yaw-=dt*1.4;
+      if(this.input.keys.has('ArrowUp'))this.player.pitch=clamp(this.player.pitch+dt,-1.55,1.55);if(this.input.keys.has('ArrowDown'))this.player.pitch=clamp(this.player.pitch-dt,-1.55,1.55);
+      this.accumulator=Math.min(.1,this.accumulator+dt);
+      while(this.accumulator>=1/120){this.player.step(1/120,this.input.keys);this.mobs.update(1/120);this.accumulator-=1/120;}
+      if(this.player.stepDistance>.65){this.player.stepDistance=0;const block=this.world.getBlock(Math.floor(this.player.pos.x),Math.floor(this.player.pos.y-.05),Math.floor(this.player.pos.z));this.audio.play(block,'step',this.player.height<1.8?.45:1);}
+      this.camera.position.set(this.player.pos.x,this.player.pos.y+this.player.eye,this.player.pos.z);this.camera.rotation.set(this.player.pitch,this.player.yaw,0,'YXZ');
+      this.updateFocus();this.mine(dt);if(this.input.right)this.place();
+      this.dirty=true;
+    }else{
+      this.accumulator=0;
+      if(this.state==='menu'){
+        this.camera.position.set(this.player.pos.x+15,this.player.pos.y+11,this.player.pos.z+19);this.camera.lookAt(this.player.pos.x+2,this.player.pos.y+1,this.player.pos.z-7);
+      }
+    }
+    this.streamTimer-=dt;if(this.world.seed&&this.streamTimer<=0){this.streamTimer=.3;this.world.update(this.player.pos,this.settings.distance);}this.world.pump();
+    this.atmosphere.update(dt,this.player.pos,this.camera,playing);
+    this.renderer.info.reset();this.renderer.clear();this.renderer.render(this.scene,this.camera);
+    if(playing){this.hand.update(dt,this.player,this.player.velocity.lengthSq()>.2&&this.player.grounded);this.renderer.clearDepth();this.renderer.render(this.hand.scene,this.hand.camera);}
+    this.drawCalls=this.renderer.info.render.calls;this.frames++;
+    if(time-this.sampleStart>700){this.fps=this.frames*1000/(time-this.sampleStart);this.sampleStart=time;this.frames=0;}
+    this.uiTimer-=dt;if(this.hasLoaded&&this.uiTimer<=0){this.uiTimer=.12;this.ui.update();}
+    this.saveTimer+=dt;if(this.hasLoaded&&!this.loading&&this.saveTimer>15){this.saveTimer=0;if(this.dirty)this.save();}
+  }
+  dispose() {
+    this.disposed=true;this.renderer.setAnimationLoop(null);clearTimeout(this.toastTimer);this.events.abort();this.input.dispose();this.ui.dispose();this.gui.destroy();
+    this.pool.dispose();this.mobs.dispose();this.world.dispose();this.hand.dispose();this.atmosphere.dispose();this.atlas.dispose();this.highlight.geometry.dispose();this.highlight.material.dispose();this.renderer.dispose();this.audio.dispose();this.store.dispose();
+  }
+}
+
+const game = new Game();
+await game.initialize();
+} catch(error) {
+  console.error('Voxelcraft:',error);
+  fatal('No se pudo iniciar el motor. Comprueba tu conexión a Internet para cargar Three.js, SimplexNoise y dat.GUI, y utiliza un navegador con aceleración gráfica. '+(error.message||''));
+}
+</script>
+</body>
+</html>
